@@ -1,6 +1,6 @@
 import { initializeApp, getApps } from "firebase/app";
 /* import { getStorage } from "firebase/storage"; */
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -13,11 +13,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-console.log("Before initializing Firebase");
-
 let firebase_app =
   getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-console.log("firebase fichier");
 if (!firebase_app) {
   console.log("Firebase initialized successfully!");
 } else {
@@ -25,23 +22,37 @@ if (!firebase_app) {
 }
 
 // Fire store
-/* const db = getFirestore();
-const colRef = collection(db, "test");
-getDocs(colRef).then((snapshot) => {
-  console.log("dans le getDocs colRef.then");
-  console.log(snapshot.docs);
-}); */
 const db = getFirestore();
+const colRef = collection(db, "test");
+let test = [];
 const fetchDataFromFirestore = async () => {
   try {
-    const colRef = collection(db, "test");
     const snapshot = await getDocs(colRef);
     console.log("Data from Firestore:", snapshot.docs);
+    snapshot.docs.forEach((doc) => {
+      test.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("test", test);
   } catch (error) {
     console.error("Error fetching data from Firestore:", error);
   }
 };
-
 fetchDataFromFirestore();
 
+//add
+/* const addSmt = document.querySelector(".add");
+addSmt.addEventListener("submit", (e) => {
+  e.preventDefault();
+  addDoc(colRef, {
+    title: addSmt.title.value,
+    author: addSmt.author.value,
+  });
+}); */
+// delete
+/* const deleteSmt = document.querySelector(".delete");
+deleteSmt.addEventListener("submit", (e) => {
+  e.preventDefault();
+}); */
+export { db };
 export default firebase_app;
+export { test };

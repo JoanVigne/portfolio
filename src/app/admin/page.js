@@ -2,6 +2,8 @@
 import React from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import ModifyDB from "../../components/ModifyDB";
+import DisplayDataDB from "../../components/DisplayDataDB";
 function Page() {
   const { user } = useAuthContext();
   const router = useRouter();
@@ -23,7 +25,8 @@ function Page() {
         {user.email === "joan.vigne.pro@gmail.com" && (
           <>
             <p>"ok c'est le bon mail"</p>
-            {console.log(user)}
+            <ModifyDB />
+            <DisplayDataDB />
           </>
         )}
       </>
