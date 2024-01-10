@@ -1,19 +1,40 @@
-import React from "react";
-import { test } from "@/firebase/config";
+import React, { useEffect, useState } from "react";
+import { profile } from "@/firebase/config";
 
 const DisplayDataDB = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div>
-      {test &&
-        test.map((e, index) => (
-          <div key={e.id}>
-            <h2>element numero {index + 1}</h2>
-            <p>{e.title}</p>
-            <p>{e.id}</p>
-            <p>{e.test}</p>
-          </div>
-        ))}
-    </div>
+    <>
+      {loading ? (
+        <p>Chargement en cours...</p>
+      ) : (
+        profile &&
+        profile.length > 0 && (
+          <ul>
+            <li>Tel: {profile[0].telephone}</li>
+            <ul>
+              {profile[0].autresDecouverte &&
+                profile[0].autresDecouverte.map((e, index) => (
+                  <li key={index}>
+                    {e}
+                    {index !== profile[0].autresDecouverte.length - 1 && ", "}
+                  </li>
+                ))}
+            </ul>
+          </ul>
+        )
+      )}
+    </>
   );
 };
 

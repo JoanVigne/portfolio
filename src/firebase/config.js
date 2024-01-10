@@ -23,22 +23,57 @@ if (!firebase_app) {
 
 // Fire store
 const db = getFirestore();
-const colRef = collection(db, "test");
-let test = [];
+
+/* let profile = [];
 const fetchDataFromFirestore = async () => {
+  const colRef = collection(db, "profile");
   try {
     const snapshot = await getDocs(colRef);
     console.log("Data from Firestore:", snapshot.docs);
     snapshot.docs.forEach((doc) => {
-      test.push({ ...doc.data(), id: doc.id });
+      profile.push({ ...doc.data(), id: doc.id });
     });
-    console.log("test", test);
+    console.log("profile", profile);
   } catch (error) {
     console.error("Error fetching data from Firestore:", error);
   }
 };
 fetchDataFromFirestore();
 
+let formations = [];
+const fetchDataFormations = async () => {
+  const colRef = collection(db, "formations");
+  try {
+    const snapshot = await getDocs(colRef);
+    snapshot.docs.forEach((doc) => {
+      formations.push({ ...doc.data(), id: doc.id });
+    });
+    console.log("formations : ", formations);
+  } catch (error) {
+    console.error("Error fetching data from Firestore:", error);
+  }
+};
+fetchDataFormations(); */
+
+async function fetchDataDB(collectionName) {
+  // pour eviter de fetch, verification session storage
+  console.log("dans le fetchDataDB, DEBUT", collectionName);
+  const dansLeSessionStorage = sessionStorage.getItem(collectionName);
+  if (dansLeSessionStorage) {
+    return JSON.parse(dansLeSessionStorage);
+  }
+  const colRef = collection(db, collectionName);
+  try {
+    const snapshot = await getDocs(colRef);
+    const data = snapshot.docs.map((doc) => {
+      return { ...doc.data(), id: doc.id };
+    });
+    sessionStorage.setItem(collectionName, JSON.stringify(data));
+    return data;
+  } catch (error) {
+    console.error("Error fetching data from Firestore:", error);
+  }
+}
 //add
 /* const addSmt = document.querySelector(".add");
 addSmt.addEventListener("submit", (e) => {
@@ -55,4 +90,5 @@ deleteSmt.addEventListener("submit", (e) => {
 }); */
 export { db };
 export default firebase_app;
-export { test };
+/* export { profile }; */
+export { fetchDataDB };
