@@ -65,15 +65,19 @@ function Page() {
         <>
           <h3>Profile</h3>
           <div className="profileCard">
-            <img src="" alt={prenom}></img>
-
+            <Image
+              src={"/" + prenom + ".jpg"}
+              alt="joan photo"
+              width={199}
+              height={133}
+            />
             <DisplayOneData data={prenom} />
-
             <DisplayOneData data={nom} />
             <DisplayOneData data={email} />
             <DisplayOneData data={naissance} />
             <DisplayOneData data={telephone} />
             <Image
+              className="edit-icon"
               src="/edit.png"
               alt="edit icon"
               width={14}
@@ -95,10 +99,10 @@ function Page() {
           <h3>Formations dans le domaine de l'informatique :</h3>
           <DisplayOneData data={formationsCoding} />
           <h3>TEST JUSTE UN TRUC</h3>
-          {Object.values(formationsCoding).map((formaC) => (
-            <>
+          {Object.values(formationsCoding).map((formaC, index) => (
+            <div key={formaC + index}>
               <DisplayOneData data={formaC.nom} />
-            </>
+            </div>
           ))}
         </>
       )}

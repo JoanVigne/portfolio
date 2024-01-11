@@ -1,17 +1,31 @@
 'use client'
 import Image from 'next/image';
 import styles from './page.module.css';
+import MyModal from '../components/MyModal'
+import { useState } from 'react';
+export default function Home() { 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
-export default function Home() {
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
 
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+  
   return (
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>src/app/page.tsx</code>
-
+      
         </p>
+        <button onClick={openModal}>Open a modale to try</button>
+        <MyModal title="Un titre de test" subtitle="Un sous titre" contentP="Lorem ipsum osjfds cdsa k ndas " 
+        contentForm={"editProfile"} isOpen={modalIsOpen}
+          closeModal={closeModal}/>
         <div>
           <a
             href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
@@ -30,6 +44,7 @@ export default function Home() {
           </a>
         </div>
       </div>
+
 
       <div className={styles.center}>
         <Image

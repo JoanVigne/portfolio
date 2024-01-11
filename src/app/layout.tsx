@@ -3,6 +3,7 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { AuthContextProvider } from '@/context/AuthContext'
+import Header from '../components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,13 +18,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr">
+    <html lang="en">
       {/*
         <head /> will contain the components returned by the nearest parent
         head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head />
+    
       <body>
+      <Header />
         <AuthContextProvider>
           {children}
         </AuthContextProvider>

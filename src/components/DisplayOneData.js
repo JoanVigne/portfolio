@@ -23,12 +23,12 @@ const DisplayOneData = ({ data }) => {
           {typeof data === "object" && (
             <ul>
               {Object.values(data).map((element, index) => (
-                <li key={index}>
+                <li key={index + element}>
                   {typeof element === "object" ? (
                     Object.values(element).map((e, subIndex) => (
-                      <>
-                        <p key={subIndex + e}>{e}</p>
-                      </>
+                      <div key={subIndex + e}>
+                        <p>{e}</p>
+                      </div>
                     ))
                   ) : (
                     <>

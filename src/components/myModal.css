@@ -1,0 +1,21 @@
+.my-modal-container {
+  background-color: white;
+  position: relative;
+  margin: 5% auto;
+  padding: 10px;
+  max-width: 80%;
+  width: 500px;
+  max-height: 80%;
+  height: 500px;
+  border: 2px black solid;
+  border-radius: 2%;
+}
+.close-modal {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: black;
+  color: white;
+}
