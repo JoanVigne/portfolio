@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "./myModal.css";
+import FormEditProfile from "../components/FormEditProfile";
 const MyModal = ({
   title,
   subtitle,
@@ -13,11 +14,7 @@ const MyModal = ({
 
   useEffect(() => {
     if (contentForm === "editProfile") {
-      setThisForm(
-        <form>
-          <p>Des inputs à modifier, par exemple</p>
-        </form>
-      );
+      setThisForm(<FormEditProfile />);
     }
     if (contentForm === "editFormations") {
       console.log("edit formations modal");
