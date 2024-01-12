@@ -1,0 +1,27 @@
+.form-edit-profile {
+  display: flex;
+  flex-direction: column;
+}
+.form-edit-profile * {
+  margin: 1px;
+}
+
+.form-edit-profile input,
+.form-edit-profile button {
+  font-size: 18px;
+}
+.form-edit-profile button {
+  color: white;
+  background-color: black;
+  min-width: 20px;
+}
+input[type="submit"] {
+  background-color: green;
+  color: white;
+  max-width: 100px;
+}
+.reset-form {
+  background-color: black;
+  color: white;
+  max-width: 100px;
+}

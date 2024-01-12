@@ -6,12 +6,20 @@ import DisplayOneData from "../../components/DisplayOneData";
 import { fetchDataDB } from "@/firebase/config";
 import "./admin.css";
 import Image from "next/image";
+import MyModal from "@/components/MyModal";
 function Page() {
   const { user } = useAuthContext();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [formations, setFormations] = useState();
   const [profile, setProfile] = useState();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +91,15 @@ function Page() {
               width={14}
               height={14}
               priority
-              onClick={() => console.log("pour modifier l'element profile")}
+              onClick={openModal}
+            />
+            <MyModal
+              title="Un titre de test"
+              subtitle="Un sous titre"
+              contentP="Lorem ipsum osjfds cdsa k ndas "
+              contentForm={"editProfile"}
+              isOpen={modalIsOpen}
+              closeModal={closeModal}
             />
           </div>
 

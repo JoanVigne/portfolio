@@ -9,6 +9,7 @@
   height: 500px;
   border: 2px black solid;
   border-radius: 2%;
+  overflow-y: auto;
 }
 .close-modal {
   width: 20px;

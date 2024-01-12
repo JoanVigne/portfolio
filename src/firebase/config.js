@@ -24,37 +24,6 @@ if (!firebase_app) {
 // Fire store
 const db = getFirestore();
 
-/* let profile = [];
-const fetchDataFromFirestore = async () => {
-  const colRef = collection(db, "profile");
-  try {
-    const snapshot = await getDocs(colRef);
-    console.log("Data from Firestore:", snapshot.docs);
-    snapshot.docs.forEach((doc) => {
-      profile.push({ ...doc.data(), id: doc.id });
-    });
-    console.log("profile", profile);
-  } catch (error) {
-    console.error("Error fetching data from Firestore:", error);
-  }
-};
-fetchDataFromFirestore();
-
-let formations = [];
-const fetchDataFormations = async () => {
-  const colRef = collection(db, "formations");
-  try {
-    const snapshot = await getDocs(colRef);
-    snapshot.docs.forEach((doc) => {
-      formations.push({ ...doc.data(), id: doc.id });
-    });
-    console.log("formations : ", formations);
-  } catch (error) {
-    console.error("Error fetching data from Firestore:", error);
-  }
-};
-fetchDataFormations(); */
-
 async function fetchDataDB(collectionName) {
   // pour eviter de fetch, verification session storage
   console.log("dans le fetchDataDB, DEBUT", collectionName);
