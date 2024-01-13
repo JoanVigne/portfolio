@@ -1,62 +1,71 @@
 import React, { useEffect, useState } from "react";
 import "./formEditProfile.css";
+import { db } from "@/firebase/config";
+import { collection, doc, updateDoc } from "firebase/firestore";
 
 const FormEditProfile = () => {
   const sessionStorageDATA = JSON.parse(sessionStorage.getItem("profile"));
-  const [formData, setFormData] = useState(sessionStorageDATA?.[0] ?? {});
-  // pour setFormData
+  const [dataProfile, setdataProfile] = useState(sessionStorageDATA?.[0] ?? {});
+  // pour setdataProfile
   useEffect(() => {
-    sessionStorageDATA[0].length > 0 && setFormData(sessionStorageDATA[0]);
-    console.log("dans le useEffect");
-    console.log("formData", formData);
+    sessionStorageDATA[0].length > 0 && setdataProfile(sessionStorageDATA[0]);
   }, [sessionStorageDATA]);
   // change la value des inputs :
   function handleInputChange(e) {
     const { name, value } = e.target;
     const updatedValue = Array.isArray(value) ? value : value.split(",");
-    setFormData((prevData) => ({
+    setdataProfile((prevData) => ({
       ...prevData,
       [name]: updatedValue,
     }));
   }
 
   // submit le form
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     // Ajoutez ici la logique pour soumettre les données modifiées, par exemple, enregistrer dans sessionStorage ou envoyer à un backend
-    console.log("Données modifiées :", formData);
+    console.log("Données modifiées :", dataProfile);
+
+    try {
+      const documentId = dataProfile.id;
+      console.log("documentId", documentId);
+      const docRef = doc(collection(db, "profile"), documentId);
+      await updateDoc(docRef, dataProfile);
+      console.log("Document mis à jour avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du document :", error);
+    }
   }
 
   // pour supprimer un element d'une liste
   function handleRemove(index, dataKey) {
-    const updatedData = [...formData[dataKey]];
+    const updatedData = [...dataProfile[dataKey]];
     updatedData.splice(index, 1);
-    setFormData((prevData) => ({
+    setdataProfile((prevData) => ({
       ...prevData,
       [dataKey]: updatedData,
     }));
   }
 
   // pour ajouter un element d'une liste
-  const [theInputValue, setTheInputValue] = useState({
+  const [arrayValues, setarrayValues] = useState({
     autresMaitrise: "",
     langagesDecouverte: "",
     langagesMaitrise: "",
   });
 
-  function handleAddLangage(whichArray) {
-    if (theInputValue[whichArray].trim() !== "") {
-      const updatedData = [...formData[whichArray], theInputValue[whichArray]];
-      setFormData((prevData) => ({
+  function handleAddSmtInArray(whichArray) {
+    if (arrayValues[whichArray].trim() !== "") {
+      const updatedData = [...dataProfile[whichArray], arrayValues[whichArray]];
+      setdataProfile((prevData) => ({
         ...prevData,
         [whichArray]: updatedData,
       }));
-      console.log("avant", theInputValue);
-      setTheInputValue({ ...theInputValue, [whichArray]: "" });
-      console.log("aprés", theInputValue);
-      console.log("est bien passé par la");
+      console.log("avant", arrayValues);
+      setarrayValues({ ...arrayValues, [whichArray]: "" });
     }
   }
+
   return (
     <form className="form-edit-profile" onSubmit={handleSubmit}>
       {sessionStorageDATA[0] && (
@@ -66,7 +75,7 @@ const FormEditProfile = () => {
             type="text"
             name="email"
             id="email"
-            value={formData.email}
+            value={dataProfile.email}
             onChange={handleInputChange}
           />
           <label htmlFor="telephone">Téléphone</label>
@@ -74,12 +83,12 @@ const FormEditProfile = () => {
             type="text"
             name="telephone"
             id="telephone"
-            value={formData.telephone}
+            value={dataProfile.telephone}
             onChange={handleInputChange}
           />
           <label htmlFor="LangagesMaitrise">Langages maitrisés</label>
-          {Array.isArray(formData.langagesMaitrise) &&
-            formData.langagesMaitrise.map((langage, index) => (
+          {Array.isArray(dataProfile.langagesMaitrise) &&
+            dataProfile.langagesMaitrise.map((langage, index) => (
               <div className="span-button-container" key={index}>
                 <span>{langage}</span>
                 <button
@@ -94,25 +103,25 @@ const FormEditProfile = () => {
             <input
               type="text"
               name="langagesMaitrise"
-              value={theInputValue.langagesMaitrise}
+              value={arrayValues.langagesMaitrise}
               onChange={(e) => {
-                setTheInputValue({
-                  ...theInputValue,
+                setarrayValues({
+                  ...arrayValues,
                   [e.target.name]: e.target.value,
                 });
               }}
             />
             <button
               type="button"
-              onClick={() => handleAddLangage("langagesMaitrise")}
+              onClick={() => handleAddSmtInArray("langagesMaitrise")}
             >
               +
             </button>
           </div>
           ////////////////////
           <label htmlFor="LangagesDecouverte">Langages découverts</label>
-          {Array.isArray(formData.langagesDecouverte) &&
-            formData.langagesDecouverte.map((langage, index) => (
+          {Array.isArray(dataProfile.langagesDecouverte) &&
+            dataProfile.langagesDecouverte.map((langage, index) => (
               <div className="span-button-container" key={index}>
                 <span>{langage}</span>
                 <button
@@ -127,24 +136,24 @@ const FormEditProfile = () => {
             <input
               type="text"
               name="LangagesDecouverte"
-              value={theInputValue.langagesDecouverte}
+              value={arrayValues.langagesDecouverte}
               onChange={(e) => {
-                setTheInputValue({
-                  ...theInputValue,
+                setarrayValues({
+                  ...arrayValues,
                   [e.target.name]: e.target.value,
                 });
               }}
             />
             <button
               type="button"
-              onClick={() => handleAddLangage("langagesDecouverte")}
+              onClick={() => handleAddSmtInArray("langagesDecouverte")}
             >
               +
             </button>
           </div>
           <label htmlFor="autresMaitrise">Autres maitrisés</label>
-          {Array.isArray(formData.autresMaitrise) &&
-            formData.autresMaitrise.map((autre, index) => (
+          {Array.isArray(dataProfile.autresMaitrise) &&
+            dataProfile.autresMaitrise.map((autre, index) => (
               <div className="span-button-container" key={index}>
                 <span>{autre}</span>
                 <button
@@ -159,24 +168,24 @@ const FormEditProfile = () => {
             <input
               type="text"
               name="autresMaitrise"
-              value={theInputValue.autresMaitrise}
+              value={arrayValues.autresMaitrise}
               onChange={(e) => {
-                setTheInputValue({
-                  ...theInputValue,
+                setarrayValues({
+                  ...arrayValues,
                   [e.target.name]: e.target.value,
                 });
               }}
             />
             <button
               type="button"
-              onClick={() => handleAddLangage("autresMaitrise")}
+              onClick={() => handleAddSmtInArray("autresMaitrise")}
             >
               +
             </button>
           </div>
           <label htmlFor="autresDecouverte">Autres decouvertes</label>
-          {Array.isArray(formData.autresDecouverte) &&
-            formData.autresDecouverte.map((autre, index) => (
+          {Array.isArray(dataProfile.autresDecouverte) &&
+            dataProfile.autresDecouverte.map((autre, index) => (
               <div className="span-button-container" key={index}>
                 <span>{autre}</span>
                 <button
@@ -191,17 +200,17 @@ const FormEditProfile = () => {
             <input
               type="text"
               name="autresDecouverte"
-              value={theInputValue.autresDecouverte}
+              value={arrayValues.autresDecouverte}
               onChange={(e) => {
-                setTheInputValue({
-                  ...theInputValue,
+                setarrayValues({
+                  ...arrayValues,
                   [e.target.name]: e.target.value,
                 });
               }}
             />
             <button
               type="button"
-              onClick={() => handleAddLangage("autresDecouverte")}
+              onClick={() => handleAddSmtInArray("autresDecouverte")}
             >
               +
             </button>
@@ -211,7 +220,7 @@ const FormEditProfile = () => {
             className="reset-form"
             type="button"
             value="Reset"
-            onClick={() => setFormData(sessionStorageDATA[0])}
+            onClick={() => setdataProfile(sessionStorageDATA[0])}
           />
         </>
       )}

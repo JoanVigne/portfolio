@@ -38,6 +38,7 @@ async function fetchDataDB(collectionName) {
       return { ...doc.data(), id: doc.id };
     });
     sessionStorage.setItem(collectionName, JSON.stringify(data));
+    console.log("dans le fetchDataDB, fin", collectionName);
     return data;
   } catch (error) {
     console.error("Error fetching data from Firestore:", error);
