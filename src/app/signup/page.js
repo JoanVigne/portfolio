@@ -36,7 +36,6 @@ function Page() {
               id="email"
               placeholder="example@mail.com"
             />
-            x\
           </label>
           <label htmlFor="password">
             <p>Password</p>

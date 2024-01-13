@@ -57,8 +57,6 @@ const FormEditProfile = () => {
       console.log("est bien passé par la");
     }
   }
-
-  console.log(theInputValue);
   return (
     <form className="form-edit-profile" onSubmit={handleSubmit}>
       {sessionStorageDATA[0] && (
@@ -82,7 +80,7 @@ const FormEditProfile = () => {
           <label htmlFor="LangagesMaitrise">Langages maitrisés</label>
           {Array.isArray(formData.langagesMaitrise) &&
             formData.langagesMaitrise.map((langage, index) => (
-              <div key={index}>
+              <div className="span-button-container" key={index}>
                 <span>{langage}</span>
                 <button
                   type="button"
@@ -115,7 +113,7 @@ const FormEditProfile = () => {
           <label htmlFor="LangagesDecouverte">Langages découverts</label>
           {Array.isArray(formData.langagesDecouverte) &&
             formData.langagesDecouverte.map((langage, index) => (
-              <div key={index}>
+              <div className="span-button-container" key={index}>
                 <span>{langage}</span>
                 <button
                   type="button"
@@ -147,7 +145,7 @@ const FormEditProfile = () => {
           <label htmlFor="autresMaitrise">Autres maitrisés</label>
           {Array.isArray(formData.autresMaitrise) &&
             formData.autresMaitrise.map((autre, index) => (
-              <div key={index}>
+              <div className="span-button-container" key={index}>
                 <span>{autre}</span>
                 <button
                   type="button"
@@ -172,6 +170,38 @@ const FormEditProfile = () => {
             <button
               type="button"
               onClick={() => handleAddLangage("autresMaitrise")}
+            >
+              +
+            </button>
+          </div>
+          <label htmlFor="autresDecouverte">Autres decouvertes</label>
+          {Array.isArray(formData.autresDecouverte) &&
+            formData.autresDecouverte.map((autre, index) => (
+              <div className="span-button-container" key={index}>
+                <span>{autre}</span>
+                <button
+                  type="button"
+                  onClick={() => handleRemove(index, "autresDecouverte")}
+                >
+                  -
+                </button>
+              </div>
+            ))}
+          <div>
+            <input
+              type="text"
+              name="autresDecouverte"
+              value={theInputValue.autresDecouverte}
+              onChange={(e) => {
+                setTheInputValue({
+                  ...theInputValue,
+                  [e.target.name]: e.target.value,
+                });
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => handleAddLangage("autresDecouverte")}
             >
               +
             </button>

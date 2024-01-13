@@ -2,6 +2,7 @@ import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
 import React from "react";
 import "./header.css";
+import ToggleCSS from "../components/ToggleCSS";
 
 const Header = () => {
   function logOut() {
@@ -9,9 +10,12 @@ const Header = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
+        console.log("LOGGED OUT");
+        sessionStorage.clear();
       })
       .catch((error) => {
         // An error happened.
+        console.error("this error occured :", error);
       });
   }
   return (
@@ -23,6 +27,7 @@ const Header = () => {
       <Link href="/" onClick={logOut}>
         Log out
       </Link>
+      <ToggleCSS />
       {/*       <input type="button" value="Logout" onClick={logOut} /> */}
     </header>
   );

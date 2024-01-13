@@ -20,3 +20,8 @@
   background-color: black;
   color: white;
 }
+
+.my-modal-container h2,
+.my-modal-container p {
+  text-align: center;
+}
