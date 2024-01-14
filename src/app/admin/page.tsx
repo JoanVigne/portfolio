@@ -7,12 +7,66 @@ import { fetchDataDB } from "@/firebase/config";
 import "./admin.css";
 import Image from "next/image";
 import MyModal from "@/components/MyModal";
+import { useProfileContext } from "@/context/ProfileContext";
+
+interface ProfileData {
+  telephone?: string;
+  email?: string;
+  nom?: string;
+  prenom?: string;
+  naissance?: string;
+  autresDecouverte?: string;
+  autresMaitrise?: string;
+  langagesDecouverte?: string;
+  langagesMaitrise?: string;
+}
+interface UserData {
+  email: string;
+}
+
+interface FormationDetails {
+  debut: string;
+  location: string;
+  nom: string;
+  duree: string;
+  etablissement: string;
+  fin: string;
+  langages?: string[];
+  contenu?: string[];
+  autres?: string[];
+}
+interface FormationsGeneralDetails {
+  etablissement: string;
+  location: string;
+  nom: string;
+  fin: string;
+  duree: string;
+  debut: string;
+  langues: string[];
+}
+
+interface FormationsCodingDetails {
+  [key: string]: FormationDetails;
+}
+interface Formations {
+  formationsGeneral: FormationsGeneralDetails;
+  formationsCoding: FormationsCodingDetails;
+}
+
+
 function Page() {
-  const { user } = useAuthContext();
+  const { user } = useAuthContext() as { user: UserData };
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [formations, setFormations] = useState();
-  const [profile, setProfile] = useState();
+
+const [formations, setFormations] = useState<Formations[]>([]);
+
+
+  console.log(formations);
+
+  const { profile } = useProfileContext();
+  console.log("profile au debut de admin()", profile);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = () => {
     setModalIsOpen(true);
@@ -34,18 +88,13 @@ function Page() {
       const fetchedFormations = await fetchDataDB("formations");
       setFormations(fetchedFormations);
     };
-    const fetchProfile = async () => {
-      const fetchedProfile = await fetchDataDB("profile");
-      setProfile(fetchedProfile);
-    };
-    fetchProfile();
     fetchFormations();
   }, []);
 
   if (user == null) {
     return (
       <>
-        <h1>Only logged in users can view this page, so conntect !</h1>
+        <h1>Only logged in users can view this page, so connect!</h1>
         <button onClick={() => router.push("/")}>home</button>
       </>
     );
@@ -53,6 +102,7 @@ function Page() {
   if (loading) {
     return <p>Loading...</p>;
   }
+
   const {
     telephone,
     email,
@@ -63,8 +113,10 @@ function Page() {
     autresMaitrise,
     langagesDecouverte,
     langagesMaitrise,
-  } = profile[0] || {};
-  const { formationsGeneral, formationsCoding } = formations[0] || {};
+  } = profile[0] || ({} as ProfileData);
+
+  const { formationsGeneral, formationsCoding } = (formations[0] ?? {}) as Formations;
+  
   return (
     <>
       <h1>You are connected, {user.email}</h1>
@@ -109,20 +161,23 @@ function Page() {
           <h3>Connaissances de base :</h3>
           <DisplayOneData data={langagesDecouverte} />
           <DisplayOneData data={autresDecouverte} />
+
           <h2>Les formations : </h2>
           <h3>Formations générals :</h3>
           <DisplayOneData data={formationsGeneral} />
           <h3>Formations dans le domaine de l'informatique :</h3>
           <DisplayOneData data={formationsCoding} />
           <h3>TEST JUSTE UN TRUC</h3>
-          {Object.values(formationsCoding).map((formaC, index) => (
-            <div key={formaC + index}>
-              <DisplayOneData data={formaC.nom} />
-            </div>
-          ))}
+          {formationsCoding &&
+            Object.entries(formationsCoding).map(([key, formaC], index) => (
+              <div key={key + index}>
+                <DisplayOneData data={formaC.nom} />
+              </div>
+            ))}
         </>
       )}
     </>
   );
 }
+
 export default Page;

@@ -2,11 +2,17 @@
 import { collection, doc, updateDoc } from 'firebase/firestore';
 import { db, fetchDataDB } from '@/firebase/config';
 import { useEffect, useState } from 'react';
+import { useProfileContext } from "@/context/ProfileContext";
+
+
 
 
 export default function Home() { 
+  const { profile } = useProfileContext();
+  console.log("profileData au debut de Home()", profile)
 
-  const colRefName = "testing modify";
+  
+/*   const colRefName = "testing modify";
   const [dataTest, setDataTest] = useState([]);
   // recuperons les données 
   useEffect(() => {
@@ -87,7 +93,6 @@ export default function Home() {
                   />
                 </div>
               ))}
-              {/* Bouton pour ajouter un nouvel élément dans le tableau */}
               <input type="text" name={"new"+prefix} id={"new"+prefix} />
               <button type="button" onClick={() => addNewElement(element, key)}>
                 Ajouter Nouvel Élément
@@ -98,7 +103,7 @@ export default function Home() {
   
         return generateFormFields(element[key], fieldKey);
       }
-  
+
       return (
         <div key={fieldKey}>
           <label htmlFor={fieldKey}>{fieldKey}</label>
@@ -117,14 +122,14 @@ export default function Home() {
       return newData;
     });
   };
-
+   */
   return (
     <main>
     <p>New main</p>
-    <form className="modify" onSubmit={(e) => modifySmt(e, dataTest[0].id)}>
+    {/* <form className="modify" onSubmit={(e) => modifySmt(e, dataTest[0].id)}>
       {dataTest.length > 0 && generateFormFields(dataTest[0])}
       <button>Modifier</button>
-    </form>
+    </form> */}
   </main>
   );
 }

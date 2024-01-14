@@ -25,13 +25,18 @@ const FormEditProfile = () => {
     e.preventDefault();
     // Ajoutez ici la logique pour soumettre les données modifiées, par exemple, enregistrer dans sessionStorage ou envoyer à un backend
     console.log("Données modifiées :", dataProfile);
-
+    // SI C EST LES MEMES DONNEES, PAS D ENVOI A LA BD
+    if (JSON.stringify(dataProfile) == JSON.stringify(sessionStorageDATA[0])) {
+      console.log("ce sont les memes données");
+      return;
+    }
     try {
       const documentId = dataProfile.id;
       console.log("documentId", documentId);
       const docRef = doc(collection(db, "profile"), documentId);
       await updateDoc(docRef, dataProfile);
       console.log("Document mis à jour avec succès !");
+      sessionStorage.setItem("profile", JSON.stringify([dataProfile]));
     } catch (error) {
       console.error("Erreur lors de la mise à jour du document :", error);
     }
