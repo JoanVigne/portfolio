@@ -1,8 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React,  { useState }  from "react";
 
-const ToggleCSS = () => {
-  const [cssDesactive, setCssDesactive] = useState(false);
+const ToggleCSS: React.FC = () => {
+  const [cssDesactive, setCssDesactive] = useState<boolean>(false);
 
   const supprimerCSS = () => {
     var feuillesDeStyle = document.styleSheets;

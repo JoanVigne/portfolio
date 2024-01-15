@@ -10,20 +10,17 @@ const MyModal = ({
   isOpen,
   closeModal,
 }) => {
+  // les differents forms
   const [thisForm, setThisForm] = useState(null);
-
   useEffect(() => {
     if (contentForm === "editProfile") {
       setThisForm(<FormEditProfile />);
-    }
-    if (contentForm === "editFormations") {
+    } else if (contentForm === "editFormations") {
       console.log("edit formations modal");
+    } else {
+      setThisForm("");
     }
   }, [contentForm]);
-
-  if (!thisForm) {
-    return null; // Renvoyer quelque chose de valide ou rien selon votre logique
-  }
 
   return (
     <>

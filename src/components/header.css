@@ -2,6 +2,8 @@ header {
   height: 50px;
   display: flex;
   justify-content: center;
+  background-color: #433027;
+  color: #fefffa;
 }
 header a {
   padding: 5px;

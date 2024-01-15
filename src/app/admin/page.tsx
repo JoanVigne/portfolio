@@ -53,14 +53,12 @@ interface Formations {
   formationsCoding: FormationsCodingDetails;
 }
 
-
 function Page() {
   const { user } = useAuthContext() as { user: UserData };
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
-const [formations, setFormations] = useState<Formations[]>([]);
-
+  const [formations, setFormations] = useState<Formations[]>([]);
 
   console.log(formations);
 
@@ -103,7 +101,7 @@ const [formations, setFormations] = useState<Formations[]>([]);
     return <p>Loading...</p>;
   }
 
-  const {
+  /*   const {
     telephone,
     email,
     nom,
@@ -114,68 +112,70 @@ const [formations, setFormations] = useState<Formations[]>([]);
     langagesDecouverte,
     langagesMaitrise,
   } = profile[0] || ({} as ProfileData);
+ */
+  const { formationsGeneral, formationsCoding } = (formations[0] ??
+    {}) as Formations;
 
-  const { formationsGeneral, formationsCoding } = (formations[0] ?? {}) as Formations;
-  
   return (
     <>
       <h1>You are connected, {user.email}</h1>
+      {Array.isArray(profile) &&
+        profile.length > 0 &&
+        user.email === "joan.vigne.pro@gmail.com" && (
+          <>
+            <h3>Profile</h3>
+            <div className="profileCard">
+              <Image
+                src={"/" + profile[0].prenom + ".jpg"}
+                alt="joan photo"
+                width={199}
+                height={133}
+              />
+              <DisplayOneData data={profile[0].prenom} />
+              <DisplayOneData data={profile[0].nom} />
+              <DisplayOneData data={profile[0].email} />
+              <DisplayOneData data={profile[0].naissance} />
+              <DisplayOneData data={profile[0].telephone} />
+              <Image
+                className="edit-icon"
+                src="/edit.png"
+                alt="edit icon"
+                width={14}
+                height={14}
+                priority
+                onClick={openModal}
+              />
+              <MyModal
+                title="Un titre de test"
+                subtitle="Un sous titre"
+                contentP="Lorem ipsum osjfds cdsa k ndas "
+                contentForm={"editProfile"}
+                isOpen={modalIsOpen}
+                closeModal={closeModal}
+              />
+            </div>
 
-      {user.email === "joan.vigne.pro@gmail.com" && (
-        <>
-          <h3>Profile</h3>
-          <div className="profileCard">
-            <Image
-              src={"/" + prenom + ".jpg"}
-              alt="joan photo"
-              width={199}
-              height={133}
-            />
-            <DisplayOneData data={prenom} />
-            <DisplayOneData data={nom} />
-            <DisplayOneData data={email} />
-            <DisplayOneData data={naissance} />
-            <DisplayOneData data={telephone} />
-            <Image
-              className="edit-icon"
-              src="/edit.png"
-              alt="edit icon"
-              width={14}
-              height={14}
-              priority
-              onClick={openModal}
-            />
-            <MyModal
-              title="Un titre de test"
-              subtitle="Un sous titre"
-              contentP="Lorem ipsum osjfds cdsa k ndas "
-              contentForm={"editProfile"}
-              isOpen={modalIsOpen}
-              closeModal={closeModal}
-            />
-          </div>
+            <h3>Langages, frameworks et apps maitrisés :</h3>
+            <DisplayOneData data={profile[0].langagesMaitrise} />
+            <DisplayOneData data={profile[0].autresMaitrise} />
+            <h3>Connaissances de base :</h3>
+            <DisplayOneData data={profile[0].langagesDecouverte} />
+            <DisplayOneData data={profile[0].autresDecouverte} />
 
-          <h3>Langages, frameworks et apps maitrisés :</h3>
-          <DisplayOneData data={langagesMaitrise} />
-          <DisplayOneData data={autresMaitrise} />
-          <h3>Connaissances de base :</h3>
-          <DisplayOneData data={langagesDecouverte} />
-          <DisplayOneData data={autresDecouverte} />
-
-          <h2>Les formations : </h2>
-          <h3>Formations générals :</h3>
-          <DisplayOneData data={formationsGeneral} />
-          <h3>Formations dans le domaine de l'informatique :</h3>
-          <DisplayOneData data={formationsCoding} />
-          <h3>TEST JUSTE UN TRUC</h3>
-          {formationsCoding &&
-            Object.entries(formationsCoding).map(([key, formaC], index) => (
-              <div key={key + index}>
-                <DisplayOneData data={formaC.nom} />
-              </div>
-            ))}
-        </>
-      )}
+            <h2>Les formations : </h2>
+            <h3>Formations générals :</h3>
+            <DisplayOneData data={formationsGeneral} />
+            <h3>Formations dans le domaine de l'informatique :</h3>
+            <DisplayOneData data={formationsCoding} />
+            <h3>TEST JUSTE UN TRUC</h3>
+            {formationsCoding &&
+              Object.entries(formationsCoding).map(([key, formaC], index) => (
+                <div key={key + index}>
+                  <DisplayOneData data={formaC.nom} />
+                </div>
+              ))}
+          </>
+        )}
     </>
   );
 }

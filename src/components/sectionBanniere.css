@@ -1,0 +1,37 @@
+.section-banniere {
+  background-color: #433027;
+  position: relative;
+  height: 300px;
+}
+
+/* .section-banniere h1 {
+  font-size: 80px;
+  color: #fefffa;
+  white-space: nowrap;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.section-banniere h1 div {
+  margin-right: 50px;
+  animation: moveLeft 30s linear infinite;
+} */
+.section-banniere h1 {
+  font-size: 90px;
+  color: #fefffa;
+  white-space: nowrap;
+  position: absolute;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  animation: moveLeft 30s linear infinite;
+}
+@keyframes moveLeft {
+  0% {
+    transform: translate(0, -50%);
+  }
+  100% {
+    transform: translateX(-100%, -50%);
+  }
+}

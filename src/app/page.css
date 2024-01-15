@@ -1,0 +1,22 @@
+.section-a-propos .content {
+  display: flex;
+  background-color: #433027;
+}
+
+.section-a-propos .content .image-container {
+  max-width: 50%;
+}
+
+.section-a-propos .content .infos {
+  color: #fefffa;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
