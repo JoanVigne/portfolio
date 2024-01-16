@@ -1,6 +1,11 @@
+@import url("./globals.css");
+
+.section-a-propos {
+  background-color: var(--couleur-beige-fonce);
+}
 .section-a-propos .content {
   display: flex;
-  background-color: #433027;
+  justify-content: space-between;
 }
 
 .section-a-propos .content .image-container {

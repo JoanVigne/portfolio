@@ -1,5 +1,12 @@
+@import url("../app/globals.css");
+
 .section-banniere {
-  background-color: #433027;
+  background: linear-gradient(
+    to bottom,
+    var(--couleur-marron-clair),
+    var(--couleur-marron-fonce)
+  );
+  /*   background-color: var(--couleur-marron-fonce); */
   position: relative;
   height: 300px;
 }
@@ -20,10 +27,10 @@
 } */
 .section-banniere h1 {
   font-size: 90px;
-  color: #fefffa;
+  color: var(--couleur-beige-clair);
   white-space: nowrap;
   position: absolute;
-  top: 45%;
+  top: 55%;
   transform: translate(-50%, -50%);
   animation: moveLeft 30s linear infinite;
 }

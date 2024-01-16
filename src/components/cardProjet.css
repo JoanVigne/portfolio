@@ -1,0 +1,15 @@
+@import url("../app/globals.css");
+
+.card-projet {
+  max-width: 90%;
+  width: 401px;
+  height: 251px;
+  margin: 40px auto;
+  background-color: var(--couleur-beige-fonce);
+  color: var(--couleur-noir);
+}
+
+.card-projet img {
+  width: 80%;
+  border: 1px black solid;
+}

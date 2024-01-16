@@ -8,6 +8,7 @@ import Image from "next/image";
 import DisplayOneData from "@/components/DisplayOneData";
 import "./page.css";
 import SectionBanniere from "@/components/SectionBanniere";
+import SectionProjets from "@/components/SectionProjets";
 
 interface ProfileData {
   telephone?: string;
@@ -39,11 +40,9 @@ export default function Home() {
   return (
     <main>
       <SectionBanniere />
+      <SectionProjets />
       <section className="section-a-propos">
         <div className="content">
-          <div className="image-container">
-            <img src="/Joan_big.jpg" alt="joan photo" />
-          </div>
           <h2>À propos ...</h2>
           {Array.isArray(profile) && profile.length > 0 && (
             <div className="infos">
@@ -54,17 +53,9 @@ export default function Home() {
               <DisplayOneData data={profile[0].telephone} />
             </div>
           )}
-        </div>
-      </section>
-      <section style={{ position: "relative" }}>
-        <h2>Mes projets</h2>
-        <div className="card">des cards</div>
-        <div className="card">des cards</div>
-        <div className="card">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-          expedita dolorem reprehenderit magnam a sit, animi eveniet hic, minus
-          deleniti quasi quis maxime earum perferendis facere corporis
-          repellendus enim accusamus.
+          <div className="image-container">
+            <img src="/Joan_big.jpg" alt="joan photo" />
+          </div>
         </div>
       </section>
     </main>

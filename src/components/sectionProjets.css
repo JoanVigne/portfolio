@@ -1,0 +1,20 @@
+@import url("../app/globals.css");
+
+.section-projets {
+  background: linear-gradient(to bottom, #433027, #261f1c);
+  /*   background-color: var(--couleur-marron-fonce); */
+  color: var(--couleur-beige-clair);
+  text-align: center;
+}
+
+.container-card-projet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 750px) {
+  .container-card-projet {
+    flex-direction: column;
+  }
+}
