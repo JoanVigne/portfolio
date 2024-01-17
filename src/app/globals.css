@@ -13,11 +13,31 @@
   padding: 0;
   margin: 0;
 }
+.in-view {
+  animation: fadeInUpInView 2s ease-out forwards;
+}
+@keyframes fadeInUpInView {
+  from {
+    opacity: 0;
+    transform: translateY(150px);
+  }
 
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-projet .projet-img {
+  width: 60%;
+  border: 1px black solid;
+  height: auto;
+}
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 h2 {

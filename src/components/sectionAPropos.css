@@ -1,0 +1,19 @@
+@import url("../app/globals.css");
+
+/* .section-a-propos .image-container {
+  opacity: 0;
+  transform: translateY(150px);
+}
+.section-a-propos .image-container.in-view {
+  animation: fadeInUpInView 2s ease-out forwards;
+} */
+
+.section-a-propos {
+  overflow: hidden;
+}
+.section-a-propos .infos-container {
+  opacity: 0;
+  transform: translateY(150px);
+}
+
+/* animation dans le globals.css */

@@ -24,6 +24,7 @@ const Header = () => {
       <nav>
         {" "}
         <Link href="/">home page</Link>
+        <Link href="/#projets">Projets</Link>
         <Link href="/admin">Admin</Link>
         <Link href="/signin">sign in</Link>
         <Link href="/signup">sign up</Link>

@@ -44,6 +44,21 @@ async function fetchDataDB(collectionName) {
     console.error("Error fetching data from Firestore:", error);
   }
 }
+
+async function newFetchDataDB(collectionName) {
+  console.log("debut function newFetch", collectionName);
+  const colRef = collection(db, collectionName);
+  try {
+    const snapshot = await getDocs(colRef);
+    const data = snapshot.docs.map((doc) => {
+      return { ...doc.data(), id: doc.id };
+    });
+    console.log("fin function newFetch", collectionName, data);
+    return data;
+  } catch (error) {
+    console.error("Error fetching data from firestore:", error);
+  }
+}
 //add
 /* const addSmt = document.querySelector(".add");
 addSmt.addEventListener("submit", (e) => {
@@ -61,4 +76,4 @@ deleteSmt.addEventListener("submit", (e) => {
 export { db };
 export default firebase_app;
 /* export { profile }; */
-export { fetchDataDB };
+export { fetchDataDB, newFetchDataDB };

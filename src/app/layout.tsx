@@ -8,7 +8,8 @@ import {
   useFormationsContext,
 } from "@/context/FormationsContext";
 import { useEffect } from "react";
-import { fetchDataDB } from "@/firebase/config";
+import { fetchDataDB, newFetchDataDB } from "@/firebase/config";
+import { FetchData } from "@/data/FetchData";
 
 //
 
@@ -19,6 +20,22 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const { profile, setProfile } = useProfileContext() || {};
+
+  useEffect(() => {
+    console.log("Dans le useEffect du RootLayout, ProfileProvider :", profile);
+
+    const fetchProfile = async () => {
+      try {
+        const fetchedProfile = await newFetchDataDB("profile");
+        setProfile(fetchedProfile);
+      } catch (error) {
+        console.error("Erreur lors du fetch du profil :", error);
+      }
+    };
+    fetchProfile();
+  }, [profile, setProfile]);
+
   return (
     <html lang="en">
       {/*

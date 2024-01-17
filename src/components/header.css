@@ -3,8 +3,8 @@
 header {
   height: 50px;
 
-  background-color: var(--couleur-marron-clair);
-  color: var(--couleur-noir);
+  background-color: var(--couleur-noir);
+  color: var(--couleur-beige-clair);
   display: flex;
   justify-content: space-between;
   padding: 2%;
@@ -16,5 +16,5 @@ header a {
 }
 
 header a:hover {
-  color: var(--couleur-beige-clair);
+  color: var(--couleur-beige-fonce);
 }

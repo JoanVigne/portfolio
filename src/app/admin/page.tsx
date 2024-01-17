@@ -57,13 +57,8 @@ function Page() {
   const { user } = useAuthContext() as { user: UserData };
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-
   const [formations, setFormations] = useState<Formations[]>([]);
-
-  console.log(formations);
-
   const { profile } = useProfileContext();
-  console.log("profile au debut de admin()", profile);
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = () => {
@@ -119,7 +114,7 @@ function Page() {
   return (
     <>
       <h1>You are connected, {user.email}</h1>
-      {Array.isArray(profile) &&
+      {/*       {Array.isArray(profile) &&
         profile.length > 0 &&
         user.email === "joan.vigne.pro@gmail.com" && (
           <>
@@ -160,23 +155,23 @@ function Page() {
             <DisplayOneData data={profile[0].autresMaitrise} />
             <h3>Connaissances de base :</h3>
             <DisplayOneData data={profile[0].langagesDecouverte} />
-            <DisplayOneData data={profile[0].autresDecouverte} />
+            <DisplayOneData data={profile[0].autresDecouverte} /> */}
 
-            <h2>Les formations : </h2>
-            <h3>Formations générals :</h3>
-            <DisplayOneData data={formationsGeneral} />
-            <h3>Formations dans le domaine de l'informatique :</h3>
-            <DisplayOneData data={formationsCoding} />
-            <h3>TEST JUSTE UN TRUC</h3>
-            {formationsCoding &&
-              Object.entries(formationsCoding).map(([key, formaC], index) => (
-                <div key={key + index}>
-                  <DisplayOneData data={formaC.nom} />
-                </div>
-              ))}
-          </>
-        )}
+      <h2>Les formations : </h2>
+      <h3>Formations générals :</h3>
+      <DisplayOneData data={formationsGeneral} />
+      <h3>Formations dans le domaine de l'informatique :</h3>
+      <DisplayOneData data={formationsCoding} />
+      <h3>TEST JUSTE UN TRUC</h3>
+      {formationsCoding &&
+        Object.entries(formationsCoding).map(([key, formaC], index) => (
+          <div key={key + index}>
+            <DisplayOneData data={formaC.nom} />
+          </div>
+        ))}
     </>
+    /*      )}
+    </> */
   );
 }
 

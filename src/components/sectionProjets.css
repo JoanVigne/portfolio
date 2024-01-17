@@ -1,7 +1,11 @@
 @import url("../app/globals.css");
 
 .section-projets {
-  background: linear-gradient(to bottom, #433027, #261f1c);
+  background: linear-gradient(
+    to bottom,
+    var(--couleur-marron-fonce),
+    var(--couleur-beige-fonce)
+  );
   /*   background-color: var(--couleur-marron-fonce); */
   color: var(--couleur-beige-clair);
   text-align: center;

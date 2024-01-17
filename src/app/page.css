@@ -6,6 +6,11 @@
 .section-a-propos .content {
   display: flex;
   justify-content: space-between;
+  background: linear-gradient(
+    to bottom,
+    var(--couleur-noir),
+    var(--couleur-marron-fonce)
+  );
 }
 
 .section-a-propos .content .image-container {
