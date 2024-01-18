@@ -22,7 +22,6 @@ function Page() {
     <div className="wrapper">
       <div className="form-wrapper">
         <h1 className="mt-60 mb-30">Sign in</h1>
-        <h2>{console.log(profile)}</h2>
         <form onSubmit={handleForm} className="form">
           <label htmlFor="email">
             <p>Email</p>

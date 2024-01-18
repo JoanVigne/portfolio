@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import DisplayOneData from "../../components/DisplayOneData";
 import { fetchDataDB } from "@/firebase/config";
 import "./admin.css";
-import Image from "next/image";
 import MyModal from "@/components/MyModal";
 import { useProfileContext } from "@/context/ProfileContext";
 
@@ -58,7 +57,9 @@ function Page() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [formations, setFormations] = useState<Formations[]>([]);
-  const { profile } = useProfileContext();
+  /*   const { profile } = useProfileContext(); */
+  //
+  const [profile, setProfile] = useState();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = () => {
@@ -82,6 +83,14 @@ function Page() {
       setFormations(fetchedFormations);
     };
     fetchFormations();
+  }, []);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const fetchedProfile = await fetchDataDB("profile");
+      setProfile(fetchedProfile);
+    };
+    fetchProfile();
   }, []);
 
   if (user == null) {
@@ -114,6 +123,17 @@ function Page() {
   return (
     <>
       <h1>You are connected, {user.email}</h1>
+      <h2>
+        Image reçu directement depuis le storage de firebase avec un token qui
+        expire potentiellement
+      </h2>
+      <img
+        className="photo-joan"
+        width="200px"
+        src="https://firebasestorage.googleapis.com/v0/b/portfolio-nextjs-e43b8.appspot.com/o/Joan_big.jpg?alt=media&token=a9c57198-af36-42eb-bdf3-09272d8f3dd7"
+        alt="photo Joan"
+      />
+
       {/*       {Array.isArray(profile) &&
         profile.length > 0 &&
         user.email === "joan.vigne.pro@gmail.com" && (

@@ -14,6 +14,7 @@
 .section-a-propos .infos-container {
   opacity: 0;
   transform: translateY(150px);
+  color: var(--couleur-beige-clair);
 }
 
 /* animation dans le globals.css */
