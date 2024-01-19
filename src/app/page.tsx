@@ -10,6 +10,7 @@ import "./page.css";
 import SectionBanniere from "@/components/SectionBanniere";
 import SectionProjets from "@/components/SectionProjets";
 import SectionAPropos from "@/components/SectionAPropos";
+import SectionContact from "@/components/SectionContact";
 
 interface ProfileData {
   telephone?: string;
@@ -62,6 +63,7 @@ export default function Home() {
       <SectionBanniere />
       <SectionProjets />
       <SectionAPropos />
+      <SectionContact />
     </main>
   );
 }

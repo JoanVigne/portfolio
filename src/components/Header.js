@@ -23,9 +23,10 @@ const Header = () => {
       <div className="logo-container">J-V</div>
       <nav>
         {" "}
-        <Link href="/">home page</Link>
+        <Link href="/">home page</Link>contact
         <Link href="/#projets">Projets</Link>
         <Link href="/admin">Admin</Link>
+        <Link href="/#contact">contact</Link>
         <Link href="/signin">sign in</Link>
         <Link href="/signup">sign up</Link>
         <Link href="/" onClick={logOut}>
