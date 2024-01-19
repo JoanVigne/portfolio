@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import DisplayOneData from "../../components/DisplayOneData";
-import { fetchDataDB } from "@/firebase/config";
+import { fetchDataDB, newFetchDataDB } from "@/firebase/config";
 import "./admin.css";
 import MyModal from "@/components/MyModal";
 import { useProfileContext } from "@/context/ProfileContext";
@@ -59,7 +59,7 @@ function Page() {
   const [formations, setFormations] = useState<Formations[]>([]);
   /*   const { profile } = useProfileContext(); */
   //
-  const [profile, setProfile] = useState();
+  /*   const [profile, setProfile] = useState(); */
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const openModal = () => {
@@ -85,14 +85,33 @@ function Page() {
     fetchFormations();
   }, []);
 
-  useEffect(() => {
+  /*  useEffect(() => {
     const fetchProfile = async () => {
       const fetchedProfile = await fetchDataDB("profile");
       setProfile(fetchedProfile);
     };
     fetchProfile();
-  }, []);
+  }, []); */
+  const { profile, updateProfile } = useProfileContext() || {};
 
+  useEffect(() => {
+    if (profile) {
+      console.log("il y a le profile dans le context", profile);
+      return;
+    }
+    console.log("Dans le useEffect du RootLayout, ProfileProvider :", profile);
+
+    const fetchProfile = async () => {
+      try {
+        const fetchedProfile = await newFetchDataDB("profile");
+        console.log(fetchedProfile);
+        updateProfile(fetchedProfile[0]);
+      } catch (error) {
+        console.error("Erreur lors du fetch du profil :", error);
+      }
+    };
+    fetchProfile();
+  }, []);
   if (user == null) {
     return (
       <>

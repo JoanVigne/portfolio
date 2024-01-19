@@ -9,6 +9,7 @@ interface ProjetData {
     date: string;
     repository: string;
     lien: string;
+    description: string;
     techno: string[];
   };
 }

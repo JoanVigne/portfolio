@@ -6,7 +6,11 @@ interface Projet {
   date: string;
   repository: string;
   lien: string;
+  description: string;
   techno: string[];
+}
+interface srcProjets {
+  [key: string]: React.ReactNode;
 }
 
 const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
@@ -24,7 +28,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
           }
         });
       },
-      { threshold: 0.2 } // Ajuste la valeur en fonction de tes besoins
+      { threshold: 0.2 } // valeur de % de hauteur au scroll sur element
     );
 
     const allElementsInCards = document.querySelectorAll(".card-projet *");
@@ -48,22 +52,62 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
     };
   }, []);
 
-  const { nom, date, repository, lien, techno } = projet;
+  const { nom, date, repository, lien, techno, description } = projet;
 
+  const srcProjets: srcProjets = {
+    "Lil Adventure": (
+      <div className="img-projet-container">
+        <img
+          className="projet-img"
+          src="/screenshot-liladventure-1.png"
+          alt="jeu screenshot"
+        />
+        {/* <img
+          className="projet-img"
+          src="/screenshot-liladventure-2.png"
+          alt="jeu screenshot"
+        /> */}
+        <img
+          className="projet-img"
+          src="/screenshot-liladventure-3.png"
+          alt="jeu screenshot"
+        />
+        <img
+          className="projet-img"
+          src="/screenshot-liladventure-4.png"
+          alt="jeu screenshot"
+        />
+      </div>
+    ),
+    "Daniel Vigne écrivain": (
+      <div className="img-projet-container">
+        <img
+          className="projet-img"
+          src="/screenshot-danielvigne-1.png"
+          alt="jeu screenshot"
+        />
+      </div>
+    ),
+    "Laura Touati Psychologue": (
+      <div className="img-projet-container">
+        <video width="381px" height="auto" autoPlay loop muted>
+          <source src="/video-lauratouati-1.mp4" type="video/mp4" />
+        </video>
+      </div>
+    ),
+  };
   return (
     <div className="card-projet">
       <h3>{nom}</h3>
-      {/* Ajoutez d'autres propriétés selon vos besoins */}
-      {/*       <img src="" alt={nom} /> */}
-      <img className="projet-img" src="/Joan_big.jpg" alt="joan photo" />
-      <h3>date de création : {date}</h3>
-      <h3>
+      {srcProjets[nom]}
+      <h4>date de création : {date}</h4>
+      <h4>
         <a className="projet-repo" href={repository} target="_blank">
           Repository github
         </a>
-      </h3>
+      </h4>
 
-      <h3>Techno utilisées :</h3>
+      <h4>Techno utilisées :</h4>
       <div className="techno-container">
         {techno &&
           techno.map((tec: string, index: number) => (
@@ -77,14 +121,19 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       </div>
 
       <p>
-        Petit texte explicatif de plusieurs lignes qui raconte un peu l'histoire
-        du projet
+        {description
+          ? description
+          : ` pas encore dans la db: pour laura: Site vitrine de plusieurs pages, design realisé par
+        le client. SEO avancé avec comme mots-clés cibles : psychologue Caen etc
+        etc.
+        pour dv : Site vitrine d'un écrivain d'ouvrages spirituels, avec des
+        liens externes vers des sites de ventes. SEO sur les mots clés cibles :
+        jsaisplus`}
       </p>
-      <h3>
-        <a className="projet-lien" href={lien} target="_blank">
-          visiter le site
-        </a>
-      </h3>
+
+      <a className="projet-lien" href={lien} target="_blank">
+        visiter le site
+      </a>
     </div>
   );
 };

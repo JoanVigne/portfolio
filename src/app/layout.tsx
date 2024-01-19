@@ -10,6 +10,7 @@ import {
 import { useEffect } from "react";
 import { fetchDataDB, newFetchDataDB } from "@/firebase/config";
 import { FetchData } from "@/data/FetchData";
+import Head from "next/head";
 
 //
 
@@ -20,29 +21,38 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { profile, setProfile } = useProfileContext() || {};
-
-  useEffect(() => {
-    console.log("Dans le useEffect du RootLayout, ProfileProvider :", profile);
-
-    const fetchProfile = async () => {
-      try {
-        const fetchedProfile = await newFetchDataDB("profile");
-        setProfile(fetchedProfile);
-      } catch (error) {
-        console.error("Erreur lors du fetch du profil :", error);
-      }
-    };
-    fetchProfile();
-  }, [profile, setProfile]);
-
   return (
-    <html lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
+    <html lang="fr">
+      <Head>
+        <title>Joan Vigne - Dev Web</title>
+        <meta
+          name="description"
+          content="Portfolio de Joan Vigne, Développeur Web. Découvrez mes compétences, projets et expériences dans le domaine du développement web."
+        />
+        <meta
+          property="og:title"
+          content="Portfolio Joan Vigne - Développeur Web"
+        />
+        <meta
+          property="og:description"
+          content="Découvrez les compétences, projets et expériences de Joan Vigne, Développeur Web."
+        />
+        <meta property="og:image" content="/Joan.jpg" />
+        <meta property="og:url" content="URL_DU_PORTFOLIO" />
+        <meta property="og:type" content="website" />
+        {/* twitter : */}
+        <meta name="twitter:card" content="summary_large_image" />
+        {/*  <meta name="twitter:site" content="@VOTRE_COMPTE_TWITTER" /> */}
+        <meta
+          name="twitter:title"
+          content="Portfolio Joan Vigne - Développeur Web"
+        />
+        <meta
+          name="twitter:description"
+          content="Découvrez les compétences, projets et expériences de Joan Vigne, Développeur Web."
+        />
+        <meta name="twitter:image" content="/Joan.jpg" />
+      </Head>
 
       <body>
         <Header />

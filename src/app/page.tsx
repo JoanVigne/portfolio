@@ -1,6 +1,6 @@
 "use client";
 import { collection, doc, updateDoc } from "firebase/firestore";
-import { db, fetchDataDB } from "@/firebase/config";
+import { db, fetchDataDB, newFetchDataDB } from "@/firebase/config";
 import { useEffect, useState } from "react";
 import { useProfileContext } from "@/context/ProfileContext";
 
@@ -24,7 +24,26 @@ interface ProfileData {
 }
 
 export default function Home() {
-  const { profile } = useProfileContext();
+  const { profile, updateProfile } = useProfileContext() || {};
+
+  useEffect(() => {
+    if (profile) {
+      console.log("il y a le profile dans le context", profile);
+      return;
+    }
+    console.log("Dans le useEffect du RootLayout, ProfileProvider :", profile);
+
+    const fetchProfile = async () => {
+      try {
+        const fetchedProfile = await newFetchDataDB("profile");
+        console.log(fetchedProfile);
+        updateProfile(fetchedProfile[0]);
+      } catch (error) {
+        console.error("Erreur lors du fetch du profil :", error);
+      }
+    };
+    fetchProfile();
+  }, []);
 
   /*   const [loading, setLoading] = useState(true);
   useEffect(() => {
