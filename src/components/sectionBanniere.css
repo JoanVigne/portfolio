@@ -30,9 +30,21 @@
   color: var(--couleur-beige-clair);
   white-space: nowrap;
   position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  animation: moveLeft 30s linear infinite;
+  top: 40%;
+  transform: translate(0, -50%);
+  transition: transform 0.1s ease-out;
+}
+
+/* .section-banniere h1.scroll-down {
+  animation-name: moveRight;
+}
+@keyframes moveRight {
+  0% {
+    transform: translateX(-100%, -50%);
+  }
+  100% {
+    transform: translate(0, -50%);
+  }
 }
 @keyframes moveLeft {
   0% {
@@ -42,3 +54,4 @@
     transform: translateX(-100%, -50%);
   }
 }
+ */

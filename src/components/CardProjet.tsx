@@ -95,6 +95,25 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
         </video>
       </div>
     ),
+    "openclassrooms Sophie Bluel architecte": (
+      <div className="img-projet-container">
+        <img
+          className="projet-img"
+          src="/screenshot-sophiebluel-1.png"
+          alt="projet openclassroom screenshot"
+        />
+        <img
+          className="projet-img"
+          src="/screenshot-sophiebluel-2.png"
+          alt="projet openclassroom screenshot"
+        />
+        <img
+          className="projet-img"
+          src="/screenshot-sophiebluel-3.png"
+          alt="projet openclassroom screenshot"
+        />
+      </div>
+    ),
   };
   return (
     <div className="card-projet">

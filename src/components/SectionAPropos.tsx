@@ -1,37 +1,39 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import DisplayOneData from "./DisplayOneData";
 import "./sectionAPropos.css";
 
 const SectionAPropos = () => {
+  const sectionRef = useRef(null);
+  const infosContainerRef = useRef(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
+            infosContainerRef.current.classList.add("in-view");
           }
         });
       },
-      { threshold: 0.2 } // Ajuste la valeur en fonction de tes besoins
+      { threshold: 0.1 }
     );
 
-    const infos = document.querySelector(".infos-container") as HTMLElement;
-    observer.observe(infos);
+    observer.observe(sectionRef.current);
 
     return () => {
-      observer.unobserve(infos);
+      observer.disconnect();
     };
   }, []);
 
   return (
-    <section className="section-a-propos">
+    <section className="section-a-propos" ref={sectionRef}>
       <h2>À propos ...</h2>
       <div className="content">
         <div className="image-container">
           <img src="/Joan_big.jpg" alt="joan photo" />
         </div>
 
-        <div className="infos-container">
+        <div className="infos-container" ref={infosContainerRef}>
           <p>
             Je suis Joan Vigne, un professionnel de 33 ans passionné par le
             monde du développement web et de l'informatique. Mon engagement
