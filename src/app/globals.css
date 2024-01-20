@@ -8,10 +8,27 @@
   --padding-h2: 30px;
 }
 
+/* fonts : */
+@font-face {
+  font-family: "League spartan";
+  src: url("../../public/fonts/League_Spartan/LeagueSpartan-VariableFont_wght.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../../public/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf")
+    format("truetype");
+}
+@font-face {
+  font-family: "Roboto Slab";
+  src: url("../../public/fonts/Roboto_Slab/RobotoSlab-VariableFont_wght.ttf")
+    format("truetype");
+}
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: "Playfair Display", sans-serif;
 }
 .in-view {
   animation: fadeInUpInView 1.5s ease-out forwards;
@@ -34,7 +51,9 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
-
+h1 {
+  font-family: "Playfair Display";
+}
 h2 {
   padding: var(--padding-h2);
   text-align: center;
@@ -42,6 +61,7 @@ h2 {
 a {
   color: inherit;
   text-decoration: none;
+  font-family: "League spartan", sans-serif;
 }
 
 button:hover {

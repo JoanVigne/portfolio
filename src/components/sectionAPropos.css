@@ -8,13 +8,45 @@
   animation: fadeInUpInView 2s ease-out forwards;
 } */
 
-.section-a-propos {
+/* .section-a-propos {
   overflow: hidden;
-}
+} */
 .section-a-propos .infos-container {
-  opacity: 0;
-  transform: translateY(150px);
+  /*   opacity: 0;
+  transform: translateY(150px); */
+  padding: 20px;
   color: var(--couleur-beige-clair);
 }
 
 /* animation dans le globals.css */
+
+.section-a-propos {
+  background-color: var(--couleur-beige-fonce);
+}
+.section-a-propos .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    to bottom,
+    var(--couleur-noir),
+    var(--couleur-marron-fonce)
+  );
+}
+
+.section-a-propos .content img {
+  max-width: 500px;
+  /*   min-width: 250px; */
+  /*   height: fit-content; */
+}
+
+.section-a-propos .content .infos-container {
+  color: #fefffa;
+  text-align: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .section-a-propos .content {
+    flex-direction: column;
+  }
+}

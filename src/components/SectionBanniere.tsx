@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import "./sectionBanniere.css";
 
 const SectionBanniere = () => {
-  const h1Ref = useRef(null);
-  const initialTranslateX = useRef(0);
-  const lastScrollTop = useRef(0);
-  const [upOrDown, setUpOrDown] = useState(true);
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+  const initialTranslateX = useRef<number>(0);
+  const lastScrollTop = useRef<number>(0);
+  const [upOrDown, setUpOrDown] = useState<boolean>(true);
 
   useEffect(() => {
     const h1Element = h1Ref.current;
-    console.log("initialTranslateX", initialTranslateX);
     if (h1Element) {
       const matrix = new DOMMatrix(
         window.getComputedStyle(h1Element).transform
@@ -21,7 +20,7 @@ const SectionBanniere = () => {
       const h1Element = h1Ref.current;
       if (h1Element) {
         const newTranslateX = initialTranslateX.current - 5;
-        console.log("newTranslateX:", newTranslateX);
+
         if (newTranslateX <= -550) {
           setUpOrDown(false);
           return;
@@ -38,7 +37,6 @@ const SectionBanniere = () => {
         const newTranslateX = initialTranslateX.current + 5;
         if (newTranslateX >= 550) {
           setUpOrDown(true);
-          console.log("Setting upOrDown to true", upOrDown);
           return;
         }
         h1Element.style.transform = `translateX(${newTranslateX}px)`;
@@ -50,16 +48,12 @@ const SectionBanniere = () => {
       const currentScroll = window.scrollY;
       if (currentScroll > lastScrollTop.current) {
         setUpOrDown(false);
-        console.log("Scroll down");
-        reverseUpdateTranslateX();
-        console.log(upOrDown);
-      } else if (currentScroll < lastScrollTop.current) {
-        console.log("Scroll up");
 
+        reverseUpdateTranslateX();
+      } else if (currentScroll < lastScrollTop.current) {
         setUpOrDown(true);
 
         updateTranslateX();
-        console.log(upOrDown);
       }
       lastScrollTop.current = currentScroll;
     };
@@ -79,34 +73,15 @@ const SectionBanniere = () => {
         window.removeEventListener("scroll", scrollHandle);
       };
     }
-    console.log(upOrDown);
-    /* const intervalId = setInterval(updateTranslateX, 50);
-
-    const reverseIntervalId = setInterval(reverseUpdateTranslateX, 50); */
-
-    /* const intervalId = setInterval(updateTranslateX, 50); */
-
-    // Attache l'événement de défilement
-
-    /* return () => {
-      if (upOrDown === true) {
-        clearInterval(intervalId);
-      }
-      if (upOrDown === false) {
-        clearInterval(reverseIntervalId);
-      } */
-    /*  clearInterval(intervalId); */
-    /*  window.removeEventListener("scroll", scrollHandle); 
-    };*/
   }, [upOrDown]);
 
+  function handleClick() {
+    initialTranslateX.current = 0;
+  }
   return (
     <section className="section-banniere">
-      <h1 ref={h1Ref}>
+      <h1 ref={h1Ref} onClick={handleClick}>
         JOAN VIGNE - WEB DEVELOPER{" "}
-        {/* - JOAN VIGNE - WEB DEVELOPER - JOAN VIGNE -
-        WEB DEVELOPER - JOAN VIGNE - WEB DEVELOPER - JOAN VIGNE - WEB DEVELOPER
-        - */}
       </h1>
     </section>
   );

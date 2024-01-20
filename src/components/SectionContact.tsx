@@ -1,6 +1,5 @@
 import { useProfileContext } from "@/context/ProfileContext";
-import React, { useState } from "react";
-import DisplayOneData from "./DisplayOneData";
+import React, { useState, FormEvent } from "react";
 import "./sectionContact.css";
 
 interface ProfileData {
@@ -19,7 +18,7 @@ const SectionContact = () => {
   const { profile } = useProfileContext();
 
   const [formStatus, setFormStatus] = useState("Send");
-  const onSubmit = (e) => {
+  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus("Submitting...");
     const { name, email, message } = e.target.elements;
@@ -38,9 +37,15 @@ const SectionContact = () => {
         {profile && (
           <div className="contact-direct">
             <h3>
-              Par email :<a href={`mailto:${profile.email}`}>{profile.email}</a>
+              Par email :{" "}
+              <a href={`mailto:${profile.email}`}>{profile.email}</a>
             </h3>
-            <h3>Par téléphone : {profile.telephone}</h3>
+            <h3>
+              Par téléphone :{" "}
+              <a href={`tel:${profile.telephone.replace(/\s/g, "")}`}>
+                {profile.telephone}
+              </a>
+            </h3>
           </div>
         )}
         <div className="form-container">

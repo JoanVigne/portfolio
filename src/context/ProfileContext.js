@@ -5,7 +5,6 @@ const ProfileContext = createContext();
 
 export const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
-  console.log("profile dans le profileProvider, DEBUT ", profile);
   const updateProfile = (newProfile) => {
     setProfile(newProfile);
   };
@@ -14,8 +13,6 @@ export const ProfileProvider = ({ children }) => {
     profile,
     updateProfile,
   };
-
-  console.log("profile dans le profileProvider, FIN ", profile);
   return (
     <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
   );

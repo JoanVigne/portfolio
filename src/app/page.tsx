@@ -32,12 +32,9 @@ export default function Home() {
       console.log("il y a le profile dans le context", profile);
       return;
     }
-    console.log("Dans le useEffect du RootLayout, ProfileProvider :", profile);
-
     const fetchProfile = async () => {
       try {
         const fetchedProfile = await newFetchDataDB("profile");
-        console.log(fetchedProfile);
         updateProfile(fetchedProfile[0]);
       } catch (error) {
         console.error("Erreur lors du fetch du profil :", error);

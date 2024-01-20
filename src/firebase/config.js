@@ -29,6 +29,10 @@ async function fetchDataDB(collectionName) {
   console.log("dans le fetchDataDB, DEBUT", collectionName);
   const dansLeSessionStorage = sessionStorage.getItem(collectionName);
   if (dansLeSessionStorage) {
+    console.log(
+      "cette collection est dans le session storage: ",
+      collectionName
+    );
     return JSON.parse(dansLeSessionStorage);
   }
   const colRef = collection(db, collectionName);
@@ -38,7 +42,7 @@ async function fetchDataDB(collectionName) {
       return { ...doc.data(), id: doc.id };
     });
     sessionStorage.setItem(collectionName, JSON.stringify(data));
-    console.log("dans le fetchDataDB, fin", collectionName);
+    console.log("Vient d'etre fetched :", collectionName);
     return data;
   } catch (error) {
     console.error("Error fetching data from Firestore:", error);

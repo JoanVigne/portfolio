@@ -2,14 +2,8 @@
 import "./globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
 import Header from "../components/Header";
-import { ProfileProvider, useProfileContext } from "@/context/ProfileContext";
-import {
-  FormationsProvider,
-  useFormationsContext,
-} from "@/context/FormationsContext";
-import { useEffect } from "react";
-import { fetchDataDB, newFetchDataDB } from "@/firebase/config";
-import { FetchData } from "@/data/FetchData";
+import { ProfileProvider } from "@/context/ProfileContext";
+
 import Head from "next/head";
 
 //

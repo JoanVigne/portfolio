@@ -6,25 +6,10 @@
     var(--couleur-noir),
     var(--couleur-marron-fonce)
   );
-  /*   background-color: var(--couleur-marron-fonce); */
   position: relative;
   height: 90vh;
 }
 
-/* .section-banniere h1 {
-  font-size: 80px;
-  color: #fefffa;
-  white-space: nowrap;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-}
-
-.section-banniere h1 div {
-  margin-right: 50px;
-  animation: moveLeft 30s linear infinite;
-} */
 .section-banniere h1 {
   font-size: 90px;
   color: var(--couleur-beige-clair);
@@ -35,23 +20,6 @@
   transition: transform 0.1s ease-out;
 }
 
-/* .section-banniere h1.scroll-down {
-  animation-name: moveRight;
+.section-banniere h1:hover {
+  cursor: pointer;
 }
-@keyframes moveRight {
-  0% {
-    transform: translateX(-100%, -50%);
-  }
-  100% {
-    transform: translate(0, -50%);
-  }
-}
-@keyframes moveLeft {
-  0% {
-    transform: translate(0, -50%);
-  }
-  100% {
-    transform: translateX(-100%, -50%);
-  }
-}
- */
