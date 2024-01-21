@@ -7,6 +7,8 @@ import { fetchDataDB, newFetchDataDB } from "@/firebase/config";
 import "./admin.css";
 import MyModal from "@/components/MyModal";
 import { useProfileContext } from "@/context/ProfileContext";
+import Loading from "@/components/Loading";
+import Image from "next/image";
 
 interface ProfileData {
   telephone?: string;
@@ -56,19 +58,16 @@ function Page() {
   const { user } = useAuthContext() as { user: UserData };
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [formations, setFormations] = useState<Formations[]>([]);
-  /*   const { profile } = useProfileContext(); */
-  //
-  /*   const [profile, setProfile] = useState(); */
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const openModal = () => {
-    setModalIsOpen(true);
+  const [modalEditProfile, setmodalEditProfile] = useState(false);
+  const toggleModal = () => {
+    setmodalEditProfile(!modalEditProfile);
   };
-  const closeModal = () => {
-    setModalIsOpen(false);
+  const [modalEditProjets, setModalEditProjets] = useState(false);
+  const toggleEditProjetsModal = () => {
+    setModalEditProjets(!modalEditProjets);
   };
-
+  // peut etre inutile
   useEffect(() => {
     const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -77,6 +76,15 @@ function Page() {
     fetchData();
   }, []);
 
+  // PROJETS
+  const [projets, setProjets] = useState(false);
+  useEffect(() => {
+    const sessionStorageProjets = sessionStorage.getItem("projets");
+    setProjets(JSON.parse(sessionStorageProjets));
+  }, []);
+
+  // FORMATIONS
+  const [formations, setFormations] = useState<Formations[]>([]);
   useEffect(() => {
     const fetchFormations = async () => {
       const fetchedFormations = await fetchDataDB("formations");
@@ -84,14 +92,7 @@ function Page() {
     };
     fetchFormations();
   }, []);
-
-  /*  useEffect(() => {
-    const fetchProfile = async () => {
-      const fetchedProfile = await fetchDataDB("profile");
-      setProfile(fetchedProfile);
-    };
-    fetchProfile();
-  }, []); */
+  // PROFILE
   const { profile, updateProfile } = useProfileContext() || {};
 
   useEffect(() => {
@@ -121,21 +122,9 @@ function Page() {
     );
   }
   if (loading) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
-  /*   const {
-    telephone,
-    email,
-    nom,
-    prenom,
-    naissance,
-    autresDecouverte,
-    autresMaitrise,
-    langagesDecouverte,
-    langagesMaitrise,
-  } = profile[0] || ({} as ProfileData);
- */
   const { formationsGeneral, formationsCoding } = (formations[0] ??
     {}) as Formations;
 
@@ -152,24 +141,22 @@ function Page() {
         src="https://firebasestorage.googleapis.com/v0/b/portfolio-nextjs-e43b8.appspot.com/o/Joan_big.jpg?alt=media&token=a9c57198-af36-42eb-bdf3-09272d8f3dd7"
         alt="photo Joan"
       />
-
-      {/*       {Array.isArray(profile) &&
-        profile.length > 0 &&
-        user.email === "joan.vigne.pro@gmail.com" && (
-          <>
-            <h3>Profile</h3>
-            <div className="profileCard">
+      <div className="edits-container">
+        {profile && user.email === "joan.vigne.pro@gmail.com" && (
+          <div className="profile-edit-container">
+            <h3>edit Profile</h3>
+            <div className="edit-card">
               <Image
-                src={"/" + profile[0].prenom + ".jpg"}
+                src={"/" + profile.prenom + ".jpg"}
                 alt="joan photo"
                 width={199}
                 height={133}
               />
-              <DisplayOneData data={profile[0].prenom} />
-              <DisplayOneData data={profile[0].nom} />
-              <DisplayOneData data={profile[0].email} />
-              <DisplayOneData data={profile[0].naissance} />
-              <DisplayOneData data={profile[0].telephone} />
+              <DisplayOneData data={profile.prenom} />
+              <DisplayOneData data={profile.nom} />
+              <DisplayOneData data={profile.email} />
+              <DisplayOneData data={profile.naissance} />
+              <DisplayOneData data={profile.telephone} />
               <Image
                 className="edit-icon"
                 src="/edit.png"
@@ -177,24 +164,57 @@ function Page() {
                 width={14}
                 height={14}
                 priority
-                onClick={openModal}
+                onClick={toggleModal}
               />
               <MyModal
-                title="Un titre de test"
-                subtitle="Un sous titre"
-                contentP="Lorem ipsum osjfds cdsa k ndas "
+                title="Edit profile"
+                subtitle=""
+                contentP=""
                 contentForm={"editProfile"}
-                isOpen={modalIsOpen}
-                closeModal={closeModal}
+                isOpen={modalEditProfile}
+                closeModal={toggleModal}
               />
             </div>
-
-            <h3>Langages, frameworks et apps maitrisés :</h3>
-            <DisplayOneData data={profile[0].langagesMaitrise} />
-            <DisplayOneData data={profile[0].autresMaitrise} />
-            <h3>Connaissances de base :</h3>
-            <DisplayOneData data={profile[0].langagesDecouverte} />
-            <DisplayOneData data={profile[0].autresDecouverte} /> */}
+          </div>
+        )}
+        <div className="projets-edit-container">
+          <h3>edit Projets</h3>
+          <div className="edit-card">
+            {projets &&
+              projets.map((projet) => {
+                const projectValues = Object.values(projet);
+                return projectValues.map((project) => (
+                  <div key={project.nom + project.date}>
+                    <h3>{project.nom}</h3>
+                  </div>
+                ));
+              })}
+            <Image
+              className="edit-icon"
+              src="/edit.png"
+              alt="edit icon"
+              width={14}
+              height={14}
+              priority
+              onClick={toggleEditProjetsModal}
+            />
+            <MyModal
+              title="Edit projets"
+              subtitle=""
+              contentP=""
+              contentForm={"editProjets"}
+              isOpen={modalEditProjets}
+              closeModal={toggleEditProjetsModal}
+            />
+          </div>
+        </div>
+      </div>
+      <h3>Langages, frameworks et apps maitrisés :</h3>
+      <DisplayOneData data={profile.langagesMaitrise} />
+      <DisplayOneData data={profile.autresMaitrise} />
+      <h3>Connaissances de base :</h3>
+      <DisplayOneData data={profile.langagesDecouverte} />
+      <DisplayOneData data={profile.autresDecouverte} />
 
       <h2>Les formations : </h2>
       <h3>Formations générals :</h3>
@@ -209,8 +229,6 @@ function Page() {
           </div>
         ))}
     </>
-    /*      )}
-    </> */
   );
 }
 

@@ -1,23 +1,32 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import signIn from "@/firebase/auth/signin";
 import { useRouter } from "next/navigation";
 import { useProfileContext } from "@/context/ProfileContext";
+import Loading from "@/components/Loading";
 
 function Page() {
   const { profile, updateProfile } = useProfileContext();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const router = useRouter();
+  const [erreur, setErreur] = useState(false);
+  const [messageErreur, setMessageErreur] = useState("");
 
   const handleForm = async (event) => {
     event.preventDefault();
     const { result, error } = await signIn(email, password);
     if (error) {
+      setErreur(true);
+      setMessageErreur(error.message);
       return console.log(error);
     }
+    console.log(result);
+    setErreur(false);
+    setMessageErreur("");
     return router.push("/admin");
   };
+
   return (
     <div className="wrapper">
       <div className="form-wrapper">
@@ -48,6 +57,8 @@ function Page() {
           <button type="submit">Sign in</button>
         </form>
       </div>
+      <Loading />
+      {erreur && messageErreur}
     </div>
   );
 }

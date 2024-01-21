@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import editIcon from "../../public/edit.png";
+import Loading from "./Loading";
 const DisplayOneData = ({ data }) => {
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +17,7 @@ const DisplayOneData = ({ data }) => {
   return (
     <>
       {loading ? (
-        <p>Chargement en cours...</p>
+        <Loading />
       ) : (
         <>
           {typeof data === "string" && <p>{data}</p>}

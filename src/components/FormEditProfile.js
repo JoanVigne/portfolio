@@ -2,15 +2,32 @@ import React, { useEffect, useState } from "react";
 import "./formEditProfile.css";
 import { db } from "@/firebase/config";
 import { collection, doc, updateDoc } from "firebase/firestore";
+import { useProfileContext } from "@/context/ProfileContext";
 
 const FormEditProfile = () => {
-  const sessionStorageDATA = JSON.parse(sessionStorage.getItem("profile"));
-  const [dataProfile, setdataProfile] = useState(sessionStorageDATA?.[0] ?? {});
-  // pour setdataProfile
+  // fetch ou recuperer dans context le profile : PEUT ETRE PAS BESOIN CAR PAGE ADMIN
+  const { profile, updateProfile } = useProfileContext() || {};
   useEffect(() => {
-    sessionStorageDATA[0].length > 0 && setdataProfile(sessionStorageDATA[0]);
-  }, [sessionStorageDATA]);
+    if (profile) {
+      console.log("il y a le profile dans le context", profile);
+      return;
+    }
+    console.log("Dans le useEffect du RootLayout, ProfileProvider :", profile);
+
+    const fetchProfile = async () => {
+      try {
+        const fetchedProfile = await newFetchDataDB("profile");
+        console.log(fetchedProfile);
+        updateProfile(fetchedProfile[0]);
+      } catch (error) {
+        console.error("Erreur lors du fetch du profil :", error);
+      }
+    };
+    fetchProfile();
+  }, []);
+
   // change la value des inputs :
+  const [dataProfile, setdataProfile] = useState(profile);
   function handleInputChange(e) {
     const { name, value } = e.target;
     const updatedValue = Array.isArray(value) ? value : value.split(",");
@@ -26,11 +43,14 @@ const FormEditProfile = () => {
     // Ajoutez ici la logique pour soumettre les données modifiées, par exemple, enregistrer dans sessionStorage ou envoyer à un backend
     console.log("Données modifiées :", dataProfile);
     // SI C EST LES MEMES DONNEES, PAS D ENVOI A LA BD
-    if (JSON.stringify(dataProfile) == JSON.stringify(sessionStorageDATA[0])) {
+    if (dataProfile == profile) {
       console.log("ce sont les memes données");
       return;
     }
     try {
+      console.log("le profile : ", profile);
+      console.log("les datas recup dans le form : ", dataProfile);
+      return;
       const documentId = dataProfile.id;
       console.log("documentId", documentId);
       const docRef = doc(collection(db, "profile"), documentId);
@@ -73,7 +93,7 @@ const FormEditProfile = () => {
 
   return (
     <form className="form-edit-profile" onSubmit={handleSubmit}>
-      {sessionStorageDATA[0] && (
+      {profile && (
         <>
           <label htmlFor="email">E-mail</label>
           <input
@@ -225,7 +245,7 @@ const FormEditProfile = () => {
             className="reset-form"
             type="button"
             value="Reset"
-            onClick={() => setdataProfile(sessionStorageDATA[0])}
+            onClick={() => setdataProfile(profile)}
           />
         </>
       )}
