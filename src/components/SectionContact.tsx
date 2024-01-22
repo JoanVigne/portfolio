@@ -1,6 +1,8 @@
 import { useProfileContext } from "@/context/ProfileContext";
 import React, { useState, FormEvent, useRef } from "react";
 import "./sectionContact.css";
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import { db } from "@/firebase/config";
 
 /* interface ProfileData {
   telephone?: string;
@@ -21,7 +23,7 @@ const SectionContact = () => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (formStatus == "Message envoyé !") {
@@ -30,19 +32,29 @@ const SectionContact = () => {
       );
       return;
     }
-    setFormStatus("Submitting...");
+    setFormStatus("Envoi du message...");
 
     const formData = new FormData(e.target as HTMLFormElement);
 
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const message = formData.get("message") as string;
-
+    if (!name || !email || !message) {
+      setFormStatus("Veuillez remplir tous les champs.");
+      return;
+    }
     console.log({ name, email, message });
-    setTimeout(() => {
+    const dataAEnvoyer = { name, email, message };
+    try {
+      const docRef = doc(collection(db, "messages"));
+      await setDoc(docRef, dataAEnvoyer);
+      console.log("Message envoyé avec succès !");
       setFormStatus("Message envoyé !");
-      formRef.current.reset();
-    }, 1000);
+      // formRef.current.reset();
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du document :", error);
+      setFormStatus("Erreur lors de l'envoi du message. Veuillez réessayer.");
+    }
   };
 
   return (

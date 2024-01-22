@@ -76,6 +76,16 @@ function Page() {
     fetchData();
   }, []);
 
+  // MESSAGES
+  const [messages, setMessages] = useState(false);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const fetchedMessges = await fetchDataDB("messages");
+      setMessages(fetchedMessges);
+    };
+    fetchMessages();
+  }, []);
   // PROJETS
   const [projets, setProjets] = useState(false);
   useEffect(() => {
@@ -131,6 +141,23 @@ function Page() {
   return (
     <>
       <h1>You are connected, {user.email}</h1>
+      <h2>Messages reçu : </h2>
+      <div className="messages-container">
+        {messages &&
+          messages.map((mess, index) => (
+            <div key={mess.id}>
+              {index == 0 ? (
+                <h3>Dernier message :</h3>
+              ) : (
+                <h3>Ancien message</h3>
+              )}
+
+              <p>de {mess.name}</p>
+              <p>Email: {mess.email}</p>
+              <p>{mess.message}</p>
+            </div>
+          ))}
+      </div>
       <h2>
         Image reçu directement depuis le storage de firebase avec un token qui
         expire potentiellement

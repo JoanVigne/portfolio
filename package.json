@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type": "module",
+    "test": "jest"
   },
   "dependencies": {
     "firebase": "^10.7.1",
@@ -16,9 +18,20 @@
     "react-modal": "^3.16.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "babel-jest": "^27.5.1",
+    "jest": "^27.5.1",
     "typescript": "^5"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   }
 }

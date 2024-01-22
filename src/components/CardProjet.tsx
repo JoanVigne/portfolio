@@ -142,14 +142,8 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       <p>
         {description
           ? description
-          : ` pas encore dans la db: pour laura: Site vitrine de plusieurs pages, design realisé par
-        le client. SEO avancé avec comme mots-clés cibles : psychologue Caen etc
-        etc.
-        pour dv : Site vitrine d'un écrivain d'ouvrages spirituels, avec des
-        liens externes vers des sites de ventes. SEO sur les mots clés cibles :
-        jsaisplus
-        pour sophieBluel : Création de modales pour la modification du 
-        contenu de la base de donnée et d'un système de connection administrateur.
+          : `
+        Pas de description disponible
         `}
       </p>
       {lien && (
