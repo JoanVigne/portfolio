@@ -1,0 +1,55 @@
+@import url("../app/globals.css");
+
+.section-formations {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--couleur-beige-fonce);
+}
+
+.formations-container {
+}
+
+.formations-groupe-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.formation-card {
+  margin: 20px;
+  border: 1px black solid;
+  background-color: var(--couleur-beige-clair);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+.formation-card * {
+  margin: 5px;
+}
+.etablissement-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.etablissement-container .logo-etablissement {
+  width: 50px;
+}
+
+.en-savoir-plus {
+  max-width: 130px;
+  background-color: var(--couleur-bleu);
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+}
+.contenu-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.contenu-list.contenu-expanded {
+  max-height: 250px;
+}

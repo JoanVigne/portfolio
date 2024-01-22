@@ -11,6 +11,7 @@ import SectionBanniere from "@/components/SectionBanniere";
 import SectionProjets from "@/components/SectionProjets";
 import SectionAPropos from "@/components/SectionAPropos";
 import SectionContact from "@/components/SectionContact";
+import SectionFormations from "@/components/SectionFormations";
 
 interface ProfileData {
   telephone?: string;
@@ -60,6 +61,7 @@ export default function Home() {
       <SectionBanniere />
       <SectionProjets />
       <SectionAPropos />
+      <SectionFormations />
       <SectionContact />
     </main>
   );

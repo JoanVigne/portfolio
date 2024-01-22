@@ -1,5 +1,6 @@
 #contact {
-  background-color: var(--couleur-beige-clair);
+  background-color: var(--couleur-marron-fonce);
+  color: var(--couleur-beige-clair);
 }
 
 .contact-container {
