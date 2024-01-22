@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const FormEditProjets = () => {
@@ -33,12 +34,102 @@ const FormEditProjets = () => {
     }
   }
 
+  const [ouvrirForm, setOuvrirForm] = useState(false);
+
+  /* const [dataProfile, setdataProfile] = useState(profile);
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    const updatedValue = Array.isArray(value) ? value : value.split(",");
+    setdataProfile((prevData) => ({
+      ...prevData,
+      [name]: updatedValue,
+    }));
+  } */
+
+  function ajouterUnProjet() {
+    console.log("addAProjet");
+  }
+  function SupprimerUnProjet(thisOne) {
+    console.log(thisOne);
+  }
+
   return (
     <div>
-      <form className="form-edit-profile" onSubmit={handleSubmit}>
-        <label htmlFor=""> TEST </label>
-        <input type="text" value="test" />
-      </form>
+      {projets &&
+        projets.map((projet) => {
+          const projectValues = Object.values(projet);
+          return projectValues.map((project) => {
+            // Vérifiez si la clé est "id"
+            if (project !== "bnj6s7XN4HZ19fVcNNv2") {
+              return (
+                <div key={project.nom}>
+                  <span>{project.nom} </span>
+                  <button
+                    onClick={() => {
+                      SupprimerUnProjet(project);
+                    }}
+                  >
+                    supprimer
+                  </button>
+                </div>
+              );
+            }
+            // Si la clé est "id", retournez null ou ne rien retourner
+            return null;
+          });
+        })}
+      <button
+        onClick={() => {
+          setOuvrirForm(!ouvrirForm);
+        }}
+      >
+        {ouvrirForm ? <>hide form</> : <>Ajouter un projet</>}
+      </button>
+      {ouvrirForm && (
+        <form action="" onSubmit={ajouterUnProjet}>
+          <label htmlFor="nom">Nom</label>
+          <input
+            type="text"
+            name="nom"
+            id="nom"
+            /*   value={dataProfile.email}
+            onChange={handleInputChange} */
+          />
+          <label htmlFor="nom">repository</label>
+          <input
+            type="text"
+            name="repository"
+            id="repository"
+            /*   value={dataProfile.email}
+            onChange={handleInputChange} */
+          />
+          <label htmlFor="nom">lien</label>
+          <input
+            type="text"
+            name="lien"
+            id="lien"
+            /*   value={dataProfile.email}
+            onChange={handleInputChange} */
+          />
+          <label htmlFor="nom">description</label>
+          <input
+            type="text"
+            name="description"
+            id="description"
+            /*   value={dataProfile.email}
+            onChange={handleInputChange} */
+          />
+          <label htmlFor="nom">date</label>
+          <input
+            type="text"
+            name="date"
+            id="date"
+            /*   value={dataProfile.email}
+            onChange={handleInputChange} */
+          />
+          techno ?
+        </form>
+      )}
     </div>
   );
 };
