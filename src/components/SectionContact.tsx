@@ -1,8 +1,8 @@
 import { useProfileContext } from "@/context/ProfileContext";
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useRef } from "react";
 import "./sectionContact.css";
 
-interface ProfileData {
+/* interface ProfileData {
   telephone?: string;
   email?: string;
   nom?: string;
@@ -12,22 +12,37 @@ interface ProfileData {
   autresMaitrise?: string;
   langagesDecouverte?: string;
   langagesMaitrise?: string;
-}
+} */
 
 const SectionContact = () => {
   const { profile } = useProfileContext();
 
   const [formStatus, setFormStatus] = useState("Send");
+
+  const formRef = useRef<HTMLFormElement>(null);
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (formStatus == "Message envoyé !") {
+      setFormStatus(
+        "Vous avez deja envoyé un message, renvoyer un nouveau message?"
+      );
+      return;
+    }
     setFormStatus("Submitting...");
-    const { name, email, message } = e.target.elements;
-    let conFom = {
-      name: name.value,
-      email: email.value,
-      message: message.value,
-    };
-    console.log(conFom);
+
+    const formData = new FormData(e.target as HTMLFormElement);
+
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const message = formData.get("message") as string;
+
+    console.log({ name, email, message });
+    setTimeout(() => {
+      setFormStatus("Message envoyé !");
+      formRef.current.reset();
+    }, 1000);
   };
 
   return (
@@ -50,24 +65,30 @@ const SectionContact = () => {
         )}
         <div className="form-container">
           <h3>Ou au moyen de ce formulaire :</h3>
-          <form onSubmit={onSubmit}>
+          <form ref={formRef} onSubmit={onSubmit}>
             <div className="">
               <label className="" htmlFor="name">
-                Name
+                Nom
               </label>
-              <input className="" type="text" id="name" required />
+              <input className="" type="text" id="name" name="name" required />
             </div>
             <div className="mb-3">
               <label className="" htmlFor="email">
                 Email
               </label>
-              <input className="" type="email" id="email" required />
+              <input
+                className=""
+                type="email"
+                id="email"
+                name="email"
+                required
+              />
             </div>
             <div className="">
               <label className="" htmlFor="message">
                 Message
               </label>
-              <textarea className="" id="message" required />
+              <textarea className="" id="message" name="message" required />
             </div>
             <button className="" type="submit">
               {formStatus}

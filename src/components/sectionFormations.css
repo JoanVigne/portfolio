@@ -6,9 +6,6 @@
   background-color: var(--couleur-beige-fonce);
 }
 
-.formations-container {
-}
-
 .formations-groupe-container {
   display: flex;
   justify-content: space-around;
@@ -16,16 +13,22 @@
 }
 
 .formation-card {
+  text-align: center;
+  min-height: 210px;
   margin: 20px;
   border: 1px black solid;
   background-color: var(--couleur-beige-clair);
   display: flex;
   flex-direction: column;
-  text-align: center;
+  justify-content: space-around;
   align-items: center;
+  border-radius: 35px;
+  padding-bottom: 10px;
 }
 .formation-card * {
   margin: 5px;
+
+  color: var(--couleur-noir);
 }
 .etablissement-container {
   display: flex;
@@ -38,7 +41,7 @@
 
 .en-savoir-plus {
   max-width: 130px;
-  background-color: var(--couleur-bleu);
+
   color: #fff;
   padding: 5px 10px;
   border: none;
@@ -51,5 +54,13 @@
 }
 
 .contenu-list.contenu-expanded {
-  max-height: 250px;
+  max-height: 350px;
+  overflow: visible;
+}
+
+@media only screen and (max-width: 800px) {
+  .formations-groupe-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
