@@ -88,6 +88,7 @@ function Page() {
     };
     fetchMessages();
   }, []);
+
   // PROJETS
   const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
     null
@@ -148,24 +149,30 @@ function Page() {
         <h1>Welcome {user.email}</h1>
       </div>
 
-      <h2>Messages reçu : </h2>
+      <h2>Messages reçus : </h2>
       <div className="messages-container">
         {messages &&
-          messages.map((mess, index) => (
-            <div key={mess.id} className="message">
-              {index == 0 ? (
-                <h3>Dernier message :</h3>
-              ) : (
-                <h3>Ancien message</h3>
-              )}
+          messages
+            .slice()
+            .sort(
+              (a, b) =>
+                new Date(b.dateEnvoi).getTime() -
+                new Date(a.dateEnvoi).getTime()
+            )
+            .map((mess, index) => (
+              <div key={mess.id} className="message">
+                {index === 0 ? (
+                  <h3>Dernier message :</h3>
+                ) : (
+                  <h3>Ancien message</h3>
+                )}
 
-              <h4>de {mess.name}</h4>
-              <h4>{mess.email}</h4>
-              <p>{mess.message}</p>
-            </div>
-          ))}
+                <h4>de {mess.name}</h4>
+                <h4>{mess.email}</h4>
+                <p>{mess.message}</p>
+              </div>
+            ))}
       </div>
-
       <div className="edits-container">
         {profile && user.email === "joan.vigne.pro@gmail.com" && (
           <div className="profile-edit-container">

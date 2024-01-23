@@ -43,8 +43,11 @@ const SectionContact = () => {
       setFormStatus("Veuillez remplir tous les champs.");
       return;
     }
-    console.log({ name, email, message });
-    const dataAEnvoyer = { name, email, message };
+
+    const dateEnvoi = new Date().toISOString();
+    console.log({ name, email, message, dateEnvoi });
+
+    const dataAEnvoyer = { name, email, message, dateEnvoi };
     try {
       const docRef = doc(collection(db, "messages"));
       await setDoc(docRef, dataAEnvoyer);
