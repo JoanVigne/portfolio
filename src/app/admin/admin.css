@@ -1,5 +1,38 @@
-.edit-card {
-  border: 1px black solid;
-  width: fit-content;
+@import url("../globals.css");
+
+.messages-container {
+  background-color: var(--couleur-beige-clair);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.message {
+  text-align: center;
+  width: 300px;
+  max-width: 90%;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 20px;
+  background-color: var(--couleur-bleu);
+  color: var(--couleur-beige-clair);
+  overflow-wrap: break-word;
+}
+
+.message h4 {
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+.edits-container {
+  display: flex;
+  justify-content: space-around;
+  background-color: var(--couleur-marron-fonce);
+  text-align: center;
+}
+
+.projets-edit-container,
+.profile-edit-container {
+  background-color: var(--couleur-beige-clair);
   padding: 10px;
 }

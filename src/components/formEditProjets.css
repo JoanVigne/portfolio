@@ -1,0 +1,4 @@
+.form-ajout-projet {
+  display: flex;
+  flex-direction: column;
+}

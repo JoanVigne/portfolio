@@ -77,7 +77,9 @@ function Page() {
   }, []);
 
   // MESSAGES
-  const [messages, setMessages] = useState(false);
+  const [messages, setMessages] = useState<Array<{
+    [key: string]: any;
+  }> | null>(null);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -87,7 +89,9 @@ function Page() {
     fetchMessages();
   }, []);
   // PROJETS
-  const [projets, setProjets] = useState(false);
+  const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
+    null
+  );
   useEffect(() => {
     const sessionStorageProjets = sessionStorage.getItem("projets");
     setProjets(JSON.parse(sessionStorageProjets));
@@ -140,38 +144,43 @@ function Page() {
 
   return (
     <>
-      <h1>You are connected, {user.email}</h1>
+      <div className="bienvenue">
+        <h1>Welcome {user.email}</h1>
+      </div>
+
       <h2>Messages reçu : </h2>
       <div className="messages-container">
         {messages &&
           messages.map((mess, index) => (
-            <div key={mess.id}>
+            <div key={mess.id} className="message">
               {index == 0 ? (
                 <h3>Dernier message :</h3>
               ) : (
                 <h3>Ancien message</h3>
               )}
 
-              <p>de {mess.name}</p>
-              <p>Email: {mess.email}</p>
+              <h4>de {mess.name}</h4>
+              <h4>{mess.email}</h4>
               <p>{mess.message}</p>
             </div>
           ))}
       </div>
-      <h2>
-        Image reçu directement depuis le storage de firebase avec un token qui
-        expire potentiellement
-      </h2>
-      <img
-        className="photo-joan"
-        width="200px"
-        src="https://firebasestorage.googleapis.com/v0/b/portfolio-nextjs-e43b8.appspot.com/o/Joan_big.jpg?alt=media&token=a9c57198-af36-42eb-bdf3-09272d8f3dd7"
-        alt="photo Joan"
-      />
+
       <div className="edits-container">
         {profile && user.email === "joan.vigne.pro@gmail.com" && (
           <div className="profile-edit-container">
-            <h3>edit Profile</h3>
+            <h3>
+              Edit Profile{" "}
+              <Image
+                className="edit-icon"
+                src="/edit.png"
+                alt="edit icon"
+                width={14}
+                height={14}
+                priority
+                onClick={toggleModal}
+              />
+            </h3>
             <div className="edit-card">
               <Image
                 src={"/" + profile.prenom + ".jpg"}
@@ -184,15 +193,7 @@ function Page() {
               <DisplayOneData data={profile.email} />
               <DisplayOneData data={profile.naissance} />
               <DisplayOneData data={profile.telephone} />
-              <Image
-                className="edit-icon"
-                src="/edit.png"
-                alt="edit icon"
-                width={14}
-                height={14}
-                priority
-                onClick={toggleModal}
-              />
+
               <MyModal
                 title="Edit profile"
                 subtitle=""
@@ -205,17 +206,8 @@ function Page() {
           </div>
         )}
         <div className="projets-edit-container">
-          <h3>edit Projets</h3>
-          <div className="edit-card">
-            {projets &&
-              projets.map((projet) => {
-                const projectValues = Object.values(projet);
-                return projectValues.map((project) => (
-                  <div key={project.nom + project.date}>
-                    <h3>{project.nom}</h3>
-                  </div>
-                ));
-              })}
+          <h3>
+            Edit Projets{" "}
             <Image
               className="edit-icon"
               src="/edit.png"
@@ -225,9 +217,23 @@ function Page() {
               priority
               onClick={toggleEditProjetsModal}
             />
+          </h3>
+          <div className="edit-card">
+            {projets &&
+              projets.map(
+                (projet: { [key: string]: { nom: string; date: string } }) => {
+                  const projectValues = Object.values(projet);
+                  return projectValues.map((project) => (
+                    <div key={project.nom + project.date}>
+                      <h4>{project.nom}</h4>
+                    </div>
+                  ));
+                }
+              )}
+
             <MyModal
               title="Edit projets"
-              subtitle=""
+              subtitle="Les projets déjà dans la base de donnée :"
               contentP=""
               contentForm={"editProjets"}
               isOpen={modalEditProjets}
@@ -255,6 +261,16 @@ function Page() {
             <DisplayOneData data={formaC.nom} />
           </div>
         ))}
+      <h2>
+        Image reçu directement depuis le storage de firebase avec un token qui
+        expire potentiellement
+      </h2>
+      <img
+        className="photo-joan"
+        width="200px"
+        src="https://firebasestorage.googleapis.com/v0/b/portfolio-nextjs-e43b8.appspot.com/o/Joan_big.jpg?alt=media&token=a9c57198-af36-42eb-bdf3-09272d8f3dd7"
+        alt="photo Joan"
+      />
     </>
   );
 }

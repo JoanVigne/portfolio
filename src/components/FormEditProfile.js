@@ -12,8 +12,6 @@ const FormEditProfile = () => {
       console.log("il y a le profile dans le context", profile);
       return;
     }
-    console.log("Dans le useEffect du RootLayout, ProfileProvider :", profile);
-
     const fetchProfile = async () => {
       try {
         const fetchedProfile = await newFetchDataDB("profile");
