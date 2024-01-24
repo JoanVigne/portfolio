@@ -13,11 +13,12 @@
 .message {
   text-align: center;
   width: 300px;
+  height: fit-content;
   max-width: 90%;
   margin: 5px;
   padding: 5px;
   border-radius: 20px;
-  background-color: var(--couleur-bleu);
+  background-color: var(--couleur-beige-fonce);
   color: var(--couleur-noir);
   overflow-wrap: break-word;
 }
@@ -30,7 +31,8 @@
 .message .text-message {
   margin-top: 20px;
   position: relative;
-  background-color: var(--couleur-beige-clair);
+  background-color: var(--couleur-bleu);
+  color: var(--couleur-beige-clair);
   padding: 1.125em 1.5em;
   font-size: 1.25em;
   border-radius: 1rem;
@@ -46,8 +48,7 @@
   left: 1.5em;
   border: 0.75rem solid transparent;
   border-top: none;
-
-  border-bottom-color: var(--couleur-beige-clair);
+  border-bottom-color: var(--couleur-bleu);
   filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
 }
 .edits-container {
@@ -61,4 +62,6 @@
 .profile-edit-container {
   background-color: var(--couleur-beige-clair);
   padding: 10px;
+  margin: 10px;
+  border-radius: 20px;
 }

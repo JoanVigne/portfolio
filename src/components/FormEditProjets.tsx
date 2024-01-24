@@ -1,14 +1,19 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import "./formEditProjets.css";
+import { fetchDataFromDBToSessionStorage } from "@/firebase/config";
 
 const FormEditProjets: React.FC = () => {
-  const [projets, setProjets] = useState<any>(false);
-
+  const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
+    null
+  );
   useEffect(() => {
-    const sessionStorageProjets = sessionStorage.getItem("projets");
-    setProjets(JSON.parse(sessionStorageProjets || "[]"));
+    fetchProjets();
   }, []);
+  async function fetchProjets() {
+    const fetchedProjets = await fetchDataFromDBToSessionStorage("projets");
+    setProjets(fetchedProjets);
+  }
 
   // submit le form
   /* async function handleSubmit(e) {
@@ -103,27 +108,44 @@ const FormEditProjets: React.FC = () => {
       date: "",
       technos: [],
     });
-    console.log("Projets FIN : ", projets);
     console.log("nouveau projet : ", nouveauProjet);
+    sessionStorage.setItem("projets", JSON.stringify(projets));
+    // a envoyer dans la DB
   };
-  const SupprimerUnProjet = (thisOne: any) => {
-    console.log(thisOne);
-  };
+  const SupprimerUnProjet = (nomProjetASupprimer: string) => {
+    console.log("projets : ", projets);
+    const projetsCopy = { ...projets[0] };
 
+    console.log("nomProjet", nomProjetASupprimer);
+
+    const keys = Object.keys(projetsCopy);
+    const nouvellesKeys = keys.filter((key) => key !== nomProjetASupprimer);
+    const nouveauProjetsCopy = Object.fromEntries(
+      nouvellesKeys.map((key) => [key, projetsCopy[key]])
+    );
+    console.log("Nouvelles clés après suppression :", nouvellesKeys);
+
+    console.log("nouveaProjetsCopy ", nouveauProjetsCopy);
+
+    setProjets([nouveauProjetsCopy]);
+    // a mettre dans sessionStorage
+    // a envoyer dans la DB
+  };
   return (
     <div>
       {projets &&
         projets.map((projet: any) => {
-          const projectValues = Object.values(projet);
-          return projectValues.map((project: any) => {
+          const projectKeys = Object.keys(projet);
+          return projectKeys.map((key) => {
+            const project = projet[key];
             // Vérifiez si la clé est "id"
-            if (project !== "bnj6s7XN4HZ19fVcNNv2") {
+            if (key !== "id") {
               return (
                 <div key={project.nom}>
                   <span>{project.nom} </span>
                   <button
                     onClick={() => {
-                      SupprimerUnProjet(project);
+                      SupprimerUnProjet(key);
                     }}
                   >
                     supprimer
