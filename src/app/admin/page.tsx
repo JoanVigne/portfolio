@@ -88,7 +88,16 @@ function Page() {
     };
     fetchMessages();
   }, []);
-
+  function formaterDate(date) {
+    const options = {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    };
+    return date.toLocaleDateString("fr-FR", options);
+  }
   // PROJETS
   const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
     null
@@ -159,19 +168,20 @@ function Page() {
                 new Date(b.dateEnvoi).getTime() -
                 new Date(a.dateEnvoi).getTime()
             )
-            .map((mess, index) => (
-              <div key={mess.id} className="message">
-                {index === 0 ? (
-                  <h3>Dernier message :</h3>
-                ) : (
-                  <h3>Ancien message</h3>
-                )}
-
-                <h4>de {mess.name}</h4>
-                <h4>{mess.email}</h4>
-                <p>{mess.message}</p>
-              </div>
-            ))}
+            .map((mess, index) => {
+              const date = new Date(mess.dateEnvoi);
+              const dateFormatee = formaterDate(date);
+              return (
+                <div key={mess.id} className="message">
+                  <h4>reçu le {dateFormatee}</h4>
+                  <h4>de {mess.name}</h4>
+                  <h4>{mess.email}</h4>
+                  <div className="text-message">
+                    <p>{mess.message}</p>
+                  </div>
+                </div>
+              );
+            })}
       </div>
       <div className="edits-container">
         {profile && user.email === "joan.vigne.pro@gmail.com" && (
