@@ -24,15 +24,10 @@ if (!firebase_app) {
 // Fire store
 const db = getFirestore();
 
-async function fetchDataDB(collectionName) {
-  // pour eviter de fetch, verification session storage
-  console.log("dans le fetchDataDB, DEBUT", collectionName);
+async function fetchDataFromDBToSessionStorage(collectionName) {
+  // verification session storage
   const dansLeSessionStorage = sessionStorage.getItem(collectionName);
   if (dansLeSessionStorage) {
-    console.log(
-      "cette collection est dans le session storage: ",
-      collectionName
-    );
     return JSON.parse(dansLeSessionStorage);
   }
   const colRef = collection(db, collectionName);
@@ -42,7 +37,7 @@ async function fetchDataDB(collectionName) {
       return { ...doc.data(), id: doc.id };
     });
     sessionStorage.setItem(collectionName, JSON.stringify(data));
-    console.log("Vient d'etre fetched :", collectionName);
+    console.log("Fetched :", collectionName);
     return data;
   } catch (error) {
     console.error("Error fetching data from Firestore:", error);
@@ -50,34 +45,20 @@ async function fetchDataDB(collectionName) {
 }
 
 async function newFetchDataDB(collectionName) {
-  console.log("debut function newFetch", collectionName);
   const colRef = collection(db, collectionName);
   try {
     const snapshot = await getDocs(colRef);
     const data = snapshot.docs.map((doc) => {
       return { ...doc.data(), id: doc.id };
     });
-    console.log("fin function newFetch", collectionName, data);
+    console.log("Fetched", collectionName);
     return data;
   } catch (error) {
     console.error("Error fetching data from firestore:", error);
   }
 }
-//add
-/* const addSmt = document.querySelector(".add");
-addSmt.addEventListener("submit", (e) => {
-  e.preventDefault();
-  addDoc(colRef, {
-    title: addSmt.title.value,
-    author: addSmt.author.value,
-  });
-}); */
-// delete
-/* const deleteSmt = document.querySelector(".delete");
-deleteSmt.addEventListener("submit", (e) => {
-  e.preventDefault();
-}); */
+
 export { db };
 export default firebase_app;
 /* export { profile }; */
-export { fetchDataDB, newFetchDataDB };
+export { fetchDataFromDBToSessionStorage, newFetchDataDB };

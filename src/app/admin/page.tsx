@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import DisplayOneData from "../../components/DisplayOneData";
-import { fetchDataDB, newFetchDataDB } from "@/firebase/config";
+import {
+  fetchDataFromDBToSessionStorage,
+  newFetchDataDB,
+} from "@/firebase/config";
 import "./admin.css";
 import MyModal from "@/components/MyModal";
 import { useProfileContext } from "@/context/ProfileContext";
@@ -82,14 +85,14 @@ function Page() {
   }> | null>(null);
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      const fetchedMessges = await fetchDataDB("messages");
-      setMessages(fetchedMessges);
-    };
     fetchMessages();
   }, []);
-  function formaterDate(date) {
-    const options = {
+  async function fetchMessages() {
+    const fetchedMessages = await fetchDataFromDBToSessionStorage("messages");
+    setMessages(fetchedMessages);
+  }
+  function formaterDate(date: Date): string {
+    const options: Intl.DateTimeFormatOptions = {
       day: "numeric",
       month: "long",
       year: "numeric",
@@ -103,40 +106,38 @@ function Page() {
     null
   );
   useEffect(() => {
-    const sessionStorageProjets = sessionStorage.getItem("projets");
-    setProjets(JSON.parse(sessionStorageProjets));
+    fetchProjets();
   }, []);
-
+  async function fetchProjets() {
+    const fetchedProjets = await fetchDataFromDBToSessionStorage("projets");
+    setProjets(fetchedProjets);
+  }
   // FORMATIONS
   const [formations, setFormations] = useState<Formations[]>([]);
   useEffect(() => {
-    const fetchFormations = async () => {
-      const fetchedFormations = await fetchDataDB("formations");
-      setFormations(fetchedFormations);
-    };
     fetchFormations();
   }, []);
+  async function fetchFormations() {
+    const fetchedFormations = await fetchDataFromDBToSessionStorage(
+      "formations"
+    );
+    setFormations(fetchedFormations);
+  }
   // PROFILE
   const { profile, updateProfile } = useProfileContext() || {};
-
   useEffect(() => {
     if (profile) {
       console.log("il y a le profile dans le context", profile);
       return;
     }
-    console.log("Dans le useEffect du RootLayout, ProfileProvider :", profile);
-
-    const fetchProfile = async () => {
-      try {
-        const fetchedProfile = await newFetchDataDB("profile");
-        console.log(fetchedProfile);
-        updateProfile(fetchedProfile[0]);
-      } catch (error) {
-        console.error("Erreur lors du fetch du profil :", error);
-      }
-    };
     fetchProfile();
   }, []);
+  async function fetchProfile() {
+    const fetchedProfile = await newFetchDataDB("profile");
+    if (fetchedProfile) {
+      updateProfile(fetchedProfile[0]);
+    }
+  }
   if (user == null) {
     return (
       <>
@@ -158,9 +159,23 @@ function Page() {
         <h1>Welcome {user.email}</h1>
       </div>
 
-      <h2>Messages reçus : </h2>
+      <h2>
+        Messages reçus :{" "}
+        <button
+          onClick={() => {
+            sessionStorage.removeItem("messages");
+            setMessages([]);
+
+            setTimeout(() => {
+              fetchMessages();
+            }, 1000);
+          }}
+        >
+          Refresh
+        </button>
+      </h2>
       <div className="messages-container">
-        {messages &&
+        {messages && messages.length > 0 ? (
           messages
             .slice()
             .sort(
@@ -181,7 +196,10 @@ function Page() {
                   </div>
                 </div>
               );
-            })}
+            })
+        ) : (
+          <Loading /> // Affiche le composant Loading si messages est un tableau vide
+        )}
       </div>
       <div className="edits-container">
         {profile && user.email === "joan.vigne.pro@gmail.com" && (

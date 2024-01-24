@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./sectionProjets.css";
 import CardProjet from "./CardProjet";
-import { fetchDataDB } from "@/firebase/config";
+import { fetchDataFromDBToSessionStorage } from "@/firebase/config";
 
 interface ProjetData {
   [key: string]: {
@@ -19,7 +19,7 @@ const SectionProjets = () => {
 
   useEffect(() => {
     const fetchFormations = async () => {
-      const fetched = await fetchDataDB("projets");
+      const fetched = await fetchDataFromDBToSessionStorage("projets");
       setProjets(fetched[0]);
     };
 

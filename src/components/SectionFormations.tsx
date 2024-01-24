@@ -1,6 +1,5 @@
-import { fetchDataDB } from "@/firebase/config";
+import { fetchDataFromDBToSessionStorage } from "@/firebase/config";
 import React, { useEffect, useState } from "react";
-import DisplayOneData from "./DisplayOneData";
 import Loading from "./Loading";
 import "./sectionFormations.css";
 
@@ -39,22 +38,18 @@ const SectionFormations = () => {
   // FORMATIONS
   const [formations, setFormations] = useState<Formations | null>(null);
   const [expandedContenu, setExpandedContenu] = useState<string | null>(null);
-  const toggleContenu = (formationKey: string) => {
-    setExpandedContenu((prevExpandedContenu) =>
-      prevExpandedContenu === formationKey ? null : formationKey
-    );
-  };
 
   useEffect(() => {
     const fetchFormations = async () => {
-      const fetchedFormations = await fetchDataDB("formations");
+      const fetchedFormations = await fetchDataFromDBToSessionStorage(
+        "formations"
+      );
       setFormations(fetchedFormations[0]);
     };
     fetchFormations();
   }, []);
 
   if (!formations) {
-    // Ajoutez ici le code ou le composant que vous souhaitez afficher pendant le chargement
     return <Loading />;
   }
 
@@ -63,16 +58,14 @@ const SectionFormations = () => {
     if (items.length === 0) {
       return "";
     }
-
     if (items.length === 1) {
       return items[0];
     }
-
     const lastItem = items[items.length - 1];
     const otherItems = items.slice(0, -1);
-
     return `${otherItems.join(", ")} et ${lastItem}.`;
   };
+
   return (
     <section className="section-formations">
       <div className="coding-formations-container formations-container">
@@ -93,7 +86,6 @@ const SectionFormations = () => {
                 );
 
                 if (element) {
-                  // Vous pouvez manipuler la classe ou la hauteur directement ici
                   element.classList.toggle("contenu-expanded");
                 }
               };
@@ -136,13 +128,13 @@ const SectionFormations = () => {
                         ))}
                       <li>
                         <h4>Langages :</h4>
-                        {formation.langages?.length > 0 && (
+                        {formation.langages /* ?.length > 0 */ && (
                           <>{formatList(formation.langages)} </>
                         )}
                       </li>
                       <li>
                         <h4>Autres App et frameworks :</h4>
-                        {formation.autres?.length > 0 && (
+                        {formation.autres /* ?.length > 0 */ && (
                           <>{formatList(formation.autres)} </>
                         )}
                       </li>

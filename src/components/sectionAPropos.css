@@ -36,10 +36,10 @@
 
 .section-a-propos .content img {
   max-width: 500px;
-  /*   min-width: 250px; */
-  /*   height: fit-content; */
 }
 
+.section-a-propos .content img:hover {
+}
 .section-a-propos .content .infos-container {
   color: #fefffa;
   text-align: center;
