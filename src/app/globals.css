@@ -80,3 +80,11 @@ button:hover {
 .edit-icon:hover {
   cursor: pointer;
 }
+
+/* THEME CSS  */
+/* THEME DES ANNEES 2000 */
+.theme-00 header {
+  background: linear-gradient(to bottom, #808080, #ffffff);
+  display: flex;
+  justify-content: center;
+}

@@ -24,7 +24,7 @@ function Page() {
     console.log(result);
     setErreur(false);
     setMessageErreur("");
-    return router.push("/admin");
+    return router.push("/");
   };
 
   return (

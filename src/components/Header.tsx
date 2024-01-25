@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import "./header.css";
 import ToggleCSS from "./ToggleCSS";
 import { useAuthContext } from "@/context/AuthContext";
+import ChangerCSS from "./ChangerCSS";
 
 interface UserData {
   email: string;
@@ -33,13 +34,13 @@ const Header = () => {
         <Link href="/">Page d'accueil</Link>
         <Link href="/#projets">Projets</Link>
         <Link href="/#contact">Contact</Link>
-        {user === undefined && (
+        {user === null && (
           <>
             <Link href="/signin">sign in</Link>
             <Link href="/signup">sign up</Link>
           </>
         )}
-        {user !== undefined && (
+        {user !== null && (
           <>
             {user?.email === "joan.vigne.pro@gmail.com" && (
               <Link href="/admin">Admin</Link>
@@ -49,10 +50,30 @@ const Header = () => {
             </Link>
           </>
         )}
-      </nav>
+        <div className="styles-container">
+          <Link href="">Changer le style</Link>
+          <ul className="menu-deroulant">
+            {/*             <li>
 
-      {/*   <ToggleCSS /> */}
-      {/*       <input type="button" value="Logout" onClick={logOut} /> */}
+              <ToggleCSS />
+            </li> */}
+            <li>
+              <ChangerCSS annee="90" />
+            </li>
+            <li>
+              <ChangerCSS annee="00" />
+            </li>
+            <li>
+              <ChangerCSS annee="10" />
+            </li>
+            <li>
+              <ChangerCSS annee="20" />
+            </li>
+            <li>autre</li>
+            <li>autre</li>
+          </ul>
+        </div>
+      </nav>
     </header>
   );
 };

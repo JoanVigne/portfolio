@@ -1,32 +1,22 @@
-import React,  { useState }  from "react";
+import React, { useState } from "react";
 
 const ToggleCSS: React.FC = () => {
   const [cssDesactive, setCssDesactive] = useState<boolean>(false);
 
-  const supprimerCSS = () => {
-    var feuillesDeStyle = document.styleSheets;
-    for (var i = 0; i < feuillesDeStyle.length; i++) {
-      feuillesDeStyle[i].disabled = true;
+  const toggleCSS = () => {
+    const feuillesDeStyle = document.styleSheets;
+    for (let i = 0; i < feuillesDeStyle.length; i++) {
+      feuillesDeStyle[i].disabled = !cssDesactive;
     }
-    setCssDesactive(true);
-  };
-
-  const reactiverCSS = () => {
-    var feuillesDeStyle = document.styleSheets;
-    for (var i = 0; i < feuillesDeStyle.length; i++) {
-      feuillesDeStyle[i].disabled = false;
-    }
-    setCssDesactive(false);
+    setCssDesactive(!cssDesactive);
   };
 
   return (
-    <>
-      {cssDesactive ? (
-        <button onClick={reactiverCSS}>Activer CSS</button>
-      ) : (
-        <button onClick={supprimerCSS}>Désactiver CSS</button>
-      )}
-    </>
+    <input
+      type="button"
+      value={cssDesactive ? "Activer CSS" : "Désactiver CSS"}
+      onClick={toggleCSS}
+    />
   );
 };
 

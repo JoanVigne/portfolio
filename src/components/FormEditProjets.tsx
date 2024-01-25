@@ -113,7 +113,6 @@ const FormEditProjets: React.FC = () => {
     // a envoyer dans la DB
   };
   const SupprimerUnProjet = (nomProjetASupprimer: string) => {
-    console.log("projets : ", projets);
     const projetsCopy = { ...projets[0] };
 
     console.log("nomProjet", nomProjetASupprimer);
@@ -123,10 +122,6 @@ const FormEditProjets: React.FC = () => {
     const nouveauProjetsCopy = Object.fromEntries(
       nouvellesKeys.map((key) => [key, projetsCopy[key]])
     );
-    console.log("Nouvelles clés après suppression :", nouvellesKeys);
-
-    console.log("nouveaProjetsCopy ", nouveauProjetsCopy);
-
     setProjets([nouveauProjetsCopy]);
     // a mettre dans sessionStorage
     // a envoyer dans la DB
