@@ -26,6 +26,7 @@ header nav {
 
 header nav .styles-container {
   position: relative;
+  margin-bottom: 4px;
 }
 
 .styles-container:hover .menu-deroulant {
@@ -35,8 +36,8 @@ header nav .styles-container {
 .menu-deroulant {
   max-height: 0;
   position: absolute;
-  left: 10px;
-  top: 20px;
+  left: 0;
+  top: 30px;
   z-index: 2;
   overflow: hidden;
 }

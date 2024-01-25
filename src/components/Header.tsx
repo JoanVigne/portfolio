@@ -1,8 +1,8 @@
 import { getAuth, signOut } from "firebase/auth";
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React from "react";
 import "./header.css";
-import ToggleCSS from "./ToggleCSS";
+
 import { useAuthContext } from "@/context/AuthContext";
 import ChangerCSS from "./ChangerCSS";
 
@@ -53,13 +53,6 @@ const Header = () => {
         <div className="styles-container">
           <Link href="">Changer le style</Link>
           <ul className="menu-deroulant">
-            {/*             <li>
-
-              <ToggleCSS />
-            </li> */}
-            <li>
-              <ChangerCSS annee="90" />
-            </li>
             <li>
               <ChangerCSS annee="00" />
             </li>

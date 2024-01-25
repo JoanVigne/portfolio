@@ -161,3 +161,58 @@ button:hover {
 .theme-00 .formation-card:hover {
   transform: scale(1) !important;
 }
+
+/* THEME DES ANNEES 10' */
+
+.theme-10 * {
+  color: black;
+  background-color: white;
+}
+
+.theme-10 section {
+  border: 1px black solid;
+}
+.theme-10 h1 {
+  transform: translateX(0) !important;
+  color: white;
+  background-color: black;
+}
+
+.theme-10 header {
+  background-color: rgb(158, 155, 155) !important;
+  justify-content: space-around;
+  padding: 0;
+}
+.theme-10 .logo-container {
+  background-color: rgb(158, 155, 155);
+}
+.theme-10 a {
+  background-color: rgb(158, 155, 155) !important;
+  text-decoration: none;
+  margin: 0;
+  border: 1px black solid;
+  height: 100%;
+}
+.theme-10 nav .styles-container {
+  display: flex;
+  height: -webkit-fill-available;
+  margin-bottom: 0;
+}
+.theme-10 .section-banniere {
+  background: none;
+  background-color: black !important;
+}
+
+.theme-10 .card-projet,
+.theme-10 .card-projet * {
+  animation: none !important;
+  transform: translateY(0) !important;
+  opacity: 1;
+  box-shadow: none;
+  background-color: grey;
+  border: 1px black solid;
+}
+
+.theme-10 .formation-card:hover {
+  transform: scale(1) !important;
+}

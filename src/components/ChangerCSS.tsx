@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface ChangerCSSProps {
   annee: string;
@@ -10,6 +10,7 @@ const ChangerCSS: React.FC<ChangerCSSProps> = ({ annee }) => {
     bodyClasses.forEach((cls) => document.body.classList.remove(cls));
     document.body.classList.add(thisTheme);
   }
+  // STYLES DANS LE GLOBAL CSS
   return (
     <>
       <input
