@@ -1,15 +1,14 @@
-import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const ChangerCSS = ({ annee }) => {
+interface ChangerCSSProps {
+  annee: string;
+}
+const ChangerCSS: React.FC<ChangerCSSProps> = ({ annee }) => {
   function toggleClass() {
     const thisTheme = `theme-${annee}`;
-    const bodyClasses = document.body.classList;
-    // si bodyClasses contient thisTheme, enlever thisTheme, sinon ajouter thisTheme
-    bodyClasses.toggle(thisTheme);
-    /*     bodyClasses.add(`theme-${annee}`);
-    console.log(bodyClasses);
-    console.log("nouveau css : ", annee); */
+    const bodyClasses = Array.from(document.body.classList);
+    bodyClasses.forEach((cls) => document.body.classList.remove(cls));
+    document.body.classList.add(thisTheme);
   }
   return (
     <>

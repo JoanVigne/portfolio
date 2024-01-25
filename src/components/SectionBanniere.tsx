@@ -83,6 +83,8 @@ const SectionBanniere = () => {
       <h1 ref={h1Ref} onClick={handleClick}>
         JOAN VIGNE - WEB DEVELOPER{" "}
       </h1>
+
+      <img className="piracy-pic" src="/piracy-is-a-crime.png" alt="" />
     </section>
   );
 };
