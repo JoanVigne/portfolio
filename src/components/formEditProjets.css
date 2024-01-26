@@ -1,4 +1,28 @@
+.button-attention {
+  background-color: red;
+}
+
+.nom-projet {
+  margin-bottom: 10px;
+}
+
+.modal-confirmation-suppression {
+  border: black 1px solid;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+}
 .form-ajout-projet {
   display: flex;
   flex-direction: column;
+}
+
+.form-ajout-projet button {
+  margin-bottom: 5px;
+  max-width: 150px;
+}
+
+.form-ajout-projet button[type="submit"] {
+  background-color: green;
 }

@@ -9,7 +9,7 @@ const FormEditProfile = () => {
   const { profile, updateProfile } = useProfileContext() || {};
   useEffect(() => {
     if (profile) {
-      console.log("il y a le profile dans le context", profile);
+      console.log("profile dans context");
       return;
     }
     const fetchProfile = async () => {

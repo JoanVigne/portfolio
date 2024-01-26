@@ -14,15 +14,7 @@ interface FormationDetails {
   contenu?: string[];
   autres?: string[];
 }
-/* interface FormationsGeneralDetails {
-  etablissement: string;
-  location: string;
-  nom: string;
-  fin: string;
-  duree: string;
-  debut: string;
-  langues: string[];
-} */
+
 interface FormationsGeneralDetails {
   [key: string]: FormationDetails;
 }

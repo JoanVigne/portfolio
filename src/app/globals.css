@@ -106,6 +106,25 @@ button:hover {
 
 /* THEME CSS  */
 /* THEME DES ANNEES 2000 */
+.theme-00::-webkit-scrollbar {
+  width: auto !important;
+}
+.theme-00::-webkit-scrollbar-thumb {
+  background-color: #a0a0a0; /* Couleur par défaut de la poignée */
+}
+.theme-00::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+/* Pour Internet Explorer */
+.theme-00::-ms-scrollbar {
+  width: auto !important;
+}
+.theme-00::-ms-scrollbar-thumb {
+  background-color: #a0a0a0;
+}
+.theme-00::-ms-scrollbar-track {
+  background-color: #f1f1f1;
+}
 .theme-00 * {
   color: black;
   background-color: white;
@@ -145,6 +164,9 @@ button:hover {
   margin: auto;
   object-fit: cover;
 }
+.theme-00 .formation-card {
+  border-radius: 0;
+}
 @keyframes fadeInHeight {
   0% {
     height: 20px;
@@ -170,6 +192,7 @@ button:hover {
   background-color: #cccccc; /* Gris clair */
   border: 1px solid #999999; /* Bordure grise plus foncée */
   padding: 5px 10px; /* Marge intérieure */
+  border-radius: 0 !important;
 }
 
 .theme-00 .card-projet,
@@ -185,6 +208,9 @@ button:hover {
   transform: scale(1) !important;
 }
 
+.theme-00 .formations-container {
+  display: none;
+}
 /* THEME DES ANNEES 10' */
 
 .theme-10 * {
@@ -235,7 +261,9 @@ button:hover {
   background-color: grey;
   border: 1px black solid;
 }
-
+.theme-10 .formation-card {
+  border-radius: 0;
+}
 .theme-10 .formation-card:hover {
   transform: scale(1) !important;
 }

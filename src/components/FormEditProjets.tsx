@@ -126,6 +126,13 @@ const FormEditProjets: React.FC = () => {
     // a mettre dans sessionStorage
     // a envoyer dans la DB
   };
+  const [modalVisible, setModalVisible] = useState(false);
+  const [projectToDelete, setProjectToDelete] = useState(null);
+
+  const toggleModal = (projectKey) => {
+    setProjectToDelete(projectKey);
+    setModalVisible(!modalVisible);
+  };
   return (
     <div>
       {projets &&
@@ -133,18 +140,33 @@ const FormEditProjets: React.FC = () => {
           const projectKeys = Object.keys(projet);
           return projectKeys.map((key) => {
             const project = projet[key];
-            // Vérifiez si la clé est "id"
+            // Vérifiez si la clé est differente de "id"
             if (key !== "id") {
               return (
                 <div key={project.nom}>
-                  <span>{project.nom} </span>
+                  <span className="nom-projet">{project.nom} </span>
                   <button
-                    onClick={() => {
-                      SupprimerUnProjet(key);
-                    }}
+                    className="button-attention"
+                    onClick={() => toggleModal(key)}
                   >
                     supprimer
                   </button>
+                  {modalVisible && projectToDelete === key && (
+                    <div id="confirmationModal" className="modal">
+                      <div className="modal-confirmation-suppression">
+                        <p>Voulez-vous vraiment supprimer {project.nom} ?</p>
+                        <button
+                          className="button-attention"
+                          onClick={() => SupprimerUnProjet(key)}
+                        >
+                          Oui
+                        </button>
+                        <button onClick={() => toggleModal(null)}>
+                          Annuler
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               );
             }
@@ -221,10 +243,10 @@ const FormEditProjets: React.FC = () => {
             onChange={(e) => setArrayValues({ technos: e.target.value })}
           />
           <button type="button" onClick={ajouterTechno}>
-            Ajouter une techno
+            + techno
           </button>
 
-          <button type="submit">Ajouter</button>
+          <button type="submit">Ajouter ce nouveau projet</button>
         </form>
       )}
     </div>

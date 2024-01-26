@@ -1,8 +1,6 @@
 @import url("../app/globals.css");
 
 header {
-  height: 50px;
-
   background-color: var(--couleur-noir);
   color: var(--couleur-beige-clair);
   display: flex;
@@ -47,4 +45,18 @@ header nav .styles-container ul li {
 }
 header nav .styles-container ul li:hover {
   opacity: 0.7;
+}
+
+@media only screen and (max-width: 800px) {
+  .logo-container {
+    display: none;
+  }
+  header nav {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-size: x-large;
+  }
+  header nav .styles-container {
+    display: none;
+  }
 }

@@ -49,3 +49,11 @@
 .card-projet p {
   margin: 8px;
 }
+
+@media only screen and (max-width: 800px) {
+  .card-projet p,
+  .card-projet h4,
+  .card-projet a {
+    font-size: larger;
+  }
+}

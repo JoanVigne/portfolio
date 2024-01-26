@@ -49,4 +49,7 @@
   .section-a-propos .content {
     flex-direction: column;
   }
+  .section-a-propos p {
+    font-size: larger;
+  }
 }
