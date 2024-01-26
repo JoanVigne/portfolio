@@ -127,7 +127,7 @@ function Page() {
   const { profile, updateProfile } = useProfileContext() || {};
   useEffect(() => {
     if (profile) {
-      console.log("il y a le profile dans le context", profile);
+      console.log("profile dans context");
       return;
     }
     fetchProfile();
@@ -277,29 +277,19 @@ function Page() {
           </div>
         </div>
       </div>
-      <h3>Langages, frameworks et apps maitrisés :</h3>
-      <DisplayOneData data={profile.langagesMaitrise} />
-      <DisplayOneData data={profile.autresMaitrise} />
-      <h3>Connaissances de base :</h3>
-      <DisplayOneData data={profile.langagesDecouverte} />
-      <DisplayOneData data={profile.autresDecouverte} />
 
-      <h2>Les formations : </h2>
-      <h3>Formations générals :</h3>
-      <DisplayOneData data={formationsGeneral} />
-      <h3>Formations dans le domaine de l'informatique :</h3>
-      <DisplayOneData data={formationsCoding} />
-      <h3>TEST JUSTE UN TRUC</h3>
+      <h3>Mes tests persos : </h3>
+      <h4>test de boucle sur formationsCoding</h4>
       {formationsCoding &&
         Object.entries(formationsCoding).map(([key, formaC], index) => (
           <div key={key + index}>
             <DisplayOneData data={formaC.nom} />
           </div>
         ))}
-      <h2>
+      <h4>
         Image reçu directement depuis le storage de firebase avec un token qui
         expire potentiellement
-      </h2>
+      </h4>
       <img
         className="photo-joan"
         width="200px"

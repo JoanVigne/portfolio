@@ -1,11 +1,9 @@
 svg {
-  width: 100px;
-  height: 100px;
-  margin: 20px;
+  height: 40px;
+  width: auto;
   display: inline-block;
-  color: black;
 }
 
 .svg-container {
-  background-color: black;
+  background-color: none;
 }

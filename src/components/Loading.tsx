@@ -14,7 +14,7 @@ const Loading = () => {
         viewBox="0 0 100 100"
         enableBackground="new 0 0 0 0"
       >
-        <circle fill="#fff" stroke="none" cx="6" cy="50" r="6">
+        <circle fill="black" stroke="none" cx="6" cy="50" r="6">
           <animate
             attributeName="opacity"
             dur="1s"
@@ -23,7 +23,7 @@ const Loading = () => {
             begin="0.1"
           />
         </circle>
-        <circle fill="#fff" stroke="none" cx="26" cy="50" r="6">
+        <circle fill="black" stroke="none" cx="26" cy="50" r="6">
           <animate
             attributeName="opacity"
             dur="1s"
@@ -32,7 +32,7 @@ const Loading = () => {
             begin="0.2"
           />
         </circle>
-        <circle fill="#fff" stroke="none" cx="46" cy="50" r="6">
+        <circle fill="black" stroke="none" cx="46" cy="50" r="6">
           <animate
             attributeName="opacity"
             dur="1s"
