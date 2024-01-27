@@ -1,9 +1,7 @@
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import "./formEditProjets.css";
 import { db, fetchDataFromDBToSessionStorage } from "@/firebase/config";
-import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
-import addData from "@/firebase/firestore/addData";
+import { doc, setDoc } from "firebase/firestore";
 import deleteData from "@/firebase/firestore/deletData";
 
 const FormEditProjets: React.FC = () => {
@@ -64,12 +62,8 @@ const FormEditProjets: React.FC = () => {
   };
 
   // ajout et suppression projets dans db :
-  /*   const ajouterUnProjet = async (e: React.FormEvent) => */
   async function ajouterUnProjet(e: React.FormEvent) {
     e.preventDefault();
-
-    console.log("Projets debut : ", projets);
-
     const nouveauProjet = {
       [dataAjoutProjet.nom.replace(/\s+/g, "-").toLowerCase()]: {
         nom: dataAjoutProjet.nom,
@@ -79,7 +73,6 @@ const FormEditProjets: React.FC = () => {
         techno: dataAjoutProjet.technos,
       },
     };
-    console.log("nouveau projet : ", nouveauProjet);
     try {
       await setDoc(doc(db, "projets", "bnj6s7XN4HZ19fVcNNv2"), nouveauProjet, {
         merge: true,
@@ -93,17 +86,16 @@ const FormEditProjets: React.FC = () => {
         date: "",
         technos: [],
       });
-      setProjets(
-        (
-          prevProjets: React.SetStateAction<{ [key: string]: any }[] | null>
-        ) => {
-          const premierProjet = prevProjets[0];
-          return [
-            { ...premierProjet, ...nouveauProjet },
-            ...prevProjets.slice(1),
-          ];
+      setProjets((prevProjets) => {
+        if (prevProjets === null) {
+          return [nouveauProjet];
         }
-      );
+        const premierProjet = prevProjets[0];
+        return [
+          { ...premierProjet, ...nouveauProjet },
+          ...prevProjets.slice(1),
+        ];
+      });
       sessionStorage.setItem("projets", JSON.stringify(projets));
     } catch (error: any) {
       setMessageMAJ(error);
@@ -112,7 +104,6 @@ const FormEditProjets: React.FC = () => {
 
   const SupprimerUnProjet = (nomProjetASupprimer: string) => {
     /*  const projetsCopy = { ...projets[0] }; */
-
     console.log("nomProjet", nomProjetASupprimer);
     /* 
     const keys = Object.keys(projetsCopy);
@@ -129,9 +120,9 @@ const FormEditProjets: React.FC = () => {
   };
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [projectToDelete, setProjectToDelete] = useState(null);
+  const [projectToDelete, setProjectToDelete] = useState<string | null>(null);
 
-  const toggleModal = (projectKey: string | React.SetStateAction<null>) => {
+  const toggleModal = (projectKey: string | null) => {
     setProjectToDelete(projectKey);
     setModalVisible(!modalVisible);
   };

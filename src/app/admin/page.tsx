@@ -13,21 +13,9 @@ import { useProfileContext } from "@/context/ProfileContext";
 import Loading from "@/components/Loading";
 import Image from "next/image";
 
-interface ProfileData {
-  telephone?: string;
-  email?: string;
-  nom?: string;
-  prenom?: string;
-  naissance?: string;
-  autresDecouverte?: string;
-  autresMaitrise?: string;
-  langagesDecouverte?: string;
-  langagesMaitrise?: string;
-}
 interface UserData {
   email: string;
 }
-
 interface FormationDetails {
   debut: string;
   location: string;

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
-const DisplayOneData = ({ data }) => {
+interface DisplayOneDataProps {
+  data: string | Record<string, string | Record<string, string>>;
+}
+const DisplayOneData: React.FC<DisplayOneDataProps> = ({ data }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +26,7 @@ const DisplayOneData = ({ data }) => {
           {typeof data === "object" && (
             <ul>
               {Object.values(data).map((element, index) => (
-                <li key={index + element}>
+                <li key={index + String(element)}>
                   {typeof element === "object" ? (
                     Object.values(element).map((e, subIndex) => (
                       <div key={subIndex + e}>

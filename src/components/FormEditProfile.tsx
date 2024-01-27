@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./formEditProfile.css";
-import { db } from "@/firebase/config";
+import { db, newFetchDataDB } from "@/firebase/config";
 import { collection, doc, updateDoc } from "firebase/firestore";
 import { useProfileContext } from "@/context/ProfileContext";
 
-const FormEditProfile = () => {
-  // fetch ou recuperer dans context le profile : PEUT ETRE PAS BESOIN CAR PAGE ADMIN
+interface ArrayValues {
+  [key: string]: string;
+}
+const FormEditProfile: React.FC = () => {
   const { profile, updateProfile } = useProfileContext() || {};
   useEffect(() => {
     if (profile) {
@@ -15,7 +17,9 @@ const FormEditProfile = () => {
     const fetchProfile = async () => {
       try {
         const fetchedProfile = await newFetchDataDB("profile");
-        console.log(fetchedProfile);
+        if (fetchedProfile == undefined) {
+          return;
+        }
         updateProfile(fetchedProfile[0]);
       } catch (error) {
         console.error("Erreur lors du fetch du profil :", error);
@@ -26,10 +30,11 @@ const FormEditProfile = () => {
 
   // change la value des inputs :
   const [dataProfile, setdataProfile] = useState(profile);
-  function handleInputChange(e) {
+
+  function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     const updatedValue = Array.isArray(value) ? value : value.split(",");
-    setdataProfile((prevData) => ({
+    setdataProfile((prevData: any) => ({
       ...prevData,
       [name]: updatedValue,
     }));
@@ -37,9 +42,9 @@ const FormEditProfile = () => {
 
   // submit le form
 
-  const [messageMAJ, setMessageMAJ] = useState(null);
+  const [messageMAJ, setMessageMAJ] = useState<string | null>(null);
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // Ajoutez ici la logique pour soumettre les données modifiées, par exemple, enregistrer dans sessionStorage ou envoyer à un backend
     console.log("Données modifiées :", dataProfile);
@@ -55,33 +60,33 @@ const FormEditProfile = () => {
       setMessageMAJ("Document mis à jour avec succès !");
       updateProfile(dataProfile);
       /*      sessionStorage.setItem("profile", JSON.stringify([dataProfile])); */
-    } catch (error) {
+    } catch (error: any) {
       setMessageMAJ(error);
       console.error("Erreur lors de la mise à jour du document :", error);
     }
   }
 
   // pour supprimer un element d'une liste
-  function handleRemove(index, dataKey) {
+  function handleRemove(index: number, dataKey: string) {
     const updatedData = [...dataProfile[dataKey]];
     updatedData.splice(index, 1);
-    setdataProfile((prevData) => ({
+    setdataProfile((prevData: any) => ({
       ...prevData,
       [dataKey]: updatedData,
     }));
   }
 
   // pour ajouter un element d'une liste
-  const [arrayValues, setarrayValues] = useState({
+  const [arrayValues, setarrayValues] = useState<ArrayValues>({
     autresMaitrise: "",
     langagesDecouverte: "",
     langagesMaitrise: "",
   });
 
-  function handleAddSmtInArray(whichArray) {
+  function handleAddSmtInArray(whichArray: string) {
     if (arrayValues[whichArray].trim() !== "") {
       const updatedData = [...dataProfile[whichArray], arrayValues[whichArray]];
-      setdataProfile((prevData) => ({
+      setdataProfile((prevData: any) => ({
         ...prevData,
         [whichArray]: updatedData,
       }));
@@ -112,17 +117,19 @@ const FormEditProfile = () => {
           />
           <label htmlFor="LangagesMaitrise">Langages maitrisés</label>
           {Array.isArray(dataProfile.langagesMaitrise) &&
-            dataProfile.langagesMaitrise.map((langage, index) => (
-              <div className="span-button-container" key={index}>
-                <span>{langage}</span>
-                <button
-                  type="button"
-                  onClick={() => handleRemove(index, "langagesMaitrise")}
-                >
-                  -
-                </button>
-              </div>
-            ))}
+            dataProfile.langagesMaitrise.map(
+              (langage: string, index: number) => (
+                <div className="span-button-container" key={index}>
+                  <span>{langage}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemove(index, "langagesMaitrise")}
+                  >
+                    -
+                  </button>
+                </div>
+              )
+            )}
           <div>
             <input
               type="text"
@@ -145,17 +152,19 @@ const FormEditProfile = () => {
           ////////////////////
           <label htmlFor="LangagesDecouverte">Langages découverts</label>
           {Array.isArray(dataProfile.langagesDecouverte) &&
-            dataProfile.langagesDecouverte.map((langage, index) => (
-              <div className="span-button-container" key={index}>
-                <span>{langage}</span>
-                <button
-                  type="button"
-                  onClick={() => handleRemove(index, "langagesDecouverte")}
-                >
-                  -
-                </button>
-              </div>
-            ))}
+            dataProfile.langagesDecouverte.map(
+              (langage: string, index: number) => (
+                <div className="span-button-container" key={index}>
+                  <span>{langage}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemove(index, "langagesDecouverte")}
+                  >
+                    -
+                  </button>
+                </div>
+              )
+            )}
           <div>
             <input
               type="text"
@@ -177,7 +186,7 @@ const FormEditProfile = () => {
           </div>
           <label htmlFor="autresMaitrise">Autres maitrisés</label>
           {Array.isArray(dataProfile.autresMaitrise) &&
-            dataProfile.autresMaitrise.map((autre, index) => (
+            dataProfile.autresMaitrise.map((autre: string, index: number) => (
               <div className="span-button-container" key={index}>
                 <span>{autre}</span>
                 <button
@@ -209,7 +218,7 @@ const FormEditProfile = () => {
           </div>
           <label htmlFor="autresDecouverte">Autres decouvertes</label>
           {Array.isArray(dataProfile.autresDecouverte) &&
-            dataProfile.autresDecouverte.map((autre, index) => (
+            dataProfile.autresDecouverte.map((autre: string, index: number) => (
               <div className="span-button-container" key={index}>
                 <span>{autre}</span>
                 <button

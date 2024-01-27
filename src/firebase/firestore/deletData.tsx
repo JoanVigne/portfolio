@@ -13,12 +13,16 @@ const deleteData = async (
   id: string,
   supprimerQuoi: string
 ) => {
+  console.log(
+    "les params de deleteData: ",
+    quelleCollection,
+    id,
+    supprimerQuoi
+  );
   try {
     console.log("dans le try");
-    const q = query(
-      collection(db, quelleCollection, id),
-      where(supprimerQuoi, "==", true)
-    );
+    const q = query(collection(db, quelleCollection, id, supprimerQuoi));
+    console.log("Requête avant l'exécution :", q);
     const querySnapshot = await getDocs(q);
     console.log(querySnapshot);
 
@@ -27,7 +31,7 @@ const deleteData = async (
       const document = querySnapshot.docs[0];
       console.log("on est bien arrivé avant le DeletDoc, document :", document);
       return;
-      await deleteDoc(doc(db, quelleCollection, document.id));
+      await deleteDoc(doc(db, quelleCollection, document.id, supprimerQuoi));
       console.log("Document supprimé avec succès");
     } else {
       console.log("Aucun document trouvé avec le nom spécifié");

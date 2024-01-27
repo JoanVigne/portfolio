@@ -2,21 +2,19 @@
 import React, { useState } from "react";
 import signIn from "@/firebase/auth/signin";
 import { useRouter } from "next/navigation";
-import { useProfileContext } from "@/context/ProfileContext";
 import Loading from "@/components/Loading";
 
 function Page() {
-  const { profile, updateProfile } = useProfileContext();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const router = useRouter();
-  const [erreur, setErreur] = useState(false);
-  const [messageErreur, setMessageErreur] = useState("");
+  const [erreur, setErreur] = useState<boolean>(false);
+  const [messageErreur, setMessageErreur] = useState<string>("");
 
-  const handleForm = async (event) => {
+  const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
     const { result, error } = await signIn(email, password);
-    if (error) {
+    if (error instanceof Error) {
       setErreur(true);
       setMessageErreur(error.message);
       return console.log(error);

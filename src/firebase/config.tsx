@@ -1,6 +1,5 @@
 import { initializeApp, getApps } from "firebase/app";
-/* import { getStorage } from "firebase/storage"; */
-import { getFirestore, collection, getDocs, addDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -24,7 +23,7 @@ if (!firebase_app) {
 // Fire store
 const db = getFirestore();
 
-async function fetchDataFromDBToSessionStorage(collectionName) {
+async function fetchDataFromDBToSessionStorage(collectionName: string) {
   // verification session storage
   const dansLeSessionStorage = sessionStorage.getItem(collectionName);
   if (dansLeSessionStorage) {
@@ -44,7 +43,7 @@ async function fetchDataFromDBToSessionStorage(collectionName) {
   }
 }
 
-async function newFetchDataDB(collectionName) {
+async function newFetchDataDB(collectionName: string) {
   const colRef = collection(db, collectionName);
   try {
     const snapshot = await getDocs(colRef);
@@ -60,5 +59,4 @@ async function newFetchDataDB(collectionName) {
 
 export { db };
 export default firebase_app;
-/* export { profile }; */
 export { fetchDataFromDBToSessionStorage, newFetchDataDB };
