@@ -4,6 +4,7 @@ import "./formEditProjets.css";
 import { db, fetchDataFromDBToSessionStorage } from "@/firebase/config";
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import addData from "@/firebase/firestore/addData";
+import deleteData from "@/firebase/firestore/deletData";
 
 const FormEditProjets: React.FC = () => {
   const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
@@ -110,23 +111,21 @@ const FormEditProjets: React.FC = () => {
   }
 
   const SupprimerUnProjet = (nomProjetASupprimer: string) => {
-    const projetsCopy = { ...projets[0] };
+    /*  const projetsCopy = { ...projets[0] }; */
 
     console.log("nomProjet", nomProjetASupprimer);
-
+    /* 
     const keys = Object.keys(projetsCopy);
     const nouvellesKeys = keys.filter((key) => key !== nomProjetASupprimer);
     const nouveauProjetsCopy = Object.fromEntries(
       nouvellesKeys.map((key) => [key, projetsCopy[key]])
-    );
+    ); 
     setProjets([nouveauProjetsCopy]);
+    */
     // a mettre dans sessionStorage
-    sessionStorage.setItem("projets", JSON.stringify(projets));
+    /*     sessionStorage.setItem("projets", JSON.stringify(projets)); */
     // a envoyer dans la DB
-    // j'envoie tous l'objet projet ou juste le nouveau projet ?
-    // si juste le nouveau projet : FAIRE COMME addData(colllection, id, data)
-
-    // si TOUS LES PROJETS :
+    deleteData("projets", "bnj6s7XN4HZ19fVcNNv2", nomProjetASupprimer);
   };
 
   const [modalVisible, setModalVisible] = useState(false);
