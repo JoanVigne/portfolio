@@ -67,12 +67,11 @@ const SectionContact = () => {
         {profile && (
           <div className="contact-direct">
             <h3>
-              Par email :{" "}
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+              Par email :<a href={`mailto:${profile.email}`}>{profile.email}</a>
             </h3>
             <h3>
               Par téléphone :{" "}
-              <a href={`tel:${profile.telephone.replace(/\s/g, "")}`}>
+              <a href={`tel:${profile.telephone[0].replace(/\s/g, "")}`}>
                 {profile.telephone}
               </a>
             </h3>

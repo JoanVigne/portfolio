@@ -1,7 +1,9 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import "./formEditProjets.css";
-import { fetchDataFromDBToSessionStorage } from "@/firebase/config";
+import { db, fetchDataFromDBToSessionStorage } from "@/firebase/config";
+import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
+import addData from "@/firebase/firestore/addData";
 
 const FormEditProjets: React.FC = () => {
   const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
@@ -15,30 +17,7 @@ const FormEditProjets: React.FC = () => {
     setProjets(fetchedProjets);
   }
 
-  // submit le form
-  /* async function handleSubmit(e) {
-    e.preventDefault();
-    // Ajoutez ici la logique pour soumettre les données modifiées, par exemple, enregistrer dans sessionStorage ou envoyer à un backend
-    console.log("Données modifiées :", dataProfile);
-    // SI C EST LES MEMES DONNEES, PAS D ENVOI A LA BD
-    if (dataProfile == profile) {
-      console.log("ce sont les memes données");
-      return;
-    }
-    try {
-      console.log("le profile : ", profile);
-      console.log("les datas recup dans le form : ", dataProfile);
-      return;
-      const documentId = dataProfile.id;
-      console.log("documentId", documentId);
-      const docRef = doc(collection(db, "profile"), documentId);
-      await updateDoc(docRef, dataProfile);
-      console.log("Document mis à jour avec succès !");
-      sessionStorage.setItem("profile", JSON.stringify([dataProfile]));
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour du document :", error);
-    }
-  } */
+  const [messageMAJ, setMessageMAJ] = useState<string | null>(null);
 
   const [ouvrirForm, setOuvrirForm] = useState(false);
 
@@ -56,6 +35,7 @@ const FormEditProjets: React.FC = () => {
     technos: "",
   });
 
+  // pour ajouter un element dans liste de techno
   const [technos, setTechnos] = useState<string[]>([]);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -65,7 +45,6 @@ const FormEditProjets: React.FC = () => {
       [name]: name === "technos" ? [value] : value,
     }));
   }
-  // pour ajouter un element dans liste de techno
   const ajouterTechno = () => {
     const nouvelleTechno = arrayValues.technos.trim();
     if (nouvelleTechno !== "" && !technos.includes(nouvelleTechno)) {
@@ -83,9 +62,13 @@ const FormEditProjets: React.FC = () => {
     setTechnos(nouvellesTechnos);
   };
 
-  const ajouterUnProjet = (e: React.FormEvent) => {
-    console.log("Projets debut : ", projets);
+  // ajout et suppression projets dans db :
+  /*   const ajouterUnProjet = async (e: React.FormEvent) => */
+  async function ajouterUnProjet(e: React.FormEvent) {
     e.preventDefault();
+
+    console.log("Projets debut : ", projets);
+
     const nouveauProjet = {
       [dataAjoutProjet.nom.replace(/\s+/g, "-").toLowerCase()]: {
         nom: dataAjoutProjet.nom,
@@ -95,23 +78,37 @@ const FormEditProjets: React.FC = () => {
         techno: dataAjoutProjet.technos,
       },
     };
-    setProjets((prevProjets: any[]) => {
-      const premierProjet = prevProjets[0];
-      return [{ ...premierProjet, ...nouveauProjet }, ...prevProjets.slice(1)];
-    });
-    // Réinitialiser le formulaire
-    setDataAjoutProjet({
-      nom: "",
-      repository: "",
-      lien: "",
-      description: "",
-      date: "",
-      technos: [],
-    });
     console.log("nouveau projet : ", nouveauProjet);
-    sessionStorage.setItem("projets", JSON.stringify(projets));
-    // a envoyer dans la DB
-  };
+    try {
+      await setDoc(doc(db, "projets", "bnj6s7XN4HZ19fVcNNv2"), nouveauProjet, {
+        merge: true,
+      });
+      setMessageMAJ("Projet ajouté !");
+      setDataAjoutProjet({
+        nom: "",
+        repository: "",
+        lien: "",
+        description: "",
+        date: "",
+        technos: [],
+      });
+      setProjets(
+        (
+          prevProjets: React.SetStateAction<{ [key: string]: any }[] | null>
+        ) => {
+          const premierProjet = prevProjets[0];
+          return [
+            { ...premierProjet, ...nouveauProjet },
+            ...prevProjets.slice(1),
+          ];
+        }
+      );
+      sessionStorage.setItem("projets", JSON.stringify(projets));
+    } catch (error: any) {
+      setMessageMAJ(error);
+    }
+  }
+
   const SupprimerUnProjet = (nomProjetASupprimer: string) => {
     const projetsCopy = { ...projets[0] };
 
@@ -124,12 +121,18 @@ const FormEditProjets: React.FC = () => {
     );
     setProjets([nouveauProjetsCopy]);
     // a mettre dans sessionStorage
+    sessionStorage.setItem("projets", JSON.stringify(projets));
     // a envoyer dans la DB
+    // j'envoie tous l'objet projet ou juste le nouveau projet ?
+    // si juste le nouveau projet : FAIRE COMME addData(colllection, id, data)
+
+    // si TOUS LES PROJETS :
   };
+
   const [modalVisible, setModalVisible] = useState(false);
   const [projectToDelete, setProjectToDelete] = useState(null);
 
-  const toggleModal = (projectKey) => {
+  const toggleModal = (projectKey: string | React.SetStateAction<null>) => {
     setProjectToDelete(projectKey);
     setModalVisible(!modalVisible);
   };
@@ -246,6 +249,7 @@ const FormEditProjets: React.FC = () => {
             + techno
           </button>
 
+          {messageMAJ && <p>{messageMAJ}</p>}
           <button type="submit">Ajouter ce nouveau projet</button>
         </form>
       )}
