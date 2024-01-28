@@ -126,6 +126,12 @@ const FormEditProjets: React.FC = () => {
     setProjectToDelete(projectKey);
     setModalVisible(!modalVisible);
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
   return (
     <div>
       {projets &&
@@ -176,6 +182,7 @@ const FormEditProjets: React.FC = () => {
       </button>
       {ouvrirForm && (
         <form
+          onKeyDown={handleKeyDown} // pour gerer la touche "enter"
           action=""
           onSubmit={ajouterUnProjet}
           className="form-ajout-projet"

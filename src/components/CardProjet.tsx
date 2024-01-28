@@ -59,7 +59,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       <div className="img-projet-container">
         <img
           className="projet-img"
-          src="/screenshot-liladventure-1.png"
+          src="/screen-projets/screenshot-liladventure-1.png"
           alt="jeu screenshot"
         />
         {/* <img
@@ -69,12 +69,12 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
         /> */}
         <img
           className="projet-img"
-          src="/screenshot-liladventure-3.png"
+          src="/screen-projets/screenshot-liladventure-3.png"
           alt="jeu screenshot"
         />
         <img
           className="projet-img"
-          src="/screenshot-liladventure-4.png"
+          src="/screen-projets/screenshot-liladventure-4.png"
           alt="jeu screenshot"
         />
       </div>
@@ -83,7 +83,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       <div className="img-projet-container">
         <img
           className="projet-img"
-          src="/screenshot-danielvigne-1.png"
+          src="/screen-projets/screenshot-danielvigne-1.png"
           alt="jeu screenshot"
         />
       </div>
@@ -91,7 +91,10 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
     "Laura Touati Psychologue": (
       <div className="img-projet-container">
         <video width="381px" height="auto" autoPlay loop muted>
-          <source src="/video-lauratouati-1.mp4" type="video/mp4" />
+          <source
+            src="/screen-projets/video-lauratouati-1.mp4"
+            type="video/mp4"
+          />
         </video>
       </div>
     ),
@@ -99,17 +102,17 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       <div className="img-projet-container">
         <img
           className="projet-img"
-          src="/screenshot-sophiebluel-1.png"
+          src="/screen-projets/screenshot-sophiebluel-1.png"
           alt="projet openclassroom screenshot"
         />
         <img
           className="projet-img"
-          src="/screenshot-sophiebluel-2.png"
+          src="/screen-projets/screenshot-sophiebluel-2.png"
           alt="projet openclassroom screenshot"
         />
         <img
           className="projet-img"
-          src="/screenshot-sophiebluel-3.png"
+          src="/screen-projets/screenshot-sophiebluel-3.png"
           alt="projet openclassroom screenshot"
         />
       </div>
@@ -129,14 +132,17 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       <h4>Techno utilisées :</h4>
       <div className="techno-container">
         {techno &&
-          techno.map((tec: string, index: number) => (
-            <img
-              className="techno-logo"
-              key={index}
-              src={`logos/${tec}.png`}
-              alt={tec}
-            />
-          ))}
+          techno.map((tec: string, index: number /* ( */) => {
+            const tecMin = tec.toLowerCase().replace(/\s/g, ""); // Remplace les espaces par rien
+            return (
+              <img
+                className="techno-logo"
+                key={index}
+                src={`logos/${tecMin}.png`}
+                alt={tec}
+              />
+            );
+          })}
       </div>
 
       <p>
