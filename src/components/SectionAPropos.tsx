@@ -1,8 +1,22 @@
 import React from "react";
 
 import "./sectionAPropos.css";
+import { useProfileContext } from "@/context/ProfileContext";
 
 const SectionAPropos = () => {
+  const { profile, updateProfile } = useProfileContext() || {};
+  console.log(profile);
+  const formatList = (items: string[]): string => {
+    if (items.length === 0) {
+      return "";
+    }
+    if (items.length === 1) {
+      return items[0];
+    }
+    const lastItem = items[items.length - 1];
+    const otherItems = items.slice(0, -1);
+    return `${otherItems.join(", ")} et ${lastItem}.`;
+  };
   return (
     <section className="section-a-propos">
       <h2>À propos ...</h2>
@@ -14,19 +28,42 @@ const SectionAPropos = () => {
             <strong>Joan Vigne</strong>, professionnel de 33 ans passionné par
             le monde du
             <strong> développement web</strong> et de l'
-            <strong>informatique</strong>. Mon parcours professionnel est
-            caractérisé par une soif constante de <strong>connaissances</strong>{" "}
-            et la recherche de nouveaux <strong>défis</strong>. Je crois
-            fortement en la <strong>flexibilité</strong>, valeur clé orientant
-            mon travail, me permettant de rester à la <strong>pointe</strong> de
-            mon domaine et de saisir des <strong>opportunités</strong>{" "}
-            mondiales. Je m'engage à apporter une{" "}
-            <strong>valeur ajoutée</strong> à chaque projet. Mon approche repose
-            sur une <strong>exploration continue</strong> du monde du{" "}
-            <strong>code</strong>. Je suis ouvert aux{" "}
+            <strong>informatique</strong>, et engagé à apporter une{" "}
+            <strong>valeur ajoutée</strong> à chaque projet.
+            <br />
+            Ayant un très bon niveau de français, d'anglais, et des notions
+            avancées en italien et en portugais, je suis ouvert aux{" "}
             <strong>opportunités professionnelles</strong> partout dans le
-            monde! N'hésitez pas à me <strong>contacter</strong>.
+            monde.{" "}
           </p>
+          <div className="matrisise-et-decouverte">
+            <h3>Les langages et applications que je maitrise :</h3>
+            <ul>
+              <li>
+                {profile && profile.langagesMaitrise && (
+                  <>{formatList(profile.langagesMaitrise)} </>
+                )}
+              </li>
+              <li>
+                {profile && profile.langagesMaitrise && (
+                  <>{formatList(profile.autresMaitrise)} </>
+                )}
+              </li>
+            </ul>
+            <h3>Les langages et applications que j'ai apprécié découvrir :</h3>
+            <ul>
+              <li>
+                {profile && profile.langagesMaitrise && (
+                  <>{formatList(profile.langagesDecouverte)} </>
+                )}
+              </li>
+              <li>
+                {profile && profile.langagesMaitrise && (
+                  <>{formatList(profile.autresDecouverte)} </>
+                )}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>

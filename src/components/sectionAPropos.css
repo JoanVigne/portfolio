@@ -41,8 +41,11 @@
 .section-a-propos .content img:hover {
 }
 .section-a-propos .content .infos-container {
-  color: #fefffa;
+  color: var(--couleur-beige-clair);
   text-align: center;
+}
+.section-a-propos .content .infos-container h3 {
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 800px) {

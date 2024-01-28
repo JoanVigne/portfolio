@@ -1,6 +1,6 @@
 "use client";
 
-import { db, newFetchDataDB } from "@/firebase/config";
+import { newFetchDataDB } from "@/firebase/config";
 import { useEffect } from "react";
 import { useProfileContext } from "@/context/ProfileContext";
 

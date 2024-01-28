@@ -2,6 +2,9 @@
 
 Bienvenue sur mon portfolio web, un projet réalisé dans le cadre de ma formation d'intégrateur web sur OpenClassrooms.
 
+## lien 
+
+
 ## Technologies utilisées
 
 - [Next.js](https://nextjs.org/)
@@ -18,7 +21,11 @@ Bienvenue sur mon portfolio web, un projet réalisé dans le cadre de ma formati
 
 - **Page Admin** : Permet de modifier les données du site. (Ajout, modification, suppression)
 
-## Installation
+
+## Visuel
+
+screen screen
+<!-- ## Installation
 
 1. Clonez le répertoire du projet.
 
@@ -26,3 +33,4 @@ Bienvenue sur mon portfolio web, un projet réalisé dans le cadre de ma formati
 git clone https://github.com/votre-utilisateur/mon-portfolio.git
 
 ## Remerciements
+ -->
