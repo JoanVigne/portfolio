@@ -1,28 +1,13 @@
 @import url("../app/globals.css");
 
-/* .section-a-propos .image-container {
-  opacity: 0;
-  transform: translateY(150px);
-}
-.section-a-propos .image-container.in-view {
-  animation: fadeInUpInView 2s ease-out forwards;
-} */
-
-/* .section-a-propos {
-  overflow: hidden;
-} */
-.section-a-propos .infos-container {
-  /*   opacity: 0;
-  transform: translateY(150px); */
-  padding: 20px;
-  color: var(--couleur-beige-clair);
-}
-
-/* animation dans le globals.css */
-
 .section-a-propos {
   background-color: var(--couleur-beige-fonce);
 }
+.section-a-propos .infos-container {
+  color: var(--couleur-beige-clair);
+  padding: 5px;
+}
+
 .section-a-propos .content {
   display: flex;
   justify-content: center;
@@ -36,16 +21,23 @@
 
 .section-a-propos .content img {
   max-width: 500px;
+  transition: filter 0.3s ease;
 }
 
 .section-a-propos .content img:hover {
+  filter: grayscale(20%);
 }
 .section-a-propos .content .infos-container {
   color: var(--couleur-beige-clair);
   text-align: center;
 }
+.section-a-propos .content .infos-container p,
+.section-a-propos .content .infos-container ul {
+  padding: 5px;
+}
 .section-a-propos .content .infos-container h3 {
   text-decoration: underline;
+  padding: 5px;
 }
 
 @media only screen and (max-width: 800px) {

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./formEditProjets.css";
 import { db, fetchDataFromDBToSessionStorage } from "@/firebase/config";
-import { doc, setDoc } from "firebase/firestore";
-import deleteData from "@/firebase/firestore/deletData";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const FormEditProjets: React.FC = () => {
   const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
@@ -78,6 +77,15 @@ const FormEditProjets: React.FC = () => {
         merge: true,
       });
       setMessageMAJ("Projet ajouté !");
+
+      //
+      localStorage.removeItem("projets");
+
+      setInterval(() => {
+        fetchProjets();
+      }, 1000);
+
+      // reset le form
       setDataAjoutProjet({
         nom: "",
         repository: "",
@@ -86,37 +94,37 @@ const FormEditProjets: React.FC = () => {
         date: "",
         technos: [],
       });
-      setProjets((prevProjets) => {
-        if (prevProjets === null) {
-          return [nouveauProjet];
-        }
-        const premierProjet = prevProjets[0];
-        return [
-          { ...premierProjet, ...nouveauProjet },
-          ...prevProjets.slice(1),
-        ];
-      });
-      sessionStorage.setItem("projets", JSON.stringify(projets));
     } catch (error: any) {
       setMessageMAJ(error);
     }
   }
 
-  const SupprimerUnProjet = (nomProjetASupprimer: string) => {
-    /*  const projetsCopy = { ...projets[0] }; */
+  const SupprimerUnProjet = async (nomProjetASupprimer: string) => {
     console.log("nomProjet", nomProjetASupprimer);
-    /* 
-    const keys = Object.keys(projetsCopy);
-    const nouvellesKeys = keys.filter((key) => key !== nomProjetASupprimer);
-    const nouveauProjetsCopy = Object.fromEntries(
-      nouvellesKeys.map((key) => [key, projetsCopy[key]])
-    ); 
-    setProjets([nouveauProjetsCopy]);
-    */
-    // a mettre dans sessionStorage
-    /*     sessionStorage.setItem("projets", JSON.stringify(projets)); */
-    // a envoyer dans la DB
-    deleteData("projets", "bnj6s7XN4HZ19fVcNNv2", nomProjetASupprimer);
+
+    try {
+      const docRef = doc(db, "projets", "bnj6s7XN4HZ19fVcNNv2");
+      const docSnapshot = await getDoc(docRef);
+      const projetsData = docSnapshot.data();
+      const projetASupprimer = Object.entries(projetsData).find(
+        ([key]) => key === nomProjetASupprimer
+      );
+      if (projetASupprimer) {
+        const [key] = projetASupprimer;
+        const updatedProjetsData = { ...projetsData };
+        delete updatedProjetsData[key];
+        await setDoc(docRef, updatedProjetsData);
+        setMessageMAJ("Le projet a bien été supprimé");
+        sessionStorage.setItem("projets", JSON.stringify([updatedProjetsData]));
+        toggleModal(null);
+      } else {
+        setMessageMAJ("Le projet n'a pas été trouvé");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression du document :", error);
+      setMessageMAJ("Erreur lors de la suppression");
+      // Gère l'erreur ici
+    }
   };
 
   const [modalVisible, setModalVisible] = useState(false);

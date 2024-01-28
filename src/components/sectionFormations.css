@@ -28,7 +28,7 @@
   transform-origin: center center;
 }
 .formation-card:hover {
-  transform: scale(1.1);
+  transform: rotate(1deg);
 }
 .formation-card * {
   margin: 5px;

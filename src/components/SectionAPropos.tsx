@@ -4,7 +4,7 @@ import "./sectionAPropos.css";
 import { useProfileContext } from "@/context/ProfileContext";
 
 const SectionAPropos = () => {
-  const { profile, updateProfile } = useProfileContext() || {};
+  const { profile } = useProfileContext() || {};
   console.log(profile);
   const formatList = (items: string[]): string => {
     if (items.length === 0) {
@@ -37,7 +37,7 @@ const SectionAPropos = () => {
             monde.{" "}
           </p>
           <div className="matrisise-et-decouverte">
-            <h3>Les langages et applications que je maitrise :</h3>
+            <h3>Les langages et applications maitrisé</h3>
             <ul>
               <li>
                 {profile && profile.langagesMaitrise && (
@@ -50,7 +50,7 @@ const SectionAPropos = () => {
                 )}
               </li>
             </ul>
-            <h3>Les langages et applications que j'ai apprécié découvrir :</h3>
+            <h3>Les langages et applications que j'ai apprécié découvrir</h3>
             <ul>
               <li>
                 {profile && profile.langagesMaitrise && (
