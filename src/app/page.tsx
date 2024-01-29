@@ -11,6 +11,8 @@ import SectionAPropos from "@/components/SectionAPropos";
 import SectionContact from "@/components/SectionContact";
 import SectionFormations from "@/components/SectionFormations";
 
+import Link from "next/link";
+
 export default function Home() {
   const { profile, updateProfile } = useProfileContext() || {};
 
@@ -41,6 +43,9 @@ export default function Home() {
       <SectionAPropos />
       <SectionFormations />
       <SectionContact />
+      <footer>
+        <Link href="/mentionsLegales">Mentions légales</Link>
+      </footer>
     </main>
   );
 }

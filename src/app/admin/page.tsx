@@ -12,6 +12,10 @@ import MyModal from "@/components/MyModal";
 import { useProfileContext } from "@/context/ProfileContext";
 import Loading from "@/components/Loading";
 import Image from "next/image";
+import {
+  AdminOnlyError,
+  AuthRequiredError,
+} from "../errorExceptions/exceptions";
 
 interface UserData {
   email: string;
@@ -47,6 +51,14 @@ interface Formations {
 
 function Page() {
   const { user } = useAuthContext() as { user: UserData };
+  {
+    user &&
+      user.email !== "joan.vigne.pro@gmail.com" &&
+      (() => {
+        throw new AuthRequiredError();
+      })();
+  }
+
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
@@ -127,12 +139,7 @@ function Page() {
     }
   }
   if (user == null) {
-    return (
-      <>
-        <h1>Only logged in users can view this page, so connect!</h1>
-        <button onClick={() => router.push("/")}>home</button>
-      </>
-    );
+    throw new AuthRequiredError();
   }
   if (loading) {
     return <Loading />;
@@ -228,22 +235,22 @@ function Page() {
             </div>
           </div>
         )}
-        <div className="projets-edit-container">
-          <h3>
-            Edit Projets{" "}
-            <Image
-              className="edit-icon"
-              src="/edit.png"
-              alt="edit icon"
-              width={14}
-              height={14}
-              priority
-              onClick={toggleEditProjetsModal}
-            />
-          </h3>
-          <div className="edit-card">
-            {projets &&
-              projets.map(
+        {projets && user.email === "joan.vigne.pro@gmail.com" && (
+          <div className="projets-edit-container">
+            <h3>
+              Edit Projets{" "}
+              <Image
+                className="edit-icon"
+                src="/edit.png"
+                alt="edit icon"
+                width={14}
+                height={14}
+                priority
+                onClick={toggleEditProjetsModal}
+              />
+            </h3>
+            <div className="edit-card">
+              {projets.map(
                 (projet: { [key: string]: { nom: string; date: string } }) => {
                   const projectValues = Object.values(projet);
                   return projectValues.map((project) => (
@@ -254,16 +261,17 @@ function Page() {
                 }
               )}
 
-            <MyModal
-              title="Edit projets"
-              subtitle="Les projets déjà dans la base de donnée :"
-              contentP=""
-              contentForm={"editProjets"}
-              isOpen={modalEditProjets}
-              closeModal={toggleEditProjetsModal}
-            />
+              <MyModal
+                title="Edit projets"
+                subtitle="Les projets déjà dans la base de donnée :"
+                contentP=""
+                contentForm={"editProjets"}
+                isOpen={modalEditProjets}
+                closeModal={toggleEditProjetsModal}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <h3>Mes tests persos : </h3>

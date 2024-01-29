@@ -11,6 +11,10 @@ function Page() {
   const [erreur, setErreur] = useState<boolean>(false);
   const [messageErreur, setMessageErreur] = useState<string>("");
 
+  interface UserData {
+    email: string;
+  }
+
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
     const { result, error } = await signIn(email, password);
