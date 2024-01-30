@@ -6,12 +6,41 @@ import { useProfileContext } from "@/context/ProfileContext";
 
 import "./page.css";
 import SectionBanniere from "@/components/SectionBanniere";
-import SectionProjets from "@/components/SectionProjets";
+/* import SectionProjets from "@/components/SectionProjets";
 import SectionAPropos from "@/components/SectionAPropos";
 import SectionContact from "@/components/SectionContact";
-import SectionFormations from "@/components/SectionFormations";
+import SectionFormations from "@/components/SectionFormations"; */
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const LazySectionProjets = dynamic(
+  () => import("@/components/SectionProjets"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
+
+const LazySectionAPropos = dynamic(
+  () => import("@/components/SectionAPropos"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
+
+const LazySectionFormations = dynamic(
+  () => import("@/components/SectionFormations"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
+
+const LazySectionContact = dynamic(
+  () => import("@/components/SectionContact"),
+  {
+    loading: () => <p>Loading...</p>,
+  }
+);
 
 export default function Home() {
   const { profile, updateProfile } = useProfileContext() || {};
@@ -39,10 +68,14 @@ export default function Home() {
   return (
     <main>
       <SectionBanniere />
-      <SectionProjets />
+      {/*       <SectionProjets />
       <SectionAPropos />
       <SectionFormations />
-      <SectionContact />
+      <SectionContact /> */}
+      <LazySectionProjets />
+      <LazySectionAPropos />
+      <LazySectionFormations />
+      <LazySectionContact />
       <footer>
         <Link href="/mentionsLegales">Mentions légales</Link>
       </footer>

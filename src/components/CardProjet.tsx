@@ -60,7 +60,8 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
         <img
           className="projet-img"
           src="/screen-projets/screenshot-liladventure-1.png"
-          alt="jeu screenshot"
+          alt="jeu screenshot face à l'armée"
+          loading="lazy"
         />
         {/* <img
           className="projet-img"
@@ -70,12 +71,14 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
         <img
           className="projet-img"
           src="/screen-projets/screenshot-liladventure-3.png"
-          alt="jeu screenshot"
+          alt="jeu screenshot personnage dans la neige"
+          loading="lazy"
         />
         <img
           className="projet-img"
           src="/screen-projets/screenshot-liladventure-4.png"
-          alt="jeu screenshot"
+          alt="jeu screenshot en combat"
+          loading="lazy"
         />
       </div>
     ),
@@ -85,17 +88,30 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
           className="projet-img"
           src="/screen-projets/screenshot-danielvigne-1.png"
           alt="jeu screenshot"
+          loading="lazy"
         />
       </div>
     ),
     "Laura Touati Psychologue": (
       <div className="img-projet-container">
-        <video width="381px" height="auto" autoPlay loop muted>
+        <video
+          width="381px"
+          height="auto"
+          autoPlay
+          loop
+          muted
+          title="visite du site"
+          aria-describedby="description-video"
+        >
           <source
             src="/screen-projets/video-lauratouati-1.mp4"
             type="video/mp4"
           />
+          Video de présentation de ce site
         </video>
+        <p id="description-video" hidden>
+          visite du site avec demonstration du passage de la souris sur le menu.
+        </p>
       </div>
     ),
     "openclassrooms Sophie Bluel architecte": (
@@ -104,16 +120,19 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
           className="projet-img"
           src="/screen-projets/screenshot-sophiebluel-1.png"
           alt="projet openclassroom screenshot"
+          loading="lazy"
         />
         <img
           className="projet-img"
           src="/screen-projets/screenshot-sophiebluel-2.png"
-          alt="projet openclassroom screenshot"
+          alt="screenshot modale"
+          loading="lazy"
         />
         <img
           className="projet-img"
           src="/screen-projets/screenshot-sophiebluel-3.png"
-          alt="projet openclassroom screenshot"
+          alt="screenshot filtre dynamique"
+          loading="lazy"
         />
       </div>
     ),

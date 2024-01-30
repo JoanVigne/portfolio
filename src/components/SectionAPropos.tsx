@@ -5,7 +5,7 @@ import { useProfileContext } from "@/context/ProfileContext";
 
 const SectionAPropos = () => {
   const { profile } = useProfileContext() || {};
-  console.log(profile);
+
   const formatList = (items: string[]): string => {
     if (items.length === 0) {
       return "";
@@ -21,7 +21,11 @@ const SectionAPropos = () => {
     <section className="section-a-propos">
       <h2>À propos ...</h2>
       <div className="content">
-        <img src="/Joan_big.jpg" alt="joan photo" />
+        <img
+          src="/Joan_big.jpg"
+          alt="joan travaillant portrait"
+          loading="lazy"
+        />
 
         <div className="infos-container">
           <p>

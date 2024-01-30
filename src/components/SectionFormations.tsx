@@ -78,7 +78,10 @@ const SectionFormations = () => {
                 );
 
                 if (element) {
+                  const isExpanded =
+                    element.classList.contains("contenu-expanded");
                   element.classList.toggle("contenu-expanded");
+                  element.setAttribute("aria-hidden", String(isExpanded));
                 }
               };
 
@@ -88,7 +91,7 @@ const SectionFormations = () => {
                     <img
                       className="logo-etablissement"
                       src={`/logos/${etablissementSansEspace}.png`}
-                      alt="logo etablissement"
+                      alt={"logo " + formation.etablissement}
                     />
                     {formation.etablissement}
                   </div>
@@ -113,6 +116,7 @@ const SectionFormations = () => {
                           : ""
                       }`}
                       id={etablissementSansEspace}
+                      aria-hidden={formationKey !== expandedContenu}
                     >
                       {formation.contenu &&
                         formation.contenu.map((item, index) => (
@@ -154,7 +158,7 @@ const SectionFormations = () => {
                     <img
                       className="logo-etablissement"
                       src={`/logos/${etablissementSansEspace}.png`}
-                      alt="logo etablissement"
+                      alt={"logo " + formation.etablissement}
                     />
                     {formation.etablissement}
                   </div>

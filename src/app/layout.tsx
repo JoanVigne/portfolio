@@ -4,12 +4,6 @@ import { AuthContextProvider } from "@/context/AuthContext";
 import Header from "../components/Header";
 import { ProfileProvider } from "@/context/ProfileContext";
 
-import Head from "next/head";
-
-//
-
-//
-
 export default function RootLayout({
   children,
 }: {
@@ -17,7 +11,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <Head>
+      <head>
         <title>Joan Vigne - Dev Web</title>
         <meta
           name="description"
@@ -46,8 +40,7 @@ export default function RootLayout({
           content="Découvrez les compétences, projets et expériences de Joan Vigne, Développeur Web."
         />
         <meta name="twitter:image" content="/Joan.jpg" />
-      </Head>
-
+      </head>
       <body>
         <AuthContextProvider>
           <Header />

@@ -84,7 +84,12 @@ const SectionBanniere = () => {
         JOAN VIGNE - WEB DEVELOPER{" "}
       </h1>
 
-      <img className="piracy-pic" src="/piracy-is-a-crime.png" alt="" />
+      <img
+        className="piracy-pic"
+        src="/piracy-is-a-crime.png"
+        alt=""
+        loading="lazy"
+      />
     </section>
   );
 };

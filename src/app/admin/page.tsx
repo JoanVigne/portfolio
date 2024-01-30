@@ -218,8 +218,6 @@ function Page() {
                 width={199}
                 height={133}
               />
-              <DisplayOneData data={profile.prenom} />
-              <DisplayOneData data={profile.nom} />
               <DisplayOneData data={profile.email} />
               <DisplayOneData data={profile.naissance} />
               <DisplayOneData data={profile.telephone} />
@@ -275,13 +273,7 @@ function Page() {
       </div>
 
       <h3>Mes tests persos : </h3>
-      <h4>test de boucle sur formationsCoding</h4>
-      {formationsCoding &&
-        Object.entries(formationsCoding).map(([key, formaC], index) => (
-          <div key={key + index}>
-            <DisplayOneData data={formaC.nom} />
-          </div>
-        ))}
+
       <h4>
         Image reçu directement depuis le storage de firebase avec un token qui
         expire potentiellement
