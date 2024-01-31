@@ -28,16 +28,15 @@ const Header = () => {
 
   return (
     <header>
-      <div className="logo-container">J-V</div>
+      <div className="logo-container">{/* J-V */}</div>
       <nav>
-        {" "}
         <Link href="/">Page d'accueil</Link>
         <Link href="/#projets">Projets</Link>
         <Link href="/#contact">Contact</Link>
         {user === null && (
           <>
-            <Link href="/signin">sign in</Link>
-            <Link href="/signup">sign up</Link>
+            <Link href="/signin">Sign in</Link>
+            {/*             <Link href="/signup">Sign up</Link> */}
           </>
         )}
         {user !== null && (
@@ -62,8 +61,6 @@ const Header = () => {
             <li>
               <ChangerCSS annee="20" />
             </li>
-            <li>autre</li>
-            <li>autre</li>
           </ul>
         </div>
       </nav>

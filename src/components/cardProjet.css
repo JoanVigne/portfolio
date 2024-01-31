@@ -3,29 +3,33 @@
 .card-projet {
   max-width: 90%;
   width: 381px;
-  margin: 40px auto;
+  margin: 20px auto;
+  padding-bottom: 10px;
   background-color: var(--couleur-beige-clair);
   color: var(--couleur-noir);
   opacity: 0;
   transform: translateY(150px);
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: var(--border-radius-card);
+  overflow: hidden;
 }
 /* animation dans le globals.css */
 
 .card-projet h3 {
-  padding: 20px;
-  color: var(--couleur-marron-fonce);
+  margin: 20px auto;
+  color: var(--couleur-noir);
 }
 .card-projet h4 {
-  color: var(--couleur-bleu);
+  color: var(--couleur-noir);
 }
+
 .card-projet .img-projet-container {
   display: flex;
   justify-content: center;
   align-items: center;
   width: fit-content;
   overflow: hidden;
-  height: 200px;
+  max-height: 200px;
 }
 .card-projet .projet-img {
   border: 1px black solid;
@@ -39,15 +43,15 @@
   margin: 5px;
 }
 
-.card-projet .projet-repo {
-  text-decoration: underline;
-}
-
+.card-projet .projet-repo,
 .card-projet .projet-lien {
   text-decoration: underline;
+  color: var(--couleur-bleu);
 }
+
 .card-projet p {
-  margin: 8px;
+  margin: 0 8px;
+  color: var(--couleur-noir);
 }
 
 @media only screen and (max-width: 800px) {

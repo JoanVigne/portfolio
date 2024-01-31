@@ -66,18 +66,15 @@ const SectionContact = () => {
       <div className="contact-container">
         {profile && (
           <div className="contact-direct">
-            <h3>
-              Par email :{" "}
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
-            </h3>
-            <h3>
-              Par téléphone :{" "}
-              <a href={`tel:${profile.telephone[0].replace(/\s/g, "")}`}>
-                {profile.telephone}
-              </a>
-            </h3>
+            <h3>Par email : </h3>
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            <h3>Par téléphone : </h3>
+            <a href={`tel:${profile.telephone[0].replace(/\s/g, "")}`}>
+              {profile.telephone}
+            </a>
           </div>
         )}
+
         <div className="form-container">
           <h3>Ou au moyen de ce formulaire :</h3>
           <form ref={formRef} onSubmit={onSubmit}>

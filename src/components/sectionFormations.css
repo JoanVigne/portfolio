@@ -14,7 +14,7 @@
 
 .formation-card {
   text-align: center;
-  min-height: 210px;
+  min-height: 200px;
   margin: 20px;
   border: 1px black solid;
   background-color: var(--couleur-beige-clair);
@@ -22,17 +22,14 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  border-radius: 35px;
-  padding-bottom: 10px;
+  border-radius: var(--border-radius-card);
   transition: transform 2s ease;
   transform-origin: center center;
 }
-.formation-card:hover {
-  transform: rotate(1deg);
-}
+
 .formation-card * {
   margin: 5px;
-
+  font-size: 17px;
   color: var(--couleur-noir);
 }
 .etablissement-container {
@@ -46,7 +43,6 @@
 
 .en-savoir-plus {
   max-width: 130px;
-
   color: #fff;
   padding: 5px 10px;
   border: none;
@@ -77,6 +73,6 @@
   .formation-card li,
   .formation-card h3,
   .formation-card p {
-    font-size: larger;
+    font-size: 20px;
   }
 }

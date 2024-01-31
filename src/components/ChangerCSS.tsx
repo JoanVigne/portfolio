@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface ChangerCSSProps {
   annee: string;
@@ -15,7 +15,7 @@ const ChangerCSS: React.FC<ChangerCSSProps> = ({ annee }) => {
     <>
       <input
         type="button"
-        value={`Style des années ${annee}`}
+        value={`Des années ${annee}`}
         onClick={toggleClass}
       />
     </>

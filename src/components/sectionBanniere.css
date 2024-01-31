@@ -7,7 +7,7 @@
     var(--couleur-marron-fonce)
   );
   position: relative;
-  height: 90vh;
+  height: 85vh;
 }
 
 .section-banniere h1 {
@@ -15,7 +15,7 @@
   color: var(--couleur-beige-clair);
   white-space: nowrap;
   position: absolute;
-  top: 40%;
+  top: 33%;
   transform: translate(0, -50%);
   transition: transform 0.1s ease-out;
 }

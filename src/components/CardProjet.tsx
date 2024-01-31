@@ -142,13 +142,12 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       <h3>{nom}</h3>
       {srcProjets[nom]}
       <h4>date de création : {date}</h4>
-      <h4>
-        <a className="projet-repo" href={repository} target="_blank">
-          Repository github
+      <h4 className="projet-repo">
+        <a href={repository} target="_blank">
+          Repo github
         </a>
       </h4>
 
-      <h4>Techno utilisées :</h4>
       <div className="techno-container">
         {techno &&
           techno.map((tec: string, index: number /* ( */) => {
@@ -172,9 +171,11 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
         `}
       </p>
       {lien && (
-        <a className="projet-lien" href={lien} target="_blank">
-          visiter le site
-        </a>
+        <h4>
+          <a className="projet-lien" href={lien} target="_blank">
+            visiter le site
+          </a>
+        </h4>
       )}
     </div>
   );

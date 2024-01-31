@@ -21,7 +21,7 @@ const SectionBanniere = () => {
       if (h1Element) {
         const newTranslateX = initialTranslateX.current - 5;
 
-        if (newTranslateX <= -550) {
+        if (newTranslateX <= -350) {
           setUpOrDown(false);
           return;
         }
@@ -35,7 +35,7 @@ const SectionBanniere = () => {
       const h1Element = h1Ref.current;
       if (h1Element) {
         const newTranslateX = initialTranslateX.current + 5;
-        if (newTranslateX >= 550) {
+        if (newTranslateX >= 350) {
           setUpOrDown(true);
           return;
         }

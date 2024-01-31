@@ -3,7 +3,6 @@ import Loading from "@/components/Loading";
 import { useProfileContext } from "@/context/ProfileContext";
 import { newFetchDataDB } from "@/firebase/config";
 import React, { useEffect, useState } from "react";
-import "./mentionsLegales.css";
 
 const Page = () => {
   // PROFILE

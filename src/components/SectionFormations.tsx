@@ -87,14 +87,14 @@ const SectionFormations = () => {
 
               return (
                 <div key={etablissementSansEspace} className="formation-card">
-                  <div className="etablissement-container">
+                  <h3 className="etablissement-container">
                     <img
                       className="logo-etablissement"
                       src={`/logos/${etablissementSansEspace}.png`}
                       alt={"logo " + formation.etablissement}
                     />
                     {formation.etablissement}
-                  </div>
+                  </h3>
 
                   <h3>{formation.nom}</h3>
 
@@ -154,19 +154,19 @@ const SectionFormations = () => {
               );
               return (
                 <div key={etablissementSansEspace} className="formation-card">
-                  <div className="etablissement-container">
+                  <h3 className="etablissement-container">
                     <img
                       className="logo-etablissement"
                       src={`/logos/${etablissementSansEspace}.png`}
                       alt={"logo " + formation.etablissement}
                     />
                     {formation.etablissement}
-                  </div>
+                  </h3>
                   <h3>{formation.nom}</h3>
 
-                  <p>
+                  <h3>
                     Du {formation.debut} au {formation.fin}
-                  </p>
+                  </h3>
                 </div>
               );
             })}

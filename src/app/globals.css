@@ -6,6 +6,7 @@
   --couleur-beige-clair: #dfdbd6;
   --couleur-bleu: #44547c;
   --padding-h2: 30px;
+  --border-radius-card: 3px;
 }
 
 /* fonts : */
@@ -102,6 +103,14 @@ button:hover {
 }
 .edit-icon:hover {
   cursor: pointer;
+}
+
+footer {
+  height: 100px;
+  text-align: center;
+}
+.mentions-legales * {
+  text-align: center;
 }
 
 /* THEME CSS  */
