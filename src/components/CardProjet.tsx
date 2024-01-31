@@ -141,7 +141,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
     <div className="card-projet">
       <h3>{nom}</h3>
       {srcProjets[nom]}
-      <h4>date de création : {date}</h4>
+      <h4>Date de création : {date}</h4>
       <h4 className="projet-repo">
         <a href={repository} target="_blank">
           Repo github
@@ -173,7 +173,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       {lien && (
         <h4>
           <a className="projet-lien" href={lien} target="_blank">
-            visiter le site
+            Visiter le site
           </a>
         </h4>
       )}

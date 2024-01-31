@@ -28,11 +28,10 @@
   justify-content: center;
   align-items: center;
   width: fit-content;
-  overflow: hidden;
   max-height: 200px;
 }
+
 .card-projet .projet-img {
-  border: 1px black solid;
   max-height: 200px;
   width: 100%;
 }
@@ -47,6 +46,10 @@
 .card-projet .projet-lien {
   text-decoration: underline;
   color: var(--couleur-bleu);
+}
+.card-projet .projet-repo:hover,
+.card-projet .projet-lien:hover {
+  color: var(--couleur-noir);
 }
 
 .card-projet p {
