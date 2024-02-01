@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "@/context/AuthContext";
-import { useRouter } from "next/navigation";
+
 import DisplayOneData from "../../components/DisplayOneData";
 import {
   fetchDataFromDBToSessionStorage,
@@ -59,7 +59,6 @@ function Page() {
       })();
   }
 
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
 
   const [modalEditProfile, setmodalEditProfile] = useState(false);

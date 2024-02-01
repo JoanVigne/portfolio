@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import "./formEditProjets.css";
 import { db, fetchDataFromDBToSessionStorage } from "@/firebase/config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import MyModal from "./MyModal";
+import FormEditThisProjet from "./FormEditThisProjet";
 
 const FormEditProjets: React.FC = () => {
+  const router = useRouter();
+
   const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
     null
   );
@@ -140,6 +146,19 @@ const FormEditProjets: React.FC = () => {
       e.preventDefault();
     }
   };
+
+  const [thisForm, setThisForm] = useState(false);
+  const [projetToModify, setProjetToModify] = useState<string | null>(null);
+
+  const toggleThisProjetForm = (projectKey: string | null) => {
+    setProjetToModify(projectKey);
+    setThisForm(!thisForm);
+    console.log("projectKey", projectKey);
+  };
+
+  function handleSave(newData: any) {
+    console.log("Nouvelles données à sauvegarder :", newData);
+  }
   return (
     <div>
       {projets &&
@@ -150,14 +169,31 @@ const FormEditProjets: React.FC = () => {
             // Vérifiez si la clé est differente de "id"
             if (key !== "id") {
               return (
-                <div key={project.nom}>
-                  <span className="nom-projet">{project.nom} </span>
-                  <button
-                    className="button-attention"
-                    onClick={() => toggleModal(key)}
-                  >
-                    supprimer
-                  </button>
+                <div key={project.nom} className="projet-container">
+                  <div className="nom-edit-supprime-container">
+                    <span className="nom-projet">{project.nom} </span>
+                    <div className="edit-supprime-container">
+                      <Image
+                        className="edit-icon"
+                        src="/edit.png"
+                        alt="edit icon"
+                        width={14}
+                        height={14}
+                        priority
+                        onClick={() => toggleThisProjetForm(key)}
+                      />
+
+                      <button
+                        className="button-attention"
+                        onClick={() => toggleModal(key)}
+                      >
+                        supprimer
+                      </button>
+                    </div>
+                  </div>
+                  {thisForm && projetToModify === key && (
+                    <FormEditThisProjet data={project} onSave={handleSave} />
+                  )}
                   {modalVisible && projectToDelete === key && (
                     <div id="confirmationModal" className="modal">
                       <div className="modal-confirmation-suppression">

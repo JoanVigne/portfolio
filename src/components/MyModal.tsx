@@ -29,6 +29,11 @@ const MyModal: React.FC<MyModalProps> = ({
       setThisForm(<FormEditProjets />);
     } else if (contentForm === "editFormations") {
       console.log("edit formations modal");
+    } else if (contentForm === "editThisProjet") {
+      closeModal();
+      return;
+      console.log("editThisProjet");
+      setThisForm(<FormEditProjets />);
     } else {
       setThisForm("");
     }

@@ -1,11 +1,23 @@
+.projet-container .nom-edit-supprime-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.projet-container .edit-supprime-container {
+  display: flex;
+  align-items: center;
+}
 .button-attention {
   background-color: red;
+  margin: 3px;
 }
 
-.nom-projet {
-  margin-bottom: 10px;
+.edit-icon {
+  padding: 3px;
+  width: 25px;
+  height: 25px;
 }
-
 .modal-confirmation-suppression {
   border: black 1px solid;
   align-items: center;
