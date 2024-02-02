@@ -51,7 +51,7 @@ const MyModal: React.FC<MyModalProps> = ({
       <button onClick={closeModal} className="close-modal">
         x
       </button>
-      <h2>{subtitle}</h2>
+      <h3>{subtitle}</h3>
       <p>{contentP}</p>
       {thisForm}
     </Modal>

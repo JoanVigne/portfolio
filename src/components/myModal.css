@@ -21,7 +21,11 @@
   color: white;
 }
 
+.my-modal-container h2 {
+  padding: 0;
+}
 .my-modal-container h2,
-.my-modal-container p {
+.my-modal-container p,
+.my-modal-container h3 {
   text-align: center;
 }

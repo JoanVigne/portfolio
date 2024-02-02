@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import "./formEditThisProjet.css";
 
 interface FormData {
@@ -43,7 +43,9 @@ const FormEditThisProjet: React.FC<{
         name="nom"
         value={formData.nom || ""}
         onChange={handleInputChange}
+        /* disabled */ // désactive l'input
       />
+      <p className="nom-message">Le nom du projet ne peut pas être modifié.</p>
       <label>Date:</label>
       <input
         type="text"

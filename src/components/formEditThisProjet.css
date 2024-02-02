@@ -4,6 +4,14 @@
   border: 3px green solid;
   padding: 10px;
 }
+
+.edit-this-projet textarea {
+  height: 70px;
+}
+
+.edit-this-projet .nom-message {
+  font-size: x-small;
+}
 /* 
 .edit-this-projet button[type="submit"] {
   background-color: green;

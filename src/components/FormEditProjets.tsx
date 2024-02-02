@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./formEditProjets.css";
 import { db, fetchDataFromDBToSessionStorage } from "@/firebase/config";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { useRouter } from "next/navigation";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+
 import Image from "next/image";
 import MyModal from "./MyModal";
 import FormEditThisProjet from "./FormEditThisProjet";
 
 const FormEditProjets: React.FC = () => {
-  const router = useRouter();
-
   const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
     null
   );
   useEffect(() => {
     fetchProjets();
   }, []);
+
   async function fetchProjets() {
     const fetchedProjets = await fetchDataFromDBToSessionStorage("projets");
     setProjets(fetchedProjets);
@@ -83,14 +82,8 @@ const FormEditProjets: React.FC = () => {
         merge: true,
       });
       setMessageMAJ("Projet ajouté !");
-
       //
       localStorage.removeItem("projets");
-
-      setInterval(() => {
-        fetchProjets();
-      }, 1000);
-
       // reset le form
       setDataAjoutProjet({
         nom: "",
@@ -121,7 +114,8 @@ const FormEditProjets: React.FC = () => {
         delete updatedProjetsData[key];
         await setDoc(docRef, updatedProjetsData);
         setMessageMAJ("Le projet a bien été supprimé");
-        sessionStorage.setItem("projets", JSON.stringify([updatedProjetsData]));
+
+        /*  sessionStorage.setItem("projets", JSON.stringify([updatedProjetsData])); */
         toggleModal(null);
       } else {
         setMessageMAJ("Le projet n'a pas été trouvé");
@@ -156,9 +150,57 @@ const FormEditProjets: React.FC = () => {
     console.log("projectKey", projectKey);
   };
 
-  function handleSave(newData: any) {
+  const [messages, setMessages] = useState<{ [key: string]: string }>({});
+
+  async function handleSave(newData: any, projetKey: string) {
     console.log("Nouvelles données à sauvegarder :", newData);
+    const newKeyName = newData.nom.replace(/\s+/g, "-").toLowerCase();
+    /*     const ceProjet = {
+      [newKeyName]: {
+        newData,
+      },
+    }; */
+
+    const verifierProjetExiste = (
+      projetRecherche: string,
+      projetsDansLaBase: any
+    ): boolean => projetRecherche in projetsDansLaBase;
+
+    const docRef = doc(db, "projets", "bnj6s7XN4HZ19fVcNNv2");
+    const projetSnapshot = await getDoc(docRef);
+    const projetDansLaBaseDeDonnees = projetSnapshot.data();
+
+    const projetRecherche = newKeyName;
+    const projetExiste = verifierProjetExiste(
+      projetRecherche,
+      projetDansLaBaseDeDonnees
+    );
+
+    const newMessages = { ...messages };
+    if (projetExiste) {
+      projetDansLaBaseDeDonnees[projetRecherche] = newData;
+      console.log(
+        "projet que je peux mettre a jour directement sur le site",
+        projetDansLaBaseDeDonnees
+      );
+      /* setProjets(projetDansLaBaseDeDonnees);
+      localStorage.setItem(
+        "projets",
+        JSON.stringify(projetDansLaBaseDeDonnees)
+      ); */
+      // le modifier dans la DB fire base
+      await updateDoc(docRef, {
+        [newKeyName]: newData,
+      });
+      newMessages[projetKey] =
+        "Le projet a été mis à jour dans la base de données.";
+    } else {
+      newMessages[projetKey] =
+        "Le projet n'existe pas sous ce nom, créer un nouveau projet?";
+    }
+    setMessages(newMessages);
   }
+
   return (
     <div>
       {projets &&
@@ -192,8 +234,15 @@ const FormEditProjets: React.FC = () => {
                     </div>
                   </div>
                   {thisForm && projetToModify === key && (
-                    <FormEditThisProjet data={project} onSave={handleSave} />
+                    <>
+                      <FormEditThisProjet
+                        data={project}
+                        onSave={(newData) => handleSave(newData, key)}
+                      />
+                      <p>{messages[key]}</p>
+                    </>
                   )}
+
                   {modalVisible && projectToDelete === key && (
                     <div id="confirmationModal" className="modal">
                       <div className="modal-confirmation-suppression">
