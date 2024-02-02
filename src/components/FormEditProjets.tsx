@@ -15,6 +15,10 @@ const FormEditProjets: React.FC = () => {
     fetchProjets();
   }, []);
 
+  // setInterval(() => {
+  //   console.log("projets", projets);
+  // }, 10000);
+
   async function fetchProjets() {
     const fetchedProjets = await fetchDataFromDBToSessionStorage("projets");
     setProjets(fetchedProjets);
@@ -194,6 +198,9 @@ const FormEditProjets: React.FC = () => {
       });
       newMessages[projetKey] =
         "Le projet a été mis à jour dans la base de données.";
+      const newArray = [{ ...projets[0], [newKeyName]: newData }];
+      setProjets(newArray);
+      sessionStorage.setItem("projets", JSON.stringify(newArray));
     } else {
       newMessages[projetKey] =
         "Le projet n'existe pas sous ce nom, créer un nouveau projet?";
