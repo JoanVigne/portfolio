@@ -87,6 +87,7 @@ const FormEditProjets: React.FC = () => {
       });
       setMessageMAJ("Projet ajouté !");
       //
+      //
       const newArray = [{ ...projets[0], ...nouveauProjet }];
       setProjets(newArray);
       sessionStorage.setItem("projets", JSON.stringify(newArray));

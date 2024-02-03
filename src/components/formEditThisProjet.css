@@ -5,10 +5,17 @@
   padding: 10px;
 }
 
+.edit-this-projet label {
+  font-weight: bolder;
+}
 .edit-this-projet textarea {
   height: 70px;
 }
 
+.edit-this-projet .supprimer {
+  background-color: red;
+  margin-left: 5px;
+}
 .edit-this-projet .nom-message {
   font-size: x-small;
 }
