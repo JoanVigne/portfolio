@@ -87,7 +87,9 @@ const FormEditProjets: React.FC = () => {
       });
       setMessageMAJ("Projet ajouté !");
       //
-      localStorage.removeItem("projets");
+      const newArray = [{ ...projets[0], ...nouveauProjet }];
+      setProjets(newArray);
+      sessionStorage.setItem("projets", JSON.stringify(newArray));
       // reset le form
       setDataAjoutProjet({
         nom: "",
@@ -118,8 +120,9 @@ const FormEditProjets: React.FC = () => {
         delete updatedProjetsData[key];
         await setDoc(docRef, updatedProjetsData);
         setMessageMAJ("Le projet a bien été supprimé");
-
-        /*  sessionStorage.setItem("projets", JSON.stringify([updatedProjetsData])); */
+        console.log("updatedProjetsData", updatedProjetsData);
+        setProjets([updatedProjetsData]);
+        sessionStorage.setItem("projets", JSON.stringify([updatedProjetsData]));
         toggleModal(null);
       } else {
         setMessageMAJ("Le projet n'a pas été trouvé");
@@ -159,11 +162,6 @@ const FormEditProjets: React.FC = () => {
   async function handleSave(newData: any, projetKey: string) {
     console.log("Nouvelles données à sauvegarder :", newData);
     const newKeyName = newData.nom.replace(/\s+/g, "-").toLowerCase();
-    /*     const ceProjet = {
-      [newKeyName]: {
-        newData,
-      },
-    }; */
 
     const verifierProjetExiste = (
       projetRecherche: string,
@@ -187,11 +185,6 @@ const FormEditProjets: React.FC = () => {
         "projet que je peux mettre a jour directement sur le site",
         projetDansLaBaseDeDonnees
       );
-      /* setProjets(projetDansLaBaseDeDonnees);
-      localStorage.setItem(
-        "projets",
-        JSON.stringify(projetDansLaBaseDeDonnees)
-      ); */
       // le modifier dans la DB fire base
       await updateDoc(docRef, {
         [newKeyName]: newData,
