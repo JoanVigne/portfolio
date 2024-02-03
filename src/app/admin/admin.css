@@ -58,8 +58,13 @@
   justify-content: space-around;
   background-color: var(--couleur-marron-fonce);
   text-align: center;
+  color: var(--couleur-noir);
 }
-
+.edits-container h3 {
+  font-size: 25px;
+  text-decoration: underline;
+  margin-bottom: 5px;
+}
 .projets-edit-container,
 .profile-edit-container {
   background-color: var(--couleur-beige-clair);

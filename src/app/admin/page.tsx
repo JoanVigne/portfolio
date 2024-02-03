@@ -199,7 +199,7 @@ function Page() {
         {profile && user.email === "joan.vigne.pro@gmail.com" && (
           <div className="profile-edit-container">
             <h3>
-              Edit Profile{" "}
+              Profile{" "}
               <Image
                 className="edit-icon"
                 src="/edit.png"
@@ -235,7 +235,7 @@ function Page() {
         {projets && user.email === "joan.vigne.pro@gmail.com" && (
           <div className="projets-edit-container">
             <h3>
-              Edit Projets{" "}
+              Projets{" "}
               <Image
                 className="edit-icon"
                 src="/edit.png"

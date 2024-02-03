@@ -113,6 +113,55 @@ footer {
   text-align: center;
 }
 
+.form-admin {
+}
+.form-admin {
+  display: flex;
+  flex-direction: column;
+  border: 3px green solid;
+  padding: 10px;
+}
+.form-admin button {
+  margin-bottom: 5px;
+  max-width: 150px;
+}
+.form-admin label {
+  font-weight: bolder;
+}
+.form-admin textarea {
+  height: 70px;
+}
+
+.form-admin .techno-et-supprimer {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+.form-admin .supprimer {
+  background-color: red;
+  margin-left: 5px;
+  padding: 0 8px;
+  border-radius: 20px;
+  font-size: larger;
+}
+.form-admin .nom-message {
+  font-size: x-small;
+}
+.form-admin .submit {
+  background-color: green;
+}
+.form-admin button[type="submit"],
+.form-admin input[type="submit"] {
+  background-color: green;
+  max-width: 150px;
+}
+
+.form-admin .reset-form {
+  background-color: var(--couleur-noir);
+  color: var(--couleur-beige-clair);
+  max-width: 150px;
+}
+
 /* THEME CSS  */
 /* THEME DES ANNEES 2000 */
 .theme-00::-webkit-scrollbar {

@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useState } from "react";
-import "./formEditThisProjet.css";
 
 interface FormData {
   nom: string | undefined;
@@ -58,7 +57,7 @@ const FormEditThisProjet: React.FC<{
   };
 
   return (
-    <form className="edit-this-projet">
+    <form className="form-admin">
       <label>Nom du projet:</label>
       <input
         type="text"
@@ -92,14 +91,14 @@ const FormEditThisProjet: React.FC<{
 
       {formData.techno &&
         formData.techno.map((techno, index) => (
-          <div key={index}>
+          <div key={index} className="techno-et-supprimer">
             {techno}
             <button
               className="supprimer"
               type="button"
               onClick={() => supprimerTechno(techno)}
             >
-              Supprimer
+              -
             </button>
           </div>
         ))}
@@ -111,7 +110,7 @@ const FormEditThisProjet: React.FC<{
       <button type="button" onClick={ajouterTechno}>
         + techno
       </button>
-      <button type="button" onClick={handleSave}>
+      <button className="submit" type="button" onClick={handleSave}>
         Enregistrer
       </button>
     </form>

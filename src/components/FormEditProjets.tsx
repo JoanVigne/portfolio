@@ -226,12 +226,15 @@ const FormEditProjets: React.FC = () => {
                         onClick={() => toggleThisProjetForm(key)}
                       />
 
-                      <button
-                        className="button-attention"
+                      <Image
+                        className="bin"
                         onClick={() => toggleModal(key)}
-                      >
-                        supprimer
-                      </button>
+                        src="/bin.png"
+                        alt="edit icon"
+                        width={14}
+                        height={14}
+                        priority
+                      />
                     </div>
                   </div>
                   {thisForm && projetToModify === key && (
@@ -279,7 +282,7 @@ const FormEditProjets: React.FC = () => {
           onKeyDown={handleKeyDown} // pour gerer la touche "enter"
           action=""
           onSubmit={ajouterUnProjet}
-          className="form-ajout-projet"
+          className="form-admin"
         >
           <label htmlFor="nom">Nom</label>
           <input
@@ -324,10 +327,14 @@ const FormEditProjets: React.FC = () => {
 
           <label htmlFor="technos">Technos</label>
           {technos.map((techno, index) => (
-            <div key={index}>
+            <div key={index} className="techno-et-supprimer">
               {techno}
-              <button type="button" onClick={() => supprimerTechno(techno)}>
-                Supprimer
+              <button
+                className="supprimer"
+                type="button"
+                onClick={() => supprimerTechno(techno)}
+              >
+                -
               </button>
             </div>
           ))}

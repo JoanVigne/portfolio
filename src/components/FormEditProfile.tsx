@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./formEditProfile.css";
 import { db, newFetchDataDB } from "@/firebase/config";
 import { collection, doc, updateDoc } from "firebase/firestore";
 import { useProfileContext } from "@/context/ProfileContext";
@@ -96,7 +95,7 @@ const FormEditProfile: React.FC = () => {
   }
 
   return (
-    <form className="form-edit-profile" onSubmit={handleSubmit}>
+    <form className="form-admin" onSubmit={handleSubmit}>
       {profile && (
         <>
           <label htmlFor="email">E-mail</label>
@@ -119,10 +118,11 @@ const FormEditProfile: React.FC = () => {
           {Array.isArray(dataProfile.langagesMaitrise) &&
             dataProfile.langagesMaitrise.map(
               (langage: string, index: number) => (
-                <div className="span-button-container" key={index}>
+                <div className="techno-et-supprimer" key={index}>
                   <span>{langage}</span>
                   <button
                     type="button"
+                    className="supprimer"
                     onClick={() => handleRemove(index, "langagesMaitrise")}
                   >
                     -
@@ -154,9 +154,10 @@ const FormEditProfile: React.FC = () => {
           {Array.isArray(dataProfile.langagesDecouverte) &&
             dataProfile.langagesDecouverte.map(
               (langage: string, index: number) => (
-                <div className="span-button-container" key={index}>
+                <div className="techno-et-supprimer" key={index}>
                   <span>{langage}</span>
                   <button
+                    className="supprimer"
                     type="button"
                     onClick={() => handleRemove(index, "langagesDecouverte")}
                   >
@@ -187,9 +188,10 @@ const FormEditProfile: React.FC = () => {
           <label htmlFor="autresMaitrise">Autres maitrisés</label>
           {Array.isArray(dataProfile.autresMaitrise) &&
             dataProfile.autresMaitrise.map((autre: string, index: number) => (
-              <div className="span-button-container" key={index}>
+              <div className="techno-et-supprimer" key={index}>
                 <span>{autre}</span>
                 <button
+                  className="supprimer"
                   type="button"
                   onClick={() => handleRemove(index, "autresMaitrise")}
                 >
@@ -219,9 +221,10 @@ const FormEditProfile: React.FC = () => {
           <label htmlFor="autresDecouverte">Autres decouvertes</label>
           {Array.isArray(dataProfile.autresDecouverte) &&
             dataProfile.autresDecouverte.map((autre: string, index: number) => (
-              <div className="span-button-container" key={index}>
+              <div className="techno-et-supprimer" key={index}>
                 <span>{autre}</span>
                 <button
+                  className="supprimer"
                   type="button"
                   onClick={() => handleRemove(index, "autresDecouverte")}
                 >
