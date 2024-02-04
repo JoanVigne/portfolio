@@ -29,3 +29,18 @@
 .my-modal-container h3 {
   text-align: center;
 }
+
+@media only screen and (max-width: 800px) {
+  .my-modal-container * {
+    font-size: 22px;
+  }
+  .my-modal-container .close-modal {
+    width: 30px;
+    height: 30px;
+  }
+  .my-modal-container .edit-icon,
+  .my-modal-container .bin {
+    width: 30px;
+    height: 30px;
+  }
+}

@@ -235,7 +235,7 @@ function Page() {
         {projets && user.email === "joan.vigne.pro@gmail.com" && (
           <div className="projets-edit-container">
             <h3>
-              Projets{" "}
+              Projets
               <Image
                 className="edit-icon"
                 src="/edit.png"

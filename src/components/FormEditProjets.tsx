@@ -4,7 +4,7 @@ import { db, fetchDataFromDBToSessionStorage } from "@/firebase/config";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 
 import Image from "next/image";
-import MyModal from "./MyModal";
+
 import FormEditThisProjet from "./FormEditThisProjet";
 
 const FormEditProjets: React.FC = () => {
@@ -14,10 +14,6 @@ const FormEditProjets: React.FC = () => {
   useEffect(() => {
     fetchProjets();
   }, []);
-
-  // setInterval(() => {
-  //   console.log("projets", projets);
-  // }, 10000);
 
   async function fetchProjets() {
     const fetchedProjets = await fetchDataFromDBToSessionStorage("projets");
@@ -36,22 +32,23 @@ const FormEditProjets: React.FC = () => {
     description: "",
     date: "",
     technos: [] as string[],
+    lienImgs: [] as string[],
   });
-
-  const [arrayValues, setArrayValues] = useState({
-    technos: "",
-  });
-
-  // pour ajouter un element dans liste de techno
-  const [technos, setTechnos] = useState<string[]>([]);
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setDataAjoutProjet((prevData) => ({
       ...prevData,
       [name]: name === "technos" ? [value] : value,
+      [name]: name === "lienImgs" ? [value] : value,
     }));
   }
+  // pour ajouter un element dans liste de techno
+  const [arrayValues, setArrayValues] = useState({
+    technos: "",
+  });
+  const [technos, setTechnos] = useState<string[]>([]);
+
   const ajouterTechno = () => {
     const nouvelleTechno = arrayValues.technos.trim();
     if (nouvelleTechno !== "" && !technos.includes(nouvelleTechno)) {
@@ -63,10 +60,30 @@ const FormEditProjets: React.FC = () => {
       }));
     }
   };
-
   const supprimerTechno = (techno: string) => {
     const nouvellesTechnos = technos.filter((t) => t !== techno);
     setTechnos(nouvellesTechnos);
+  };
+  // pour ajouter un element dans liste des images
+  const [arrayValuesImg, setArrayValuesImg] = useState({
+    lienImgs: "",
+  });
+  const [lienImgs, setLienImgs] = useState<string[]>([]);
+
+  const ajouterImg = () => {
+    const nouvelleImg = arrayValuesImg.lienImgs.trim();
+    if (nouvelleImg !== "" && !lienImgs.includes(nouvelleImg)) {
+      setLienImgs([...lienImgs, nouvelleImg]);
+      setArrayValuesImg({ lienImgs: "" });
+      setDataAjoutProjet((prevData) => ({
+        ...prevData,
+        lienImgs: [...prevData.lienImgs, nouvelleImg],
+      }));
+    }
+  };
+  const supprimerImg = (lienImg: string) => {
+    const nouveauxLienImgs = lienImgs.filter((l) => l !== lienImg);
+    setLienImgs(nouveauxLienImgs);
   };
 
   // ajout et suppression projets dans db :
@@ -79,6 +96,7 @@ const FormEditProjets: React.FC = () => {
         description: dataAjoutProjet.description,
         date: dataAjoutProjet.date,
         techno: dataAjoutProjet.technos,
+        lienImgs: dataAjoutProjet.lienImgs,
       },
     };
     try {
@@ -99,6 +117,7 @@ const FormEditProjets: React.FC = () => {
         description: "",
         date: "",
         technos: [],
+        lienImgs: [],
       });
     } catch (error: any) {
       setMessageMAJ(error);
@@ -106,8 +125,6 @@ const FormEditProjets: React.FC = () => {
   }
 
   const SupprimerUnProjet = async (nomProjetASupprimer: string) => {
-    console.log("nomProjet", nomProjetASupprimer);
-
     try {
       const docRef = doc(db, "projets", "bnj6s7XN4HZ19fVcNNv2");
       const docSnapshot = await getDoc(docRef);
@@ -121,7 +138,6 @@ const FormEditProjets: React.FC = () => {
         delete updatedProjetsData[key];
         await setDoc(docRef, updatedProjetsData);
         setMessageMAJ("Le projet a bien été supprimé");
-        console.log("updatedProjetsData", updatedProjetsData);
         setProjets([updatedProjetsData]);
         sessionStorage.setItem("projets", JSON.stringify([updatedProjetsData]));
         toggleModal(null);
@@ -155,13 +171,11 @@ const FormEditProjets: React.FC = () => {
   const toggleThisProjetForm = (projectKey: string | null) => {
     setProjetToModify(projectKey);
     setThisForm(!thisForm);
-    console.log("projectKey", projectKey);
   };
 
   const [messages, setMessages] = useState<{ [key: string]: string }>({});
 
   async function handleSave(newData: any, projetKey: string) {
-    console.log("Nouvelles données à sauvegarder :", newData);
     const newKeyName = newData.nom.replace(/\s+/g, "-").toLowerCase();
 
     const verifierProjetExiste = (
@@ -182,10 +196,7 @@ const FormEditProjets: React.FC = () => {
     const newMessages = { ...messages };
     if (projetExiste) {
       projetDansLaBaseDeDonnees[projetRecherche] = newData;
-      console.log(
-        "projet que je peux mettre a jour directement sur le site",
-        projetDansLaBaseDeDonnees
-      );
+
       // le modifier dans la DB fire base
       await updateDoc(docRef, {
         [newKeyName]: newData,
@@ -292,6 +303,7 @@ const FormEditProjets: React.FC = () => {
             value={dataAjoutProjet.nom}
             onChange={handleInputChange}
           />
+
           <label htmlFor="nom">repository</label>
           <input
             type="text"
@@ -324,7 +336,7 @@ const FormEditProjets: React.FC = () => {
             value={dataAjoutProjet.date}
             onChange={handleInputChange}
           />
-
+          {/*     pour les technos : */}
           <label htmlFor="technos">Technos</label>
           {technos.map((techno, index) => (
             <div key={index} className="techno-et-supprimer">
@@ -345,6 +357,28 @@ const FormEditProjets: React.FC = () => {
           />
           <button type="button" onClick={ajouterTechno}>
             + techno
+          </button>
+          {/*     pour les images : */}
+          <label htmlFor="technos">Liens des images</label>
+          {lienImgs.map((img, index) => (
+            <div key={index} className="techno-et-supprimer">
+              {img}
+              <button
+                className="supprimer"
+                type="button"
+                onClick={() => supprimerImg(img)}
+              >
+                -
+              </button>
+            </div>
+          ))}
+          <input
+            type="text"
+            value={arrayValuesImg.lienImgs}
+            onChange={(e) => setArrayValuesImg({ lienImgs: e.target.value })}
+          />
+          <button type="button" onClick={ajouterImg}>
+            + image
           </button>
 
           {messageMAJ && <p>{messageMAJ}</p>}

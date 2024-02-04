@@ -8,6 +8,7 @@ interface Projet {
   lien: string;
   description: string;
   techno: string[];
+  lienImgs: string[];
 }
 interface srcProjets {
   [key: string]: React.ReactNode;
@@ -52,11 +53,11 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
     };
   }, []);
 
-  const { nom, date, repository, lien, techno, description } = projet;
+  const { nom, date, repository, lien, techno, description, lienImgs } = projet;
 
   const srcProjets: srcProjets = {
     "Lil Adventure": (
-      <div className="img-projet-container">
+      <>
         <img
           className="projet-img"
           src="/screen-projets/screenshot-liladventure-1.png"
@@ -80,20 +81,20 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
           alt="jeu screenshot en combat"
           loading="lazy"
         />
-      </div>
+      </>
     ),
     "Daniel Vigne écrivain": (
-      <div className="img-projet-container">
+      <>
         <img
           className="projet-img"
           src="/screen-projets/screenshot-danielvigne-1.png"
           alt="jeu screenshot"
           loading="lazy"
         />
-      </div>
+      </>
     ),
     "Laura Touati Psychologue": (
-      <div className="img-projet-container">
+      <>
         <video
           width="381px"
           height="auto"
@@ -112,10 +113,10 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
         <p id="description-video" hidden>
           visite du site avec demonstration du passage de la souris sur le menu.
         </p>
-      </div>
+      </>
     ),
     "openclassrooms Sophie Bluel architecte": (
-      <div className="img-projet-container">
+      <>
         <img
           className="projet-img"
           src="/screen-projets/screenshot-sophiebluel-1.png"
@@ -134,13 +135,23 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
           alt="screenshot filtre dynamique"
           loading="lazy"
         />
-      </div>
+      </>
     ),
   };
   return (
     <div className="card-projet">
       <h3>{nom}</h3>
-      {srcProjets[nom]}
+      <div className="img-projet-container">
+        {lienImgs && lienImgs.length > 0
+          ? lienImgs.map((lienimg) => {
+              return (
+                <>
+                  <img src={lienimg} alt={nom} className="du-storage" />
+                </>
+              );
+            })
+          : srcProjets[nom]}
+      </div>
       <h4>Date de création : {date}</h4>
       <h4 className="projet-repo">
         <a href={repository} target="_blank">
