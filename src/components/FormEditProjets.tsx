@@ -106,9 +106,12 @@ const FormEditProjets: React.FC = () => {
       setMessageMAJ("Projet ajouté !");
       //
       //
-      const newArray = [{ ...projets[0], ...nouveauProjet }];
-      setProjets(newArray);
-      sessionStorage.setItem("projets", JSON.stringify(newArray));
+      if (projets) {
+        const newArray = [{ ...projets[0], ...nouveauProjet }];
+        setProjets(newArray);
+        sessionStorage.setItem("projets", JSON.stringify(newArray));
+      }
+
       // reset le form
       setDataAjoutProjet({
         nom: "",
@@ -129,6 +132,9 @@ const FormEditProjets: React.FC = () => {
       const docRef = doc(db, "projets", "bnj6s7XN4HZ19fVcNNv2");
       const docSnapshot = await getDoc(docRef);
       const projetsData = docSnapshot.data();
+      if (!projetsData) {
+        return;
+      }
       const projetASupprimer = Object.entries(projetsData).find(
         ([key]) => key === nomProjetASupprimer
       );
@@ -194,7 +200,7 @@ const FormEditProjets: React.FC = () => {
     );
 
     const newMessages = { ...messages };
-    if (projetExiste) {
+    if (projetExiste && projetDansLaBaseDeDonnees) {
       projetDansLaBaseDeDonnees[projetRecherche] = newData;
 
       // le modifier dans la DB fire base
@@ -203,9 +209,11 @@ const FormEditProjets: React.FC = () => {
       });
       newMessages[projetKey] =
         "Le projet a été mis à jour dans la base de données.";
-      const newArray = [{ ...projets[0], [newKeyName]: newData }];
-      setProjets(newArray);
-      sessionStorage.setItem("projets", JSON.stringify(newArray));
+      if (projets) {
+        const newArray = [{ ...projets[0], [newKeyName]: newData }];
+        setProjets(newArray);
+        sessionStorage.setItem("projets", JSON.stringify(newArray));
+      }
     } else {
       newMessages[projetKey] =
         "Le projet n'existe pas sous ce nom, créer un nouveau projet?";
