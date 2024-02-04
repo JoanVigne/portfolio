@@ -143,10 +143,10 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       <h3>{nom}</h3>
       <div className="img-projet-container">
         {lienImgs && lienImgs.length > 0
-          ? lienImgs.map((lienimg) => {
+          ? lienImgs.map((lienimg, index) => {
               return (
                 <>
-                  <img src={lienimg} alt={nom} className="du-storage" />
+                  <img src={lienimg} alt={nom + index} className="du-storage" />
                 </>
               );
             })

@@ -6,7 +6,7 @@ interface FormData {
   description: string | undefined;
   repository: string | undefined;
   techno: string[] | undefined;
-  lienImg: string[] | undefined;
+  lienImgs: string[] | undefined;
 }
 
 const FormEditThisProjet: React.FC<{
@@ -27,15 +27,7 @@ const FormEditThisProjet: React.FC<{
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  /* 
-  const handleTechnoChange = (
-    index: number,
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
-    const newTechno = [...(formData.techno || [])];
-    newTechno[index] = e.target.value;
-    setFormData({ ...formData, techno: newTechno });
-  }; */
+
   // technos :
   const ajouterTechno = () => {
     const technos = [...(formData.techno || [])];
@@ -57,22 +49,21 @@ const FormEditThisProjet: React.FC<{
   };
   // lien imgs :
   const ajouterLienImg = () => {
-    const lienImgs = [...(formData.lienImg || [])];
-    if (
-      formData.lienImg &&
-      formData.lienImg.indexOf(arrayValuesImg.lienImgs) === -1
-    ) {
-      lienImgs.push(arrayValuesImg.lienImgs);
+    const lienImgs = [...(formData.lienImgs || [])];
+    const nouvelleImg = arrayValuesImg.lienImgs.trim();
+
+    if (nouvelleImg !== "" && !lienImgs.includes(nouvelleImg)) {
+      lienImgs.push(nouvelleImg);
       setFormData({
         ...formData,
-        lienImg: lienImgs,
+        lienImgs: lienImgs,
       });
+      setArrayValuesImg({ lienImgs: "" });
     }
-    setArrayValuesImg({ lienImgs: "" });
   };
   const supprimerLienImg = (lienImg: string) => {
-    const newLienImgs = (formData.lienImg || []).filter((l) => l !== lienImg);
-    setFormData({ ...formData, lienImg: newLienImgs });
+    const newLienImgs = (formData.lienImgs || []).filter((l) => l !== lienImg);
+    setFormData({ ...formData, lienImgs: newLienImgs });
   };
 
   const handleSave = () => {
@@ -135,11 +126,12 @@ const FormEditThisProjet: React.FC<{
       </button>
       {/* lien img ! */}
       <label>Liens des images :</label>
-      {formData.lienImg &&
-        formData.lienImg.map((lien, index) => (
+      {formData.lienImgs &&
+        formData.lienImgs.map((lien, index) => (
           <div key={index} className="element-et-supprimer">
             <p>{lien}</p>
-            <img src={lien} alt={formData.nom} />
+
+            <img src={lien} alt={`${formData.nom} ${index}`} />
             <button
               className="supprimer"
               type="button"

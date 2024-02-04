@@ -360,13 +360,14 @@ const FormEditProjets: React.FC = () => {
           </button>
           {/*     pour les images : */}
           <label htmlFor="technos">Liens des images</label>
-          {lienImgs.map((img, index) => (
+          {lienImgs.map((lien, index) => (
             <div key={index} className="techno-et-supprimer">
-              {img}
+              <p>{lien}</p>
+
               <button
                 className="supprimer"
                 type="button"
-                onClick={() => supprimerImg(img)}
+                onClick={() => supprimerImg(lien)}
               >
                 -
               </button>
