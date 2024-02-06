@@ -1,9 +1,12 @@
+import { useLanguage } from "@/context/LanguageContext";
 import React from "react";
 
 interface ChangerCSSProps {
   annee: string;
 }
 const ChangerCSS: React.FC<ChangerCSSProps> = ({ annee }) => {
+  // langue
+  const { language } = useLanguage();
   function toggleClass() {
     const thisTheme = `theme-${annee}`;
     const bodyClasses = Array.from(document.body.classList);
@@ -15,7 +18,7 @@ const ChangerCSS: React.FC<ChangerCSSProps> = ({ annee }) => {
     <>
       <input
         type="button"
-        value={`Des années ${annee}`}
+        value={language === "fr" ? `Des années ${annee}` : `of the ${annee}'s`}
         onClick={toggleClass}
       />
     </>

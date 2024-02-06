@@ -20,11 +20,11 @@ header a:hover {
 header nav {
   display: flex;
   align-items: center;
+  margin-right: 20px;
 }
 
 header nav .styles-container {
   position: relative;
-  margin-bottom: 4px;
 }
 
 .styles-container:hover .menu-deroulant {
@@ -32,6 +32,7 @@ header nav .styles-container {
   transition: all 2s ease;
 }
 .menu-deroulant {
+  width: 100px;
   max-height: 0;
   position: absolute;
   left: 10px;

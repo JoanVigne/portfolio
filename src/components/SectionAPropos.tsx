@@ -27,7 +27,8 @@ const SectionAPropos = () => {
   };
   return (
     <section className="section-a-propos">
-      <h2>À propos ...</h2>
+      {language === "fr" ? <h2>À propos</h2> : <h2>About me</h2>}
+
       <div className="content">
         <img
           src="/Joan_big.jpg"

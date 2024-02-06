@@ -11,6 +11,9 @@ interface UserData {
   email: string;
 }
 const Header = () => {
+  // langue :
+  const { language } = useLanguage();
+
   const { user } = useAuthContext() as { user: UserData };
 
   function logOut() {
@@ -36,9 +39,18 @@ const Header = () => {
     <header>
       <div className="logo-container">{/* J-V */}</div>
       <nav>
-        <div></div>
-        <Link href="/">Page d'accueil</Link>
-        <Link href="/#projets">Projets</Link>
+        {language === "fr" ? (
+          <>
+            <Link href="/">Accueil</Link>
+            <Link href="/#projets">Projets</Link>
+          </>
+        ) : (
+          <>
+            <Link href="/">Home</Link>
+            <Link href="/#projets">Projects</Link>
+          </>
+        )}
+
         <Link href="/#contact">Contact</Link>
         {user === null && (
           <>
@@ -57,7 +69,7 @@ const Header = () => {
           </>
         )}
         <div className="styles-container">
-          <Link href="">Changer le style</Link>
+          <Link href="">Change style</Link>
           <ul className="menu-deroulant">
             <li>
               <ChangerCSS annee="00" />
@@ -71,7 +83,7 @@ const Header = () => {
           </ul>
         </div>
         <div className="styles-container">
-          <Link href="">Langue</Link>
+          <Link href="">{language === "fr" ? "Langue" : "Language"}</Link>
           <ul className="menu-deroulant">
             <li>
               <input

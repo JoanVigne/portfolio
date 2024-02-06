@@ -20,6 +20,7 @@ import { useLanguage } from "@/context/LanguageContext";
 const SectionContact = () => {
   // langue :
   const { language } = useLanguage();
+
   const { profile } = useProfileContext();
 
   const [formStatus, setFormStatus] = useState("Post");

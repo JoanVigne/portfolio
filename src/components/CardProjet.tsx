@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import "./cardProjet.css";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Projet {
   nom: string;
@@ -15,6 +16,8 @@ interface srcProjets {
 }
 
 const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
+  // langue :
+  const { language } = useLanguage();
   // Vérifie si projet est défini avant d'accéder à ses propriétés
   if (!projet) {
     return null;
@@ -155,7 +158,8 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
             })
           : srcProjets[nom]}
       </div>
-      <h4>Date de création : {date}</h4>
+
+      <h4>Date: {date}</h4>
       <h4 className="projet-repo">
         <a href={repository} target="_blank">
           Repo github
@@ -176,18 +180,22 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
             );
           })}
       </div>
-
-      <p>
-        {description
-          ? description
-          : `
+      {language === "fr" ? (
+        <p>
+          {description
+            ? description
+            : `
         Pas de description disponible
         `}
-      </p>
+        </p>
+      ) : (
+        ""
+      )}
+
       {lien && (
-        <h4>
-          <a className="projet-lien" href={lien} target="_blank">
-            Visiter le site
+        <h4 className="projet-lien">
+          <a href={lien} target="_blank">
+            {language === "fr" ? "Voir le projet" : "View Project"}
           </a>
         </h4>
       )}

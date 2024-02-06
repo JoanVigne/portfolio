@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import signIn from "@/firebase/auth/signin";
 import { useRouter } from "next/navigation";
-import Loading from "@/components/Loading";
 
 function Page() {
   const [email, setEmail] = useState<string>("");
@@ -11,9 +10,9 @@ function Page() {
   const [erreur, setErreur] = useState<boolean>(false);
   const [messageErreur, setMessageErreur] = useState<string>("");
 
-  interface UserData {
+  /*   interface UserData {
     email: string;
-  }
+  } */
 
   const handleForm = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -59,7 +58,7 @@ function Page() {
           <button type="submit">Sign in</button>
         </form>
       </div>
-      <Loading />
+
       {erreur && messageErreur}
     </div>
   );

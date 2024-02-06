@@ -29,7 +29,6 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({
 
   const switchLanguage = (lang: string) => {
     setLanguage(lang);
-    console.log("language : ", lang);
   };
 
   return (

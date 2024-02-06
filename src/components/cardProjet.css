@@ -41,7 +41,9 @@
   height: 35px;
   margin: 5px;
 }
-
+.card-projet h4 {
+  margin: 3px 0 5px;
+}
 .card-projet .projet-repo,
 .card-projet .projet-lien {
   text-decoration: underline;
@@ -51,7 +53,9 @@
 .card-projet .projet-lien:hover {
   color: var(--couleur-noir);
 }
-
+/* .card-projet .projet-lien {
+  margin-top: 5px;
+} */
 .card-projet p {
   margin: 0 8px;
   color: var(--couleur-noir);
