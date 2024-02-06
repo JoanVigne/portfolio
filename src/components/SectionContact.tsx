@@ -1,8 +1,9 @@
 import { useProfileContext } from "@/context/ProfileContext";
-import React, { useState, FormEvent, useRef } from "react";
+import React, { useState, FormEvent, useRef, useContext } from "react";
 import "./sectionContact.css";
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/config";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* interface ProfileData {
   telephone?: string;
@@ -17,22 +18,28 @@ import { db } from "@/firebase/config";
 } */
 
 const SectionContact = () => {
+  // langue :
+  const { language } = useLanguage();
   const { profile } = useProfileContext();
 
-  const [formStatus, setFormStatus] = useState("Send");
+  const [formStatus, setFormStatus] = useState("Post");
 
   const formRef = useRef<HTMLFormElement>(null);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (formStatus == "Message envoyé !") {
-      setFormStatus(
-        "Vous avez deja envoyé un message, renvoyer un nouveau message?"
-      );
+    if (formStatus == "Message envoyé !" || formStatus == "Message sent!") {
+      const messagePourButton =
+        language === "fr"
+          ? "Vous avez deja envoyé un message, renvoyer un nouveau message?"
+          : "You already sent a message, again?";
+      setFormStatus(messagePourButton);
       return;
     }
-    setFormStatus("Envoi du message...");
+    const messagePourButton =
+      language === "fr" ? "Envoi du message..." : "Sending...";
+    setFormStatus(messagePourButton);
 
     const formData = new FormData(e.target as HTMLFormElement);
 
@@ -40,7 +47,11 @@ const SectionContact = () => {
     const email = formData.get("email") as string;
     const message = formData.get("message") as string;
     if (!name || !email || !message) {
-      setFormStatus("Veuillez remplir tous les champs.");
+      const messagePourButton =
+        language === "fr"
+          ? "Veuillez remplir tous les champs"
+          : "Please fill in all fields";
+      setFormStatus(messagePourButton);
       return;
     }
 
@@ -51,36 +62,51 @@ const SectionContact = () => {
     try {
       const docRef = doc(collection(db, "messages"));
       await setDoc(docRef, dataAEnvoyer);
-      console.log("Message envoyé avec succès !");
-      setFormStatus("Message envoyé !");
+
+      const messagePourButton =
+        language === "fr" ? "Message envoyé !" : "Message sent!";
+      setFormStatus(messagePourButton);
       // formRef.current.reset();
     } catch (error) {
       console.error("Erreur lors de la mise à jour du document :", error);
-      setFormStatus("Erreur lors de l'envoi du message. Veuillez réessayer.");
+      const messagePourButton =
+        language === "fr"
+          ? "Erreur lors de l'envoi du message. Veuillez réessayer"
+          : "Error during sending, please try again";
+      setFormStatus(messagePourButton);
     }
   };
 
   return (
     <section id="contact">
-      <h2>Me contacter</h2>
+      {language === "fr" ? <h2>Me contacter</h2> : <h2>Contact me</h2>}
       <div className="contact-container">
         {profile && (
           <div className="contact-direct">
-            <h3>Par email : </h3>
+            <h3>Email : </h3>
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
-            <h3>Par téléphone : </h3>
-            <a href={`tel:${profile.telephone[0].replace(/\s/g, "")}`}>
-              {profile.telephone}
-            </a>
+            {language === "fr" && (
+              <>
+                <h3>Par téléphone : </h3>
+                <a href={`tel:${profile.telephone[0].replace(/\s/g, "")}`}>
+                  {profile.telephone}
+                </a>
+              </>
+            )}
           </div>
         )}
 
         <div className="form-container">
-          <h3>Ou au moyen de ce formulaire :</h3>
+          {language === "fr" ? (
+            <h3>Ou au moyen de ce formulaire :</h3>
+          ) : (
+            <h3>Or you can use this form:</h3>
+          )}
+
           <form ref={formRef} onSubmit={onSubmit}>
             <div className="">
               <label className="" htmlFor="name">
-                Nom
+                {language === "fr" ? "Nom" : "Name"}
               </label>
               <input className="" type="text" id="name" name="name" required />
             </div>

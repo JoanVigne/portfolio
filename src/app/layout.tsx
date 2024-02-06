@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
 import Header from "../components/Header";
 import { ProfileProvider } from "@/context/ProfileContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export default function RootLayout({
   children,
@@ -43,8 +44,10 @@ export default function RootLayout({
       </head>
       <body>
         <AuthContextProvider>
-          <Header />
-          <ProfileProvider>{children}</ProfileProvider>
+          <LanguageProvider>
+            <Header />
+            <ProfileProvider>{children}</ProfileProvider>
+          </LanguageProvider>
         </AuthContextProvider>
       </body>
     </html>

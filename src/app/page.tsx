@@ -5,13 +5,9 @@ import { useEffect } from "react";
 import { useProfileContext } from "@/context/ProfileContext";
 
 import SectionBanniere from "@/components/SectionBanniere";
-/* import SectionProjets from "@/components/SectionProjets";
-import SectionAPropos from "@/components/SectionAPropos";
-import SectionContact from "@/components/SectionContact";
-import SectionFormations from "@/components/SectionFormations"; */
-
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import { useLanguage } from "@/context/LanguageContext";
 
 const LazySectionProjets = dynamic(
   () => import("@/components/SectionProjets"),
@@ -42,6 +38,7 @@ const LazySectionContact = dynamic(
 );
 
 export default function Home() {
+  const { language } = useLanguage();
   const { profile, updateProfile } = useProfileContext() || {};
 
   useEffect(() => {
@@ -67,16 +64,14 @@ export default function Home() {
   return (
     <main>
       <SectionBanniere />
-      {/*       <SectionProjets />
-      <SectionAPropos />
-      <SectionFormations />
-      <SectionContact /> */}
       <LazySectionProjets />
       <LazySectionAPropos />
       <LazySectionFormations />
       <LazySectionContact />
       <footer>
-        <Link href="/mentionsLegales">Mentions légales</Link>
+        <Link href="/mentionsLegales">
+          {language === "fr" ? "Mentions légales" : "Legal notices"}
+        </Link>
       </footer>
     </main>
   );

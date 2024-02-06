@@ -38,7 +38,9 @@
   justify-content: flex-start;
 }
 .etablissement-container .logo-etablissement {
-  width: 50px;
+  min-width: 50px;
+  min-height: 25px;
+  max-height: 50px;
 }
 
 .en-savoir-plus {

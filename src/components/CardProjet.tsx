@@ -145,9 +145,12 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
         {lienImgs && lienImgs.length > 0
           ? lienImgs.map((lienimg, index) => {
               return (
-                <>
-                  <img src={lienimg} alt={nom + index} className="du-storage" />
-                </>
+                <img
+                  src={lienimg}
+                  alt={nom + index}
+                  className="du-storage"
+                  key={index}
+                />
               );
             })
           : srcProjets[nom]}

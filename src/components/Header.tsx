@@ -5,6 +5,7 @@ import "./header.css";
 
 import { useAuthContext } from "@/context/AuthContext";
 import ChangerCSS from "./ChangerCSS";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface UserData {
   email: string;
@@ -26,10 +27,16 @@ const Header = () => {
       });
   }
 
+  const { switchLanguage } = useLanguage();
+
+  const handleChangeLanguage = (lang: string) => {
+    switchLanguage(lang);
+  };
   return (
     <header>
       <div className="logo-container">{/* J-V */}</div>
       <nav>
+        <div></div>
         <Link href="/">Page d'accueil</Link>
         <Link href="/#projets">Projets</Link>
         <Link href="/#contact">Contact</Link>
@@ -60,6 +67,31 @@ const Header = () => {
             </li>
             <li>
               <ChangerCSS annee="20" />
+            </li>
+          </ul>
+        </div>
+        <div className="styles-container">
+          <Link href="">Langue</Link>
+          <ul className="menu-deroulant">
+            <li>
+              <input
+                type="button"
+                value="Français"
+                onClick={() => handleChangeLanguage("fr")}
+              />
+              {/*  <button onClick={() => handleChangeLanguage("fr")}>
+                Français
+              </button> */}
+            </li>
+            <li>
+              <input
+                type="button"
+                value="English"
+                onClick={() => handleChangeLanguage("en")}
+              />
+              {/*   <button onClick={() => handleChangeLanguage("en")}>
+                English
+              </button> */}
             </li>
           </ul>
         </div>

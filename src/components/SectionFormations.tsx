@@ -2,6 +2,7 @@ import { fetchDataFromDBToSessionStorage } from "@/firebase/config";
 import React, { useEffect, useState } from "react";
 import Loading from "./Loading";
 import "./sectionFormations.css";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface FormationDetails {
   debut: string;
@@ -27,6 +28,9 @@ interface Formations {
 }
 
 const SectionFormations = () => {
+  // langue :
+  const { language } = useLanguage();
+
   // FORMATIONS
   const [formations, setFormations] = useState<Formations | null>(null);
   const [expandedContenu, setExpandedContenu] = useState<string | null>(null);
@@ -61,7 +65,12 @@ const SectionFormations = () => {
   return (
     <section className="section-formations">
       <div className="coding-formations-container formations-container">
-        <h2> Mes formations dans le domaine du numérique :</h2>
+        <h2>
+          {language === "fr"
+            ? "Mes formations dans le domaine du numérique :"
+            : "My training in the digital filed:"}
+        </h2>
+
         {formations && (
           <div className="formations-groupe-container ">
             {Object.keys(formations.formationsCoding).map((formationKey) => {
@@ -99,14 +108,24 @@ const SectionFormations = () => {
                   <h3>{formation.nom}</h3>
 
                   <h3>
-                    Du {formation.debut} au {formation.fin}
+                    {language === "fr" ? (
+                      <h3>
+                        Du {formation.debut} au {formation.fin}
+                      </h3>
+                    ) : (
+                      <h3>
+                        From the {formation.debut} to the {formation.fin}{" "}
+                      </h3>
+                    )}
                   </h3>
-                  <button
-                    className="en-savoir-plus"
-                    onClick={handleEnSavoirPlusClick}
-                  >
-                    Contenu
-                  </button>
+                  {language === "fr" && (
+                    <button
+                      className="en-savoir-plus"
+                      onClick={handleEnSavoirPlusClick}
+                    >
+                      Contenu
+                    </button>
+                  )}
 
                   <>
                     <ul
@@ -143,7 +162,12 @@ const SectionFormations = () => {
         )}
       </div>
       <div className="autres-formations-container formations-container">
-        <h2>Mes autres formations : </h2>
+        {language === "fr" ? (
+          <h2>Mes autres formations : </h2>
+        ) : (
+          <h2>My training in other fields:</h2>
+        )}
+
         {formations && (
           <div className="formations-groupe-container ">
             {Object.keys(formations.formationsGeneral).map((formationKey) => {
@@ -163,10 +187,15 @@ const SectionFormations = () => {
                     {formation.etablissement}
                   </h3>
                   <h3>{formation.nom}</h3>
-
-                  <h3>
-                    Du {formation.debut} au {formation.fin}
-                  </h3>
+                  {language === "fr" ? (
+                    <h3>
+                      Du {formation.debut} au {formation.fin}
+                    </h3>
+                  ) : (
+                    <h3>
+                      From the {formation.debut} to the {formation.fin}{" "}
+                    </h3>
+                  )}
                 </div>
               );
             })}
