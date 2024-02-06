@@ -43,7 +43,6 @@ export default function Home() {
 
   useEffect(() => {
     if (profile) {
-      console.log("il y a le profile dans le context", profile);
       return;
     }
     const fetchProfile = async () => {

@@ -126,7 +126,6 @@ function Page() {
   const { profile, updateProfile } = useProfileContext() || {};
   useEffect(() => {
     if (profile) {
-      console.log("profile dans context");
       return;
     }
     fetchProfile();

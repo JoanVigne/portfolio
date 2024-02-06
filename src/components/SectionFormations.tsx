@@ -107,17 +107,16 @@ const SectionFormations = () => {
 
                   <h3>{formation.nom}</h3>
 
-                  <h3>
-                    {language === "fr" ? (
-                      <h3>
-                        Du {formation.debut} au {formation.fin}
-                      </h3>
-                    ) : (
-                      <h3>
-                        From the {formation.debut} to the {formation.fin}{" "}
-                      </h3>
-                    )}
-                  </h3>
+                  {language === "fr" ? (
+                    <h3>
+                      Du {formation.debut} au {formation.fin}
+                    </h3>
+                  ) : (
+                    <h3>
+                      From the {formation.debut} to the {formation.fin}{" "}
+                    </h3>
+                  )}
+
                   {language === "fr" && (
                     <button
                       className="en-savoir-plus"
