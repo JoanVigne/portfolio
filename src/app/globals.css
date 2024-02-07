@@ -196,6 +196,17 @@ footer {
   color: black;
   background-color: white;
 }
+.theme-00 header nav {
+  margin: 0;
+}
+.theme-00 .menu-deroulant {
+  background: linear-gradient(to bottom, #808080, #ffffff);
+  left: 0;
+}
+.theme-00 .menu-deroulant input {
+  background: linear-gradient(to bottom, #808080, #ffffff);
+  color: black;
+}
 .theme-00 h1 {
   display: none;
 }

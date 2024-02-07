@@ -53,12 +53,11 @@
 .contenu-list {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: all 0.7s ease;
 }
 
 .contenu-list.contenu-expanded {
   max-height: 450px;
-  overflow: visible;
 }
 
 @media only screen and (max-width: 800px) {
