@@ -5,18 +5,6 @@ import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { useLanguage } from "@/context/LanguageContext";
 
-/* interface ProfileData {
-  telephone?: string;
-  email?: string;
-  nom?: string;
-  prenom?: string;
-  naissance?: string;
-  autresDecouverte?: string;
-  autresMaitrise?: string;
-  langagesDecouverte?: string;
-  langagesMaitrise?: string;
-} */
-
 const SectionContact = () => {
   // langue :
   const { language } = useLanguage();
@@ -127,7 +115,13 @@ const SectionContact = () => {
               <label className="" htmlFor="message">
                 Message
               </label>
-              <textarea className="" id="message" name="message" required />
+              <textarea
+                className=""
+                id="message"
+                name="message"
+                maxLength={500}
+                required
+              />
             </div>
             <button className="" type="submit">
               {formStatus}

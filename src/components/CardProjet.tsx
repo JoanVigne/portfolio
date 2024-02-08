@@ -153,6 +153,9 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
                   alt={nom + index}
                   className="du-storage"
                   key={index}
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none"; // Cache l'image si elle ne peut pas être chargée
+                  }}
                 />
               );
             })
@@ -176,6 +179,14 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
                 key={index}
                 src={`logos/${tecMin}.png`}
                 alt={tec}
+                onError={(e) => {
+                  // Si l'image ne peut pas être chargée, affiche simplement le nom de la technologie
+                  e.currentTarget.style.display = "none";
+                  e.currentTarget.insertAdjacentHTML(
+                    "afterend",
+                    `<p>${tec}</p>`
+                  );
+                }}
               />
             );
           })}

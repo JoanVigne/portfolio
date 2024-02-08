@@ -4,50 +4,44 @@ import CardProjet from "./CardProjet";
 import { fetchDataFromDBToSessionStorage } from "@/firebase/config";
 import { useLanguage } from "@/context/LanguageContext";
 
-interface ProjetData {
-  [key: string]: {
-    nom: string;
-    date: string;
-    repository: string;
-    lien: string;
-    description: string;
-    techno: string[];
-    lienImgs: string[];
-  };
+interface Projet {
+  nom: string;
+  date: string;
+  repository: string;
+  lien: string;
+  description: string;
+  techno: string[];
+  lienImgs: string[];
 }
 
 const SectionProjets = () => {
   // langue
   const { language } = useLanguage();
 
-  const [projets, setProjets] = useState<ProjetData>({});
+  const [projets, setProjets] = useState<Projet[]>([]);
 
   useEffect(() => {
     const fetchFormations = async () => {
-      const fetched: ProjetData[] = await fetchDataFromDBToSessionStorage(
-        "projets"
-      );
-      console.log(fetched);
+      const fetched: { [key: string]: Projet } =
+        await fetchDataFromDBToSessionStorage("projets");
       // trier par date :
-      const sortedProjets: ProjetData = Object.values(fetched[0]).sort(
-        (a, b) => {
-          // Vérifier si a.date et b.date sont définis
-          if (a.date && b.date) {
-            // Convertir les dates en objets Date
-            const [monthA, yearA] = a.date.split("/");
-            const [monthB, yearB] = b.date.split("/");
-            // Comparer les années
-            if (yearA !== yearB) {
-              return parseInt(yearB) - parseInt(yearA);
-            }
-            // Si les années sont égales, comparer les mois
-            return parseInt(monthB) - parseInt(monthA);
-          } else {
-            // Gérer le cas où a.date ou b.date est indéfini
-            return 0;
+      const sortedProjets = Object.values(fetched[0]).sort((a, b) => {
+        // Vérifier si a.date et b.date sont définis
+        if (a.date && b.date) {
+          // Convertir les dates en objets Date
+          const [monthA, yearA] = a.date.split("/");
+          const [monthB, yearB] = b.date.split("/");
+          // Comparer les années
+          if (yearA !== yearB) {
+            return parseInt(yearB) - parseInt(yearA);
           }
+          // Si les années sont égales, comparer les mois
+          return parseInt(monthB) - parseInt(monthA);
+        } else {
+          // Gérer le cas où a.date ou b.date est indéfini
+          return 0;
         }
-      );
+      });
       setProjets(sortedProjets);
     };
 
@@ -60,11 +54,10 @@ const SectionProjets = () => {
 
       <div className="container-card-projet">
         {projets &&
-          Object.keys(projets).map((projetKey) => {
-            if (projetKey !== "id") {
-              return <CardProjet key={projetKey} projet={projets[projetKey]} />;
+          projets.map((projet, index) => {
+            if (projet.nom !== undefined) {
+              return <CardProjet key={index} projet={projet} />;
             }
-
             return null;
           })}
       </div>

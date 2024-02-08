@@ -6,6 +6,7 @@ import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import Image from "next/image";
 
 import FormEditThisProjet from "./FormEditThisProjet";
+import FormAjoutProjet from "./FormAjoutProjet";
 
 const FormEditProjets: React.FC = () => {
   const [projets, setProjets] = useState<Array<{ [key: string]: any }> | null>(
@@ -89,6 +90,19 @@ const FormEditProjets: React.FC = () => {
   // ajout et suppression projets dans db :
   async function ajouterUnProjet(e: React.FormEvent) {
     e.preventDefault();
+    // verification si date est au bon format en obligeant 7 characteres et contient 6 numbers
+    const target = e.target as typeof e.target & {
+      date: { value: string };
+    };
+    const dateValue = target.date.value;
+    if (!/^\d{2}\/\d{4}$/.test(dateValue)) {
+      console.log("il n'y a pas assez de numbers");
+      return;
+    }
+    if (dateValue.length !== 7) {
+      console.log("Veuillez saisir une date au format MM/YYYY (ex: 10/2022)");
+      return;
+    }
     const nouveauProjet = {
       [dataAjoutProjet.nom.replace(/\s+/g, "-").toLowerCase()]: {
         nom: dataAjoutProjet.nom,
@@ -104,14 +118,11 @@ const FormEditProjets: React.FC = () => {
         merge: true,
       });
       setMessageMAJ("Projet ajouté !");
-      //
-      //
       if (projets) {
         const newArray = [{ ...projets[0], ...nouveauProjet }];
         setProjets(newArray);
         sessionStorage.setItem("projets", JSON.stringify(newArray));
       }
-
       // reset le form
       setDataAjoutProjet({
         nom: "",
@@ -126,6 +137,7 @@ const FormEditProjets: React.FC = () => {
       setMessageMAJ(error);
     }
   }
+  const [messageAlert, setMessageAlert] = useState<string | null>(null);
 
   const SupprimerUnProjet = async (nomProjetASupprimer: string) => {
     try {
@@ -143,16 +155,16 @@ const FormEditProjets: React.FC = () => {
         const updatedProjetsData = { ...projetsData };
         delete updatedProjetsData[key];
         await setDoc(docRef, updatedProjetsData);
-        setMessageMAJ("Le projet a bien été supprimé");
+        setMessageAlert("Le projet a bien été supprimé");
         setProjets([updatedProjetsData]);
         sessionStorage.setItem("projets", JSON.stringify([updatedProjetsData]));
         toggleModal(null);
       } else {
-        setMessageMAJ("Le projet n'a pas été trouvé");
+        setMessageAlert("Le projet n'a pas été trouvé");
       }
     } catch (error) {
       console.error("Erreur lors de la suppression du document :", error);
-      setMessageMAJ("Erreur lors de la suppression");
+      setMessageAlert("Erreur lors de la suppression");
       // Gère l'erreur ici
     }
   };
@@ -289,6 +301,7 @@ const FormEditProjets: React.FC = () => {
             return null;
           });
         })}
+      <p>{messageAlert}</p>
       <button
         onClick={() => {
           setOuvrirForm(!ouvrirForm);
@@ -297,7 +310,8 @@ const FormEditProjets: React.FC = () => {
         {ouvrirForm ? <>hide form</> : <>Ajouter un projet</>}
       </button>
       {ouvrirForm && (
-        <form
+        <FormAjoutProjet projets={projets} setProjets={setProjets} />
+        /*         <form
           onKeyDown={handleKeyDown} // pour gerer la touche "enter"
           action=""
           onSubmit={ajouterUnProjet}
@@ -338,13 +352,14 @@ const FormEditProjets: React.FC = () => {
           />
           <label htmlFor="nom">date</label>
           <input
+            placeholder="ex: 10/2022"
             type="text"
             name="date"
             id="date"
             value={dataAjoutProjet.date}
             onChange={handleInputChange}
           />
-          {/*     pour les technos : */}
+
           <label htmlFor="technos">Technos</label>
           {technos.map((techno, index) => (
             <div key={index} className="techno-et-supprimer">
@@ -366,7 +381,7 @@ const FormEditProjets: React.FC = () => {
           <button type="button" onClick={ajouterTechno}>
             + techno
           </button>
-          {/*     pour les images : */}
+
           <label htmlFor="technos">Liens des images</label>
           {lienImgs.map((lien, index) => (
             <div key={index} className="techno-et-supprimer">
@@ -392,7 +407,7 @@ const FormEditProjets: React.FC = () => {
 
           {messageMAJ && <p>{messageMAJ}</p>}
           <button type="submit">Ajouter ce nouveau projet</button>
-        </form>
+        </form> */
       )}
     </div>
   );
