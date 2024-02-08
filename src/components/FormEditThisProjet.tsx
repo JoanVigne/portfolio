@@ -69,9 +69,13 @@ const FormEditThisProjet: React.FC<{
   const handleSave = () => {
     onSave(formData);
   };
-
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
   return (
-    <form className="form-admin">
+    <form className="form-admin" onKeyDown={handleKeyDown}>
       <label>Nom du projet:</label>
       <input
         type="text"

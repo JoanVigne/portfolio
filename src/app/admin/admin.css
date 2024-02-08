@@ -17,7 +17,7 @@
   max-width: 90%;
   margin: 5px;
   padding: 5px;
-  border-radius: 20px;
+  border-radius: var(--border-radius-card);
   background-color: var(--couleur-beige-fonce);
   color: var(--couleur-noir);
   overflow-wrap: break-word;
@@ -35,7 +35,7 @@
   color: var(--couleur-beige-clair);
   padding: 1.125em 1.5em;
   font-size: 1.25em;
-  border-radius: 1rem;
+  border-radius: var(--border-radius-card);
   box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3),
     0 0.0625rem 0.125rem rgba(0, 0, 0, 0.2);
   max-height: 135px;
@@ -52,6 +52,11 @@
   border-top: none;
   border-bottom-color: var(--couleur-bleu);
   filter: drop-shadow(0 -0.0625rem 0.0625rem rgba(0, 0, 0, 0.1));
+}
+.message .button-attention {
+  margin-left: 5px;
+  padding: 1px 3px 2px;
+  border-radius: var(--border-radius-card);
 }
 .edits-container {
   display: flex;
@@ -70,5 +75,5 @@
   background-color: var(--couleur-beige-clair);
   padding: 10px;
   margin: 10px;
-  border-radius: 20px;
+  border-radius: var(--border-radius-card);
 }

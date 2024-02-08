@@ -4,6 +4,7 @@ import { useAuthContext } from "@/context/AuthContext";
 
 import DisplayOneData from "../../components/DisplayOneData";
 import {
+  db,
   fetchDataFromDBToSessionStorage,
   newFetchDataDB,
 } from "@/firebase/config";
@@ -16,6 +17,7 @@ import {
   AdminOnlyError,
   AuthRequiredError,
 } from "../errorExceptions/exceptions";
+import { deleteDoc, doc, getDoc } from "firebase/firestore";
 
 interface UserData {
   email: string;
@@ -146,6 +148,22 @@ function Page() {
   const { formationsGeneral, formationsCoding } = (formations[0] ??
     {}) as Formations;
 
+  async function handleDelete(ceMessage: any) {
+    console.log("Ce message :", ceMessage);
+    try {
+      const docRef = doc(db, "messages", ceMessage);
+      const docSnapshot = await getDoc(docRef);
+      if (docSnapshot.exists()) {
+        await deleteDoc(docRef);
+        console.log("Document supprimé avec succès.");
+      } else {
+        console.log("Le document n'existe pas.");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression du document :", error);
+    }
+  }
+
   return (
     <>
       <div className="bienvenue">
@@ -176,12 +194,20 @@ function Page() {
                 new Date(b.dateEnvoi).getTime() -
                 new Date(a.dateEnvoi).getTime()
             )
-            .map((mess, index) => {
+            .map((mess) => {
               const date = new Date(mess.dateEnvoi);
               const dateFormatee = formaterDate(date);
               return (
                 <div key={mess.id} className="message">
-                  <h4>reçu le {dateFormatee}</h4>
+                  <h4>
+                    reçu le {dateFormatee}{" "}
+                    <button
+                      className="button-attention"
+                      onClick={() => handleDelete(mess.id)}
+                    >
+                      x
+                    </button>
+                  </h4>
                   <h4>de {mess.name}</h4>
                   <h4>{mess.email}</h4>
                   <div className="text-message">

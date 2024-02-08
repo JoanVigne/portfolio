@@ -114,6 +114,7 @@ const FormEditProfile: React.FC = () => {
             value={dataProfile.telephone}
             onChange={handleInputChange}
           />
+          <small>le format du numero de telephone sera retourné tel quel</small>
           <label htmlFor="LangagesMaitrise">Langages maitrisés</label>
           {Array.isArray(dataProfile.langagesMaitrise) &&
             dataProfile.langagesMaitrise.map(
@@ -149,7 +150,7 @@ const FormEditProfile: React.FC = () => {
               +
             </button>
           </div>
-          ////////////////////
+
           <label htmlFor="LangagesDecouverte">Langages découverts</label>
           {Array.isArray(dataProfile.langagesDecouverte) &&
             dataProfile.langagesDecouverte.map(

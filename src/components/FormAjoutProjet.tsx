@@ -1,6 +1,6 @@
 import { db } from "@/firebase/config";
 import { doc, setDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 interface FormAjoutProjetProps {
   projets: Array<{ [key: string]: any }> | null;
