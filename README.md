@@ -7,13 +7,13 @@ Bienvenue sur mon portfolio web, un projet réalisé dans le cadre de ma formati
 
 ## Technologies utilisées
 
-- [Next.js](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Firebase](https://firebase.google.com/)
+- ![Next.js](public/logos/nextjs.png)[Next.js](https://nextjs.org/)
+- ![TypeScript](public/logos/typescript.png)[TypeScript](https://www.typescriptlang.org/)
+- ![Firebase](public/logos/firebase.png)[Firebase](https://firebase.google.com/)
 
-![Next.js](public/logos/nextjs.png)
-![TypeScript](/logos/typescript.png)
-![Firebase](/logos/firebase.png)
+
+
+
 
 ## Fonctionnalités
 
@@ -24,7 +24,13 @@ Bienvenue sur mon portfolio web, un projet réalisé dans le cadre de ma formati
 
 ## Visuel
 
-screen screen
+![screen](public/screen-projets/portfolio/screen-portfolio-1.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-2.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-3.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-4.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-5.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-6.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-7.png)
 <!-- ## Installation
 
 1. Clonez le répertoire du projet.
