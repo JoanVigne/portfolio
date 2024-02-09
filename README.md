@@ -25,18 +25,13 @@ Bienvenue sur mon portfolio web, un projet réalisé dans le cadre de ma formati
 ## Visuel
 
 ![screen](public/screen-projets/portfolio/screen-portfolio-1.png)
-![screen](public/screen-projets/portfolio/screen-portfolio-2.png){width=300px height=auto}
-![screen](public/screen-projets/portfolio/screen-portfolio-3.png){width=300px height=auto}
-![screen](public/screen-projets/portfolio/screen-portfolio-4.png){width=300px height=auto}
-![screen](public/screen-projets/portfolio/screen-portfolio-5.png){width=300px height=auto}
-![screen](public/screen-projets/portfolio/screen-portfolio-6.png){width=300px height=auto}
-![screen](public/screen-projets/portfolio/screen-portfolio-7.png){width=300px height=auto}
-<!-- ## Installation
+![screen](public/screen-projets/portfolio/screen-portfolio-2.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-3.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-4.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-5.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-6.png)
+![screen](public/screen-projets/portfolio/screen-portfolio-7.png)
 
-1. Clonez le répertoire du projet.
+## Visiter le site ! 
 
-```bash
-git clone https://github.com/votre-utilisateur/mon-portfolio.git
-
-## Remerciements
- -->
+lien
