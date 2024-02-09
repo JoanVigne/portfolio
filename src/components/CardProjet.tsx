@@ -8,6 +8,7 @@ interface Projet {
   repository: string;
   lien: string;
   description: string;
+  descriptionEN: string;
   techno: string[];
   lienImgs: string[];
 }
@@ -56,7 +57,16 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
     };
   }, []);
 
-  const { nom, date, repository, lien, techno, description, lienImgs } = projet;
+  const {
+    nom,
+    date,
+    repository,
+    lien,
+    techno,
+    description,
+    descriptionEN,
+    lienImgs,
+  } = projet;
 
   const srcProjets: srcProjets = {
     "Lil Adventure": (
@@ -154,7 +164,8 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
                   className="du-storage"
                   key={index}
                   onError={(e) => {
-                    e.currentTarget.style.display = "none"; // Cache l'image si elle ne peut pas être chargée
+                    // Si l'image ne peut pas être chargée, affiche simplement le nom de la technologie
+                    e.currentTarget.style.display = "none";
                   }}
                 />
               );
@@ -191,18 +202,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
             );
           })}
       </div>
-      {language === "fr" ? (
-        <p>
-          {description
-            ? description
-            : `
-        Pas de description disponible
-        `}
-        </p>
-      ) : (
-        ""
-      )}
-
+      <p>{language === "fr" ? description : descriptionEN}</p>
       {lien && (
         <h4 className="projet-lien">
           <a href={lien} target="_blank">

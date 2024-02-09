@@ -22,6 +22,7 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
     repository: "",
     lien: "",
     description: "",
+    descriptionEN: "",
     date: "",
     technos: [] as string[],
     lienImgs: [] as string[],
@@ -94,6 +95,7 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
         nom: dataAjoutProjet.nom,
         repository: dataAjoutProjet.repository,
         description: dataAjoutProjet.description,
+        descriptionEN: dataAjoutProjet.descriptionEN,
         date: dataAjoutProjet.date,
         techno: dataAjoutProjet.technos,
         lienImgs: dataAjoutProjet.lienImgs,
@@ -116,6 +118,7 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
         repository: "",
         lien: "",
         description: "",
+        descriptionEN: "",
         date: "",
         technos: [],
         lienImgs: [],
@@ -140,7 +143,7 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
         onChange={handleInputChange}
       />
 
-      <label htmlFor="nom">repository</label>
+      <label htmlFor="repository">repository</label>
       <input
         type="text"
         name="repository"
@@ -148,7 +151,7 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
         value={dataAjoutProjet.repository}
         onChange={handleInputChange}
       />
-      <label htmlFor="nom">lien</label>
+      <label htmlFor="lien">lien</label>
       <input
         type="text"
         name="lien"
@@ -156,7 +159,7 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
         value={dataAjoutProjet.lien}
         onChange={handleInputChange}
       />
-      <label htmlFor="nom">description</label>
+      <label htmlFor="description">description</label>
       <input
         type="text"
         name="description"
@@ -164,7 +167,15 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
         value={dataAjoutProjet.description}
         onChange={handleInputChange}
       />
-      <label htmlFor="nom">date</label>
+      <label htmlFor="descriptionEN">description in english</label>
+      <input
+        type="text"
+        name="descriptionEN"
+        id="descriptionEN"
+        value={dataAjoutProjet.descriptionEN}
+        onChange={handleInputChange}
+      />
+      <label htmlFor="date">date</label>
       <input
         placeholder="ex: 10/2022"
         type="text"
@@ -196,7 +207,7 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
         + techno
       </button>
       {/*     pour les images : */}
-      <label htmlFor="technos">Liens des images</label>
+      <label htmlFor="lienImgs">Liens des images</label>
       {lienImgs.map((lien, index) => (
         <div key={index} className="techno-et-supprimer">
           <p>{lien}</p>

@@ -4,6 +4,7 @@ interface FormData {
   nom: string | undefined;
   date: string | undefined;
   description: string | undefined;
+  descriptionEN: string | undefined;
   repository: string | undefined;
   techno: string[] | undefined;
   lienImgs: string[] | undefined;
@@ -96,6 +97,12 @@ const FormEditThisProjet: React.FC<{
       <textarea
         name="description"
         value={formData.description || ""}
+        onChange={handleInputChange}
+      />
+      <label>Description in english:</label>
+      <textarea
+        name="descriptionEN"
+        value={formData.descriptionEN || ""}
         onChange={handleInputChange}
       />
       <label>Repository:</label>

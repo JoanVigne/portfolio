@@ -71,9 +71,26 @@
   margin-bottom: 5px;
 }
 .projets-edit-container,
-.profile-edit-container {
+.profile-edit-container,
+.explications {
   background-color: var(--couleur-beige-clair);
   padding: 10px;
   margin: 10px;
   border-radius: var(--border-radius-card);
+  max-width: 35%;
+}
+.explications p {
+  border: 1px black solid;
+  margin: 3px;
+}
+
+@media only screen and (max-width: 800px) {
+  .edits-container {
+    flex-direction: column;
+  }
+  .projets-edit-container,
+  .profile-edit-container,
+  .explications {
+    max-width: none;
+  }
 }

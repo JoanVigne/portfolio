@@ -257,6 +257,24 @@ function Page() {
             </div>
           </div>
         )}
+        <div className="explications">
+          <h3>Notes:</h3>
+          <p>
+            Les images des projets et profile sont dans le storage de firebase.
+          </p>
+          <p>
+            Il faut copier le lien avec token depuis le storage, et ensuite le
+            coller dans le form projets.
+          </p>
+          <p>
+            Si changement de photo de profile, il faut changer le code couleur
+            du site (dans global.css).
+          </p>
+          <p>
+            Les images des logos sont dans le dossier public, si introuvable,
+            erreur console sur page d'accueil.
+          </p>
+        </div>
         {projets && user.email === "joan.vigne.pro@gmail.com" && (
           <div className="projets-edit-container">
             <h3>

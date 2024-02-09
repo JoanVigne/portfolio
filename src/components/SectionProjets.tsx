@@ -10,6 +10,7 @@ interface Projet {
   repository: string;
   lien: string;
   description: string;
+  descriptionEN: string;
   techno: string[];
   lienImgs: string[];
 }
