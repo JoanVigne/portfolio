@@ -11,7 +11,7 @@ Bienvenue sur mon portfolio web, un projet réalisé dans le cadre de ma formati
 - [TypeScript](https://www.typescriptlang.org/)
 - [Firebase](https://firebase.google.com/)
 
-![Next.js](/logos/nextjs.png)
+![Next.js](public/logos/nextjs.png)
 ![TypeScript](/logos/typescript.png)
 ![Firebase](/logos/firebase.png)
 
