@@ -1,6 +1,7 @@
 import { db } from "@/firebase/config";
 import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
+import { z } from "zod";
 
 interface FormAjoutProjetProps {
   projets: Array<{ [key: string]: any }> | null;
@@ -8,6 +9,17 @@ interface FormAjoutProjetProps {
     React.SetStateAction<Array<{ [key: string]: any }> | null>
   >;
 }
+
+const dataSchema = z.object({
+  nom: z.string(),
+  repository: z.string(),
+  lien: z.string(),
+  description: z.string(),
+  descriptionEN: z.string(),
+  date: z.string(),
+  technos: z.array(z.string()),
+  lienImgs: z.array(z.string()),
+});
 const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
   projets,
   setProjets,

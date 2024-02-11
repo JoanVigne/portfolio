@@ -4,6 +4,7 @@ import "./sectionContact.css";
 import { collection, doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/config";
 import { useLanguage } from "@/context/LanguageContext";
+import { z } from "zod";
 
 const SectionContact = () => {
   // langue :
@@ -45,9 +46,24 @@ const SectionContact = () => {
     }
 
     const dateEnvoi = new Date().toISOString();
-    console.log({ name, email, message, dateEnvoi });
+
+    const formSchema = z.object({
+      name: z.string().min(2, "Name must container at least 2 characters"),
+      email: z.string().email(),
+      message: z.string(),
+      dateEnvoi: z.any(),
+    });
+    type dataAEnvoyer = z.infer<typeof formSchema>;
 
     const dataAEnvoyer = { name, email, message, dateEnvoi };
+
+    const validationResult = formSchema.safeParse(dataAEnvoyer);
+
+    if (validationResult.success === false) {
+      const mess = validationResult.error.format().name?._errors[0];
+      setFormStatus(String(mess));
+      return;
+    }
     try {
       const docRef = doc(collection(db, "messages"));
       await setDoc(docRef, dataAEnvoyer);
