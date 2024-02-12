@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db, newFetchDataDB } from "@/firebase/config";
 import { collection, doc, updateDoc } from "firebase/firestore";
 import { useProfileContext } from "@/context/ProfileContext";
+import { z } from "zod";
 
 interface ArrayValues {
   [key: string]: string;
@@ -45,13 +46,58 @@ const FormEditProfile: React.FC = () => {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Ajoutez ici la logique pour soumettre les données modifiées, par exemple, enregistrer dans sessionStorage ou envoyer à un backend
-    console.log("Données modifiées :", dataProfile);
-    // SI C EST LES MEMES DONNEES, PAS D ENVOI A LA BD
+    console.log("dataProfile", dataProfile);
     if (dataProfile == profile) {
       setMessageMAJ("ce sont les mêmes données");
       return;
     }
+    type dataProfile = z.infer<typeof profileSchema>;
+    const profileSchema = z.object({
+      autresDecouverte: z.array(z.string()),
+      autresMaitrise: z.array(z.string()),
+      email: z.array(z.string()),
+      id: z.string(),
+      langagesDecouverte: z.array(z.string()),
+      langagesMaitrise: z.array(z.string()),
+      telephone: z.array(z.string()),
+    });
+    const validationResult = profileSchema.safeParse(dataProfile);
+    if (validationResult.success === false) {
+      console.log(validationResult);
+      console.log(dataProfile);
+      setMessageMAJ("Erreur dans le formulaire.");
+      return;
+    }
+
+    /*  type nouveauProjetSansKey = z.infer<typeof projetSchema>;
+    const projetSchema = z.object({
+      nom: z.string(),
+      repository: z.string().optional(),
+      lien: z.string().optional(),
+      description: z.string(),
+      descriptionEN: z.string(),
+      date: z.string(),
+      techno: z.array(z.string()).optional(),
+      lienImgs: z.array(z.string()).optional(),
+    });
+    const nouveauProjetSansKey = {
+      nom: dataAjoutProjet.nom,
+      repository: dataAjoutProjet.repository,
+      lien: dataAjoutProjet.lien,
+      description: dataAjoutProjet.description,
+      descriptionEN: dataAjoutProjet.descriptionEN,
+      date: dataAjoutProjet.date,
+      techno: dataAjoutProjet.technos,
+      lienImgs: dataAjoutProjet.lienImgs,
+    };
+    const validationResult = projetSchema.safeParse(nouveauProjetSansKey);
+
+    if (validationResult.success === false) {
+      console.log(validationResult);
+      console.log(nouveauProjetSansKey);
+      setMessageMAJ("Veuillez remplir correctement le formulaire");
+      return;
+    } */
     try {
       const documentId = dataProfile.id;
       const docRef = doc(collection(db, "profile"), documentId);
