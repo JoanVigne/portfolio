@@ -10,16 +10,6 @@ interface FormAjoutProjetProps {
   >;
 }
 
-const dataSchema = z.object({
-  nom: z.string(),
-  repository: z.string(),
-  lien: z.string(),
-  description: z.string(),
-  descriptionEN: z.string(),
-  date: z.string(),
-  technos: z.array(z.string()),
-  lienImgs: z.array(z.string()),
-});
 const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
   projets,
   setProjets,
@@ -102,10 +92,40 @@ const FormAjoutProjet: React.FC<FormAjoutProjetProps> = ({
       setMessageMAJ("Veuillez saisir une date au format MM/YYYY (ex: 10/2022)");
       return;
     }
+    type nouveauProjetSansKey = z.infer<typeof projetSchema>;
+    const projetSchema = z.object({
+      nom: z.string(),
+      repository: z.string().optional(),
+      lien: z.string().optional(),
+      description: z.string(),
+      descriptionEN: z.string(),
+      date: z.string(),
+      techno: z.array(z.string()).optional(),
+      lienImgs: z.array(z.string()).optional(),
+    });
+    const nouveauProjetSansKey = {
+      nom: dataAjoutProjet.nom,
+      repository: dataAjoutProjet.repository,
+      lien: dataAjoutProjet.lien,
+      description: dataAjoutProjet.description,
+      descriptionEN: dataAjoutProjet.descriptionEN,
+      date: dataAjoutProjet.date,
+      techno: dataAjoutProjet.technos,
+      lienImgs: dataAjoutProjet.lienImgs,
+    };
+    const validationResult = projetSchema.safeParse(nouveauProjetSansKey);
+
+    if (validationResult.success === false) {
+      console.log(validationResult);
+      console.log(nouveauProjetSansKey);
+      setMessageMAJ("Veuillez remplir correctement le formulaire");
+      return;
+    }
     const nouveauProjet = {
       [dataAjoutProjet.nom.replace(/\s+/g, "-").toLowerCase()]: {
         nom: dataAjoutProjet.nom,
         repository: dataAjoutProjet.repository,
+        lien: dataAjoutProjet.lien,
         description: dataAjoutProjet.description,
         descriptionEN: dataAjoutProjet.descriptionEN,
         date: dataAjoutProjet.date,
