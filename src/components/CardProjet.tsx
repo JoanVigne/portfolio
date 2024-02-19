@@ -184,6 +184,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
         {techno &&
           techno.map((tec: string, index: number /* ( */) => {
             const tecMin = tec.toLowerCase().replace(/\s/g, "");
+            const tecMaj = tec.toUpperCase().replace(/\s/g, "");
             return (
               <img
                 className="techno-logo"
@@ -191,11 +192,10 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
                 src={`logos/${tecMin}.png`}
                 alt={tec}
                 onError={(e) => {
-                  // Si l'image ne peut pas être chargée, affiche simplement le nom de la technologie
                   e.currentTarget.style.display = "none";
                   e.currentTarget.insertAdjacentHTML(
                     "afterend",
-                    `<p>${tec}</p>`
+                    `<p>${tec}</p><img className="techno-logo" key=${index} src="logos/${tecMaj}.png" alt=${tec} />`
                   );
                 }}
               />

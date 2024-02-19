@@ -24,7 +24,11 @@ interface LanguageProviderProps {
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({
   children,
 }) => {
-  const userLanguage = navigator.language.split("-")[0]; // Récupère la première partie du code de langue (fr-FR devient fr)
+  const userLanguage =
+    typeof navigator !== "undefined" && typeof navigator.language === "string"
+      ? navigator.language.split("-")[0]
+      : "fr";
+
   const [language, setLanguage] = useState(userLanguage || "fr");
 
   const switchLanguage = (lang: string) => {
