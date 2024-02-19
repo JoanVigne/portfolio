@@ -195,7 +195,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
                   e.currentTarget.style.display = "none";
                   e.currentTarget.insertAdjacentHTML(
                     "afterend",
-                    `<p>${tec}</p><img className="techno-logo" key=${index} src="logos/${tecMaj}.png" alt=${tec} />`
+                    `<img className="techno-logo in-view" key=${index} src="logos/${tecMaj}.png" alt=${tec} />`
                   );
                 }}
               />
