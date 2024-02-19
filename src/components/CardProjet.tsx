@@ -183,7 +183,7 @@ const CardProjet: React.FC<{ projet: Projet }> = ({ projet }) => {
       <div className="techno-container">
         {techno &&
           techno.map((tec: string, index: number /* ( */) => {
-            const tecMin = tec.toLowerCase().replace(/\s/g, ""); // Remplace les espaces par rien
+            const tecMin = tec.toLowerCase().replace(/\s/g, "");
             return (
               <img
                 className="techno-logo"

@@ -21,7 +21,7 @@ const SectionBanniere = () => {
       if (h1Element) {
         const newTranslateX = initialTranslateX.current - 5;
 
-        if (newTranslateX <= -350) {
+        if (newTranslateX <= -250) {
           setUpOrDown(false);
           return;
         }
@@ -35,7 +35,7 @@ const SectionBanniere = () => {
       const h1Element = h1Ref.current;
       if (h1Element) {
         const newTranslateX = initialTranslateX.current + 5;
-        if (newTranslateX >= 350) {
+        if (newTranslateX >= 250) {
           setUpOrDown(true);
           return;
         }
@@ -76,7 +76,7 @@ const SectionBanniere = () => {
   }, [upOrDown]);
 
   function handleClick() {
-    initialTranslateX.current = 0;
+    initialTranslateX.current = 250;
   }
   return (
     <section className="section-banniere">
