@@ -260,11 +260,12 @@ function Page() {
         <div className="explications">
           <h3>Notes:</h3>
           <p>
-            Les images des projets et profile sont dans le storage de firebase.
+            Les images des projets et profile sont dans le storage de firebase portfolio.
+            Il faut les redimensionner en hauteur 200px avant de les déposer.
           </p>
           <p>
-            Il faut copier le lien avec token depuis le storage, et ensuite le
-            coller dans le form projets.
+            Il faut copier le lien avec token, et le coller dans le form projets.
+            Clic sur "token" et ça copy le lien exact directement.
           </p>
           <p>
             Si changement de photo de profile, il faut changer le code couleur
