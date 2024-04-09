@@ -39,7 +39,7 @@ const SectionAPropos = () => {
         <div className="infos-container">
           {language === "fr" ? (
             <p>
-              <strong>Joan Vigne</strong>, professionnel de 33 ans passionné par
+              <strong>Joan Vigne</strong>, professionnel de 34 ans passionné par
               le monde du <strong>développement web</strong> et de l'
               <strong>informatique</strong>, et engagé à apporter une{" "}
               <strong>valeur ajoutée</strong> à chaque projet.
@@ -51,7 +51,7 @@ const SectionAPropos = () => {
             </p>
           ) : (
             <p>
-              <strong>Joan Vigne</strong>, a 33-year-old professional passionate
+              <strong>Joan Vigne</strong>, a 34-year-old professional passionate
               about the world of <strong>web development</strong> and{" "}
               <strong>computer science</strong>, committed to bringing{" "}
               <strong>added value</strong> to each project.
